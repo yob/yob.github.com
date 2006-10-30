@@ -1,4 +1,6 @@
-* [[blog]]
+* [[blog|index]]
 * [[code]]
 * [[kb]]
 * [[contact]]
+
+[[pagestats pages="tags/*"]]
