@@ -1,0 +1,6 @@
+## Code
+
+By day (and occasionally at night) I'm a programmer with a penchant for Ruby. Here's a few of the projects I'm involved in (or have been involved in).
+
+* [RBook](http://rubyforge.org/projects/rbook) - A ruby library for working with bibliographic data
+* [Ruport](http://ruport.infogami.com/) - A ruby library for generating reports

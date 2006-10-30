@@ -1,0 +1,40 @@
+Up to this point, setting up ssl has been a little daunting for me, with much of the language and documentation being above the level of a beginner (like me).
+
+I've had a crack at it to get mod_ssl and courier-imap-ssl working, and I've given not-for-profit certificate authority [cacert](http://www.cacert.org/) a go while I'm at it. I'll try and update this as I go (for my own future reference as much as anyone elses!)
+
+I'm a debian man myself, and the locations of files and whatnot will reflect that.
+
+* setup an account with cacert
+** A fairly painless process, and pretty self explanatory. Fill in email adress, some questions, etc, and then confirm the account via email
+
+* install the necesary packages
+
+    apt-get install openssl and stuff
+
+* create a private key for your domain
+** Create the key using the command below, and put it somewhere you won't forget. There may be a commonly accepted practice for where to put it, but I don't know it yet. /etc/ssl/private looked like a good place to me.
+
+    openssl rsagen > /etc/ssl/private/example.com.key
+
+* create a certificate request
+** run this command to create a certificate request signed by your new private key. Like in the previous step, not sure of the 'proper' location, but /etc/ssl/certs looked nice.
+
+    openssl req -new -key /etc/ssl/private/example.com.key -out /etc/ssl/certs/example.com.csr
+
+* submit the request to cacert
+** visit cacert's site
+** login to the server certificate system
+** click request
+** paste the contents of /etc/ssl/certs/example.com.csr into the form provided.
+** cacert will email the completed certificate back to you
+
+* place the certificate on the server
+** paste the contents of the email into /etc/ssl/certs/example.com.crt, and your ready to go :D
+
+* setup your apps
+
+* links
+** [openssl howto](http://www.openssl.org/docs/HOWTO/certificates.txt)
+** [cacert](https://www.cacert.org)
+** [courier-imap-ssl tutorial](http://www.rockhounding.net/projects/mail-server/)
+

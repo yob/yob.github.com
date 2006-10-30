@@ -1,0 +1,5 @@
+## Handbrake
+
+basic ripping
+
+    ./handbrake-cvs --output file.[avi/ogm/mp4] --title xx --input [drive] --encoder [x264/xvid/ffmpeg] --aencoder [lame/ac3/vorbis] --two-pass --vb [bitrate] OR --size xxMB

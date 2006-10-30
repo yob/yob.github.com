@@ -1,0 +1,35 @@
+## Debian Tips
+
+### cloning an apt-get installation
+
+Do this command on the source system to create a list of packages:
+
+    dpkg --get-selections > list.txt
+
+Do this command on the target system to load the list of packages:
+
+    dpkg --set-selections < list.txt
+
+Do this to install the packages:
+
+    dselect install
+
+### re-configuring a package
+
+    dpkg-reconfigure <package>
+
+### cleaning out the package cache
+
+removing all .deb files
+
+    apt-get clean
+
+removing only old .deb files
+
+    apt-get autoclean
+
+### Misc commands
+
+List commonly used commands
+
+    history 1|awk '{print $2}'|awk 'BEGIN {FS="|"} {print $1}'|sort|uniq -c|sort -nr|head -10

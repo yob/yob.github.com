@@ -1,0 +1,10 @@
+## OGG Vorbis
+
+in debian, install the vorbis-tools package
+
+    apt-get install vorbis-tools
+
+for streams saved using mplayer, use something like the following to encode a raw PCM file to OGG Vorbis
+
+    oggenc --raw --raw-rate=22050 --quality=3 --output=output.ogg input.wav
+

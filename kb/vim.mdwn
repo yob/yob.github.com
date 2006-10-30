@@ -1,0 +1,6 @@
+## Vim
+
+### Search and replace
+
+    :%s/find/replace_with/g
+

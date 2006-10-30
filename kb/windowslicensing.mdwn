@@ -1,0 +1,3 @@
+On clients conencting to a 2000/2003 domain, remove the following registry folder to have their 120day limit reset to 0.
+
+    _HKEY_LOCAL_MACHINE\Software\Microsoft\MSLicensing_

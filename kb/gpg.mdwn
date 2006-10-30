@@ -1,0 +1,5 @@
+## gnupg
+
+Exporting a key as ascii:
+
+    gpg -ao out.key --export <key_id>

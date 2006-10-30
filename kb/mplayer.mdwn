@@ -1,0 +1,20 @@
+## MPlayer
+
+### saving rm audio streams
+
+Save the .ram file to a text file.
+
+Open up the textfile, and if the protocol in the URL is pnm://, change it to rtsp://
+
+to save the stream, run:
+
+    mplayer -playlist playlist.txt -ao pcm:file=output.wav -vc dummy -vo null
+
+this saves the output as raw pcm
+
+## MEncoder
+
+Something like this to encode a file into xvid/mp3 (sourced from <http://en.linuxreviews.org/HOWTO_Convert_video_files>)
+
+    mencoder <filename.avi> -ovc xvid -oac mp3lame -xvidencopts bitrate=687 -o <output.avi>
+
