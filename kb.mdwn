@@ -9,6 +9,7 @@ My contribution to the data that powers google, and my backup memory.
 * [[gpg]]
 * [[Handbrake]]
 * [[Mplayer]]
+* [[mutt]]
 * [[openssl]]
 * [[scp]]
 * [[tar]]
