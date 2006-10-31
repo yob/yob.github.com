@@ -1,0 +1,1 @@
+[[inline pages="blog/* and !*/Discussion and !*/index" show="10"]]
