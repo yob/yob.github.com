@@ -1,5 +1,9 @@
 ## Debian Tips
 
+### Useful packages
+
+bwm-ng - Realtime bandwidth monitor
+
 ### cloning an apt-get installation
 
 Do this command on the source system to create a list of packages:
