@@ -1,10 +1,10 @@
-## Ruport
+## Ruport's Formatting System
 
-[Ruport](http://ruport.infogami.com/) is a lightweight reporting framework for Ruby. It's focus is on providing a structure for your report definitions, not on providing a high level language to build the layout of your reports. This means that there are no methods for adding a heading, table or graph to the your report. The developers feel it is more important for users of the framework to have flexibility in choosing an output format (pdf, text, html, jpg, svg, smoke signals), and wrapping all those formats with higher level functions is a significant challenge that hasn't yet been solved.
+[Ruport](http://ruport.infogami.com/) is a lightweight reporting framework for Ruby. It's focus is on providing a structure for your report definitions, not on providing a high level language to build the layout of your reports. This means that there are no methods for adding a heading, table or graph to the your report. The developers feel it is important for users of the framework to have flexibility in choosing an output format (pdf, text, html, jpg, svg, smoke signals), and wrapping all those formats with higher level functions is a significant challenge that hasn't yet been solved.
 
-There are 3 major functions Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports.
+There are 3 major functions Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports - I'll leave working with data for another day.
 
-Ruport 0.7 was released on 25th January 2006, and with it came a brand new system of defining output formats. This article is intended to be an introduction to using this new system.
+Ruport 0.7 was released on 25th December 2006, and with it came a brand new system of defining output formats. This article is intended to be an introduction to using this new system.
 
 As a contrived example, I will run through the definition and use of a report listing book sales for the month of December.
 
@@ -108,13 +108,13 @@ The first line of this class registers this output format with our report defini
 
 The pad function is a simple formatting function to simply our work with strings.
 
-The next 3 functions are called to build the report. Notice the the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class, and they will be called in the order we specified in the definition.
+The next 3 functions are called to build the report. Notice the the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
 
 The finalize function is also named to match the "finzlize" line in the report definition, and returns the entire report.
 
 ### Using it
 
-Now that our report is defined with at least 1 output format, we can use it in our application. One important thing to point out is that although Ruport contains it's own Array-like class that makes managing your data easier, I haven't used it in this example. Ruport Table class would be perfect for storing our book sales data, however I wanted to focus on building your report. Maybe next time.
+Now that our report is defined with at least 1 output format, we can use it in our application. One important thing to point out is that although Ruport contains it's own Array-like class that makes managing your data easier, I haven't used it in this example. Ruport's Table class would be perfect for storing our book sales data, however I wanted to focus on building your report. Maybe next time.
 
 Assuming the report definition is in a file called salesreport.rb, the following code should be placed in app.rb in the same directory:
 
@@ -221,4 +221,8 @@ So what changes do we have to make to our application to generate the pdf instea
 
     File.write("dec_sales.pdf", pdf)
 
-* call render_pdf instead of render_txt, modify the text varible name for readability, and save the file with a pdf extension. Switching output format's within your app according to user preference or whatever would be a piece of cake.
+* call render\_pdf instead of render\_txt
+* modify the text varible name for readability
+* save the file with a pdf extension. 
+
+Switching output format's within your app according to user preference or whatever would be a piece of cake.
