@@ -1,0 +1,224 @@
+## Ruport
+
+[Ruport](http://ruport.infogami.com/) is a lightweight reporting framework for Ruby. It's focus is on providing a structure for your report definitions, not on providing a high level language to build the layout of your reports. This means that there are no methods for adding a heading, table or graph to the your report. The developers feel it is more important for users of the framework to have flexibility in choosing an output format (pdf, text, html, jpg, svg, smoke signals), and wrapping all those formats with higher level functions is a significant challenge that hasn't yet been solved.
+
+There are 3 major functions Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports.
+
+Ruport 0.7 was released on 25th January 2006, and with it came a brand new system of defining output formats. This article is intended to be an introduction to using this new system.
+
+As a contrived example, I will run through the definition and use of a report listing book sales for the month of December.
+
+### Installing
+
+Ruport is available as a gem, and assuming you have the rubygems library installed, can be installed using this command:
+
+    gem install ruport
+
+If prompted, accept any extra required dependencies.
+
+### Report Definition
+
+Each report is made up of at least 2 classes. I recommend both these classes are kept in the same file for manageability. 
+
+The first class defines the report and the data required to build it - it is important that keep this data as format independant as possible. For our sales report, something like this might be appropriate:
+
+    require 'rubygems'
+    require 'ruport'
+
+    module MyReports
+
+      class MonthlySales < Ruport::Renderer
+        include Ruport::Renderer::Helpers
+
+        def run
+          build [:header,:body,:footer],:document
+          finalize :document
+        end
+
+        def report_title=(t)
+          options.report_title=(t)
+        end
+
+        def titles=(t)
+          options.titles=(t)
+        end
+
+      end
+    end
+
+This defines the following facts about our sales report:
+
+* There are 4 stages required to build the report: a header, a body, a footer and finalizing (rendering).
+* There are 2 pieces of data required to build the report: a list of titles and a report title. You can define as many options like this as you wish.
+
+### Format Definition
+On it's own, the report definition listed above won't do much - we need to tell ruport how to render it in the required format.
+
+To begin with, we will create a text verion of the report. Something like the following placed immediately after the first class should work nicely:
+
+    module MyReports
+
+      class SalesReportText < Ruport::Format::Plugin
+        SalesReport.add_format self, :txt
+
+        def pad(str, len)
+          return "" if str.nil?
+          str.slice!(0, len) # truncate long strings
+          str.ljust(len) # pad with whitespace
+        end
+
+        def build_document_header
+          if options.report_title?
+            output << "*".times(75) << "\n"
+            output << "  #{options.report_title}\n" 
+            output << "*".times(75) << "\n"
+            output << "\n"
+          end
+        end
+        
+        def build_document_body
+          # table heading
+          output << pad("isbn", 15) << "|" << pad("title",30) << "|" << pad("author", 15) << "|" << pad("sales", 10)
+          output << "#".times(75)
+
+          # table data
+          options.titles.each do |title|
+            output << pad(title[:isbn],15) << "|"
+            output << pad(title[:title],30) << "|"
+            output << pad(title[:author],15) << "|"
+            output << pad(title[:sales].to_s,10)
+          end
+          
+          output << "#".times(75)
+        end
+
+        def build_document_footer
+          # do nothing, we won't bother with a footer at this stage
+        end
+
+        def finalize_document
+          # text doesn't need any special rendering, so just return the output
+          output
+        end
+
+      end
+    end
+
+The first line of this class registers this output format with our report definition - this allows us to define as many different output formats for each report as we wish.
+
+The pad function is a simple formatting function to simply our work with strings.
+
+The next 3 functions are called to build the report. Notice the the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class, and they will be called in the order we specified in the definition.
+
+The finalize function is also named to match the "finzlize" line in the report definition, and returns the entire report.
+
+### Using it
+
+Now that our report is defined with at least 1 output format, we can use it in our application. One important thing to point out is that although Ruport contains it's own Array-like class that makes managing your data easier, I haven't used it in this example. Ruport Table class would be perfect for storing our book sales data, however I wanted to focus on building your report. Maybe next time.
+
+Assuming the report definition is in a file called salesreport.rb, the following code should be placed in app.rb in the same directory:
+
+    require "salesreport"
+
+    book1 = {:isbn => "978111111111", :title => "Book Number One", :author => "me", :sales => 10}
+    book2 = {:isbn => "978222222222", :title => "Two is better than one", :author => "you", :sales => 267}
+    book3 = {:isbn => "978333333333", :title => "Three Blind Mice", :author => "John Howard", :sales => 1}
+    book4 = {:isbn => "978444444444", :title => "The number 4", :author => "George Bush", :sales => 1829}
+
+    books = [book1, book2, book3, book4]
+
+    text = MyReports::SalesReport.render_txt do |e|
+      e.report_title = "December 2006 Sales Figues"
+      e.titles = titles
+    end
+
+    File.write("dec_sales.txt", text)
+
+Once the sample data has been built, the report itself is generated with a single block. Using this approach, building the report within your app is limited to a few simple lines, hiding all formatting complexity.
+
+### Adding PDF
+
+Sure text is fine in many situations (ie. emailing the report to a coworker), but these days PDF is becoming the format of choice for many people. How do we add it as an option for our sales report?
+
+As mentioned earlier, Ruport won't try to abstract any of the complexities of formatting your report. The default library for generating PDFs in Ruport is PDF:Writer, and you will need to get your hands dirty with the foibles of this library to make your PDF. The following code placed inside salesreport.rb should get you started.
+
+
+    module MyReports
+      class SalesReportPDF <  Ruport::Format::PDF
+        SalesReport.add_format self, :pdf
+
+        def add_title( title )
+          width = 200
+          height = 20
+          top_left_x  = pdf_writer.absolute_right_margin - width
+          top_left_y  = pdf_writer.absolute_top_margin
+          radius = 5
+          
+          font_size = 12
+          loop = true
+          title = "<b>#{title}</b>" 
+          while ( loop == true )
+            sz = pdf_writer.text_width( title, font_size )
+            if ( (top_left_x + sz) > top_left_x+width )
+                font_size -= 1
+            else
+                loop = false
+            end
+          end
+
+          pdf_writer.fill_color(Color::RGB::Gray80)
+          pdf_writer.rounded_rectangle(top_left_x, top_left_y, width, height, radius).fill_stroke
+          pdf_writer.fill_color(Color::RGB::Black)
+          pdf_writer.stroke_color(Color::RGB::Black)
+          pdf_writer.text( title, :absolute_left => top_left_x,
+                                  :absolute_right => top_left_x + width,
+                                  :justification => :center,
+                                  :font_size => font_size)
+        end
+
+        def build_document_header
+          add_title( options.report_title ) unless options.report_title.nil?
+          move_cursor_to(pdf_writer.y - 50) # padding
+        end
+        
+        def build_document_body
+          data = []
+          options.titles.each do |title|
+            data << [title[:isbn], title[:title], title[:author], title[:sales]]
+          end
+
+          ::PDF::SimpleTable.new do |table|
+            table.maximum_width = 500
+            table.orientation   = :center
+            table.data          = data
+            table.column_order  = %w[isbn title author sales]
+            table.render_on(pdf_writer)
+          end
+        end
+
+        def build_document_footer
+          # do nothing, we won't bother with a footer at this stage
+        end
+
+        def finalize_document
+          output << pdf_writer.render
+        end
+
+      end
+    end
+
+The structure of this basically the same as the one that defined the text version, with 2 critical diferences:
+
+* It extends Ruport PDF formatting class, with provides and instance of PDF:Writer as pdf_writer
+* The class registers itself to our SalesRreport class with a different format (:pdf)
+
+So what changes do we have to make to our application to generate the pdf instead? Leave the sample data definition the same, just modify the remaining lines like so:
+
+    pdf = MyReports::SalesReport.render_pdf do |e|
+      e.report_title = "December 2006 Sales Figues"
+      e.titles = titles
+    end
+
+    File.write("dec_sales.pdf", pdf)
+
+* call render_pdf instead of render_txt, modify the text varible name for readability, and save the file with a pdf extension. Switching output format's within your app according to user preference or whatever would be a piece of cake.
