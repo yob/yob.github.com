@@ -16,7 +16,7 @@ use IkiWiki::Setup::Standard {
 	
 	url => "http://www.yob.id.au/",
   #cgiurl => "http://myhost/ikiwiki.cgi",
-	#templatedir => "/usr/share/ikiwiki/templates",
+	templatedir => "/home/jh/www/templates",
 	
 	# Subversion stuff.
 	rcs => "svn",

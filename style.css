@@ -1,213 +1,169 @@
-
-@import url("simplehtml.css");
+/* ikiwiki style sheet */
 
 body {
-	margin: 0;
-	padding: 0;
-        max-width: none;
-	}
+    background-color:   #FFA500;
+    color:              #000000;
+    font-family:        "Bitstream Vera Serif", Georgia, Serif;
+}
 
-body> .header {
-	color: #ccccdd;
-	background-color: #aaaac0;
-	margin: 0px;
-	padding: 12px 20px 12px 20px;
-	font-family: helvetica, arial, sans-serif;
-        font-size: large;
-        font-weight: bold;
-	}
+h1,h2,h3 {
+    font-family:        "Trebuchet MS", Sans-serif;
+    clear:              both;
+}
 
-body> .header a,
-body> .header a:link,
-body> .header a:visited,
-body> .header a:active,
-body> .header a:hover {
-	color: #f7f7ff;
-	}
+pre {
+    background-color:   gray;
+    color:              white;
+    padding:            0.3em;
+    font-family:        "Bitstream Vera Mono", monospace;
+    font-size:          100%;
+}
 
+/*  Contenido generado por ikiwiki */
+.ikiwiki {
+    width:              75%;
+    float:              left;
+}
+
+.header {
+    border-width:       medium;
+    border-style:       solid;
+    background-color:   white;
+    color:              #000000;
+    padding:            0.5em;
+    margin:             0.5em;
+    text-align:         justify;
+    letter-spacing:     0.3em;
+}    
+
+#content {
+    border-width:       medium;
+    border-style:       solid;
+    background-color:   white;
+    color:              #000000;
+    padding:            0.5em;
+    margin:             0.5em;
+    text-align:         justify;   
+    overflow:           auto;
+    margin: 0.5em 12em 0.5em 0.5em;
+}
+    
+#footer {
+    border-width:       medium;
+    border-style:       solid;
+    background-color:   white;
+    color:              #000000;
+    padding:            0.5em;
+    margin:             0.5em 12em 0.5em 0.5em;
+    text-align:         justify;
+    overflow: auto;
+}    
+   
 .author {
-	margin: 0;
-	font-size: 18px;
-	font-weight: bold;
-	display: block;
+    padding: 0.5em;
+    text-align: right;
+    font-size:  90%;
+    font-style: italic;
 }
-
-#actions ul {
-	margin: 0;
-	padding: 6px;
-	list-style-type: none;
-	border-bottom: 1px solid #000;
-}
-
-#actions li {
-	display: inline;
-	padding: .2em .4em;
-}
-
-#searchform {
-	display: inline;
-	float: right;
-}
-
 
 #sidebar {
-        background: #b8b8d0;
-        line-height: 3ex;
-        width: 20ex;
-        float: right;
-        margin-left: 40px;
-        margin-bottom: 40px;
-        padding: 2ex 2ex;
-}
-
-
-#sidebar a {
-        text-decoration: none;
-}
-
-#sidebar .selflink {
-	color: #f7f7ff;
+    width:              12em;
+   	padding:            0 0 1em 0;
+  	margin-bottom:      1em;
+	  font-family:        monospace;
+	  background-color:   #FFA500;
+	  color:              white;
+    clear:              both;
+    position: absolute;
+    right: 0.5em;
+    top: ;0.5em;
 }
 
 #sidebar ul {
-        margin: 0ex 0ex 0ex 0ex;
-        padding: 0;
-        list-style-type: none;
+    list-style:         none;
+    margin:             0;
+    padding:            20px;
+    border:             none;
+    text-align: left;
+}
+		
+#sidebar li {
+	
+	margin:             0;
 }
 
-#sidebar LI {
-        display: block;
+#sidebar li a {
+		display: block;
+		padding: 5px 5px 5px 0.5em;
+		background-color: #FFA500;
+		color: black;
+		text-decoration: none;
+		width: 100%;
 }
 
-#sidebar LI a:first-child:before,
-#sidebar LI .selflink:first-child:before {
-        /*content: "\25A3  "; ▣ */ 
-        content: "\25F3  "; /* ◳ */
+html>body #sidebar li a {
+	width: auto;
 }
 
-#container {
+#sidebar li a:hover {
+	background-color: black;
+	color: white;
 }
 
-#content {
-	margin: 1em 40px 10px 40px;
-	max-width: 80ex;
-        text-align: justify;
+#sidebar li .selflink {
+		display: block;
+		padding: 5px 5px 5px 0.5em;
+		background-color: #FFA500;
+		text-decoration: none;
+		width: 100%;
 }
 
-#editcontent {
-	width: 100%;
-}      
-
-/* Stuff for the RecentChanges table. */
-tr.changeheader {
-	background: #eee;
-	color: black !important;
-}
-tr.changeinfo {
-	background: #eee;
-	color: black !important;
-}
-th.changeheader {
-	padding: 1px .3em;
-}
-td.changeinfo { 
-	padding: 1px .3em;
-}
-td.changetime {
-	white-space: nowrap;
-	padding: 1px .3em;
-}
-td.changelog {
-	font-style: italic;
+div.imagebox {
+    clear:   both;
+    margin:  0.9em;
 }
 
-/* Used for adding a blog page. */
-#blogform {
-	padding: 10px 10px;
-	border: 1px solid #aaa;
-	background: #eee;
-	color: black !important;
+.imagebox {
+  font-size:       large;
+  font-family:     monospace;
+  clear:           both;
+  overflow: auto;
 }
 
-.inlinepage {
-	/*padding: 10px 10px;*/
-	/*border: 1px solid #aaa;*/
-	border-top: 1px solid #888888;
-        padding-top: 2ex;
-        margin-top: 2ex;
-        margin-bottom: 4ex;
-}
-
-.inlinepage .header {
-        color: red;
-        font-size: large;
-        font-weight: bold;
-        text-transform: uppercase;
-	}
-
-body> #footer .tags {
-        margin: 1em 0ex;
-}
-
-body> #footer #backlinks {
-        margin: 1em 0ex;
-}
-
-body> #footer .pageinfo {
-        margin: 1em 0ex;
-}
-
-body> #footer {
-	border-top: 1px solid #888888;
-	padding: 0ex 20px;
-        margin: 1em 0ex;
-        clear: both;
-}
-
-.pageinfo {
-	font-style: italic;
-	display: block;
-}
-
-/* Used for invalid form fields. */
-.fb_invalid {
-	color: red;
-	background: white !important;
-}
-
-/* Used for required form fields. */
-.fb_required {
-	font-weight: bold;
+img  {
+    border:         medium;
+    padding:        0.3em;
 }
 
 /* RSS button. */
-.rssbutton {
-	background: #ff6600;
-	color: white !important;
-	border-left: 1px solid #cc9966;
-	border-top: 1px solid #ccaa99;
-	border-right: 1px solid #993300;
-	border-bottom: 1px solid #331100;
-	padding: 0px 0.5em 0px 0.5em;
-	font-family: helvetica, arial, sans-serif;
-	font-weight: bold;
-	font-size: small;
-	text-decoration: none;
-	margin-top: 1em;
+.feedbutton {
+        background: #ff6600;
+        color: white !important;
+        border-left: 1px solid #cc9966;
+        border-top: 1px solid #ccaa99;
+        border-right: 1px solid #993300;
+        border-bottom: 1px solid #331100;
+        padding: 0px 0.5em 0px 0.5em;
+        font-family: helvetica, arial, sans-serif;
+        font-weight: bold;
+        font-size: small;
+        text-decoration: none;
+        margin-top: 1em;
 }
-.rssbutton:hover {
-	color: white !important;
-	background: #ff9900;
+.feedbutton:hover {
+        color: white !important;
+        background: #ff9900;
 }
 
-/* Tag cloud. */
-.pagecloud {
-	float: right;
-	width: 30%;
-	text-align: center;
+.inlinepage {
+        border: 1px solid;
+        padding: 0.3em;
+        margin: 0.3em 0 0.5em 0;
 }
-.smallestPC { font-size: 70%; }
-.smallPC { font-size: 85%; }
-.normalPC { font-size: 100%; }
-.bigPC { font-size: 115%; }
-.biggestPC { font-size: 130%; }
+
+.url {
+    font-size: large;
+    padding: 0.5em;
+    font-weight: bolder;
+}
+
