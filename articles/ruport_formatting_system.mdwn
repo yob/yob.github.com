@@ -20,7 +20,7 @@ If prompted, accept any extra required dependencies.
 
 Each report is made up of at least 2 classes. I recommend both these classes are kept in the same file for manageability. 
 
-The first class defines the report and the data required to build it - it is important that keep this data as format independant as possible. For our sales report, something like this might be appropriate:
+The first class defines the report and the data required to build it - it is important that keep this data as format independent as possible. For our sales report, something like this might be appropriate:
 
     require 'rubygems'
     require 'ruport'
@@ -54,7 +54,7 @@ This defines the following facts about our sales report:
 ### Format Definition
 On it's own, the report definition listed above won't do much - we need to tell ruport how to render it in the required format.
 
-To begin with, we will create a text verion of the report. Something like the following placed immediately after the first class should work nicely:
+To begin with, we will create a text version of the report. Something like the following placed immediately after the first class should work nicely:
 
     module MyReports
 
@@ -108,9 +108,9 @@ The first line of this class registers this output format with our report defini
 
 The pad function is a simple formatting function to simply our work with strings.
 
-The next 3 functions are called to build the report. Notice the the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
+The next 3 functions are called to build the report. Notice the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
 
-The finalize function is also named to match the "finzlize" line in the report definition, and returns the entire report.
+The finalize function is also named to match the "finalize" line in the report definition, and returns the entire report.
 
 ### Using it
 
@@ -138,7 +138,7 @@ Once the sample data has been built, the report itself is generated with a singl
 
 ### Adding PDF
 
-Sure text is fine in many situations (ie. emailing the report to a coworker), but these days PDF is becoming the format of choice for many people. How do we add it as an option for our sales report?
+Sure text is fine in many situations (ie. emailing the report to a co-worker), but these days PDF is becoming the format of choice for many people. How do we add it as an option for our sales report?
 
 As mentioned earlier, Ruport won't try to abstract any of the complexities of formatting your report. The default library for generating PDFs in Ruport is PDF:Writer, and you will need to get your hands dirty with the foibles of this library to make your PDF. The following code placed inside salesreport.rb should get you started.
 
@@ -207,7 +207,7 @@ As mentioned earlier, Ruport won't try to abstract any of the complexities of fo
       end
     end
 
-The structure of this basically the same as the one that defined the text version, with 2 critical diferences:
+The structure of this basically the same as the one that defined the text version, with 2 critical differences:
 
 * It extends Ruport PDF formatting class, with provides and instance of PDF:Writer as pdf_writer
 * The class registers itself to our SalesRreport class with a different format (:pdf)
@@ -222,7 +222,7 @@ So what changes do we have to make to our application to generate the pdf instea
     File.write("dec_sales.pdf", pdf)
 
 * call render\_pdf instead of render\_txt
-* modify the text varible name for readability
+* modify the text variable name for readability
 * save the file with a pdf extension. 
 
 Switching output format's within your app according to user preference or whatever would be a piece of cake.
