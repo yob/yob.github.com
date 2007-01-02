@@ -1,4 +1,4 @@
 * James Healy
-* jhimmy _at_ yob _dot_ id _dot_ au
+* jimmy _at_ yob _dot_ id _dot_ au
 * [[gpg.key]] (id: 0xB6D8A3F9)
 
