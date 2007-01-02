@@ -27,7 +27,7 @@ The first class defines the report and the data required to build it - it is imp
 
     module MyReports
 
-      class MonthlySales < Ruport::Renderer
+      class SalesReport < Ruport::Renderer
         include Ruport::Renderer::Helpers
 
         def run
@@ -62,34 +62,34 @@ To begin with, we will create a text version of the report. Something like the f
         SalesReport.add_format self, :txt
 
         def pad(str, len)
-          return "" if str.nil?
-          str.slice!(0, len) # truncate long strings
+          return "".ljust(len) if str.nil?
+          str = str.slice(0, len) # truncate long strings
           str.ljust(len) # pad with whitespace
         end
 
         def build_document_header
-          if options.report_title?
-            output << "*".times(75) << "\n"
+          unless options.report_title.nil?
+            output << "".ljust(75,"*") << "\n"
             output << "  #{options.report_title}\n" 
-            output << "*".times(75) << "\n"
+            output << "".ljust(75,"*") << "\n"
             output << "\n"
           end
         end
         
         def build_document_body
           # table heading
-          output << pad("isbn", 15) << "|" << pad("title",30) << "|" << pad("author", 15) << "|" << pad("sales", 10)
-          output << "#".times(75)
+          output << pad("isbn", 15) << "|" << pad("title",30) << "|" << pad("author", 15) << "|" << pad("sales", 10) << "\n"
+          output << "".ljust(75,"#") << "\n"
 
           # table data
           options.titles.each do |title|
-            output << pad(title[:isbn],15) << "|"
-            output << pad(title[:title],30) << "|"
-            output << pad(title[:author],15) << "|"
-            output << pad(title[:sales].to_s,10)
+            output << pad(title["isbn"],15) << "|"
+            output << pad(title["title"],30) << "|"
+            output << pad(title["author"],15) << "|"
+            output << pad(title["sales"].to_s,10) << "\n"
           end
           
-          output << "#".times(75)
+          output << "".ljust(75,"#") << "\n"
         end
 
         def build_document_footer
@@ -120,16 +120,16 @@ Assuming the report definition is in a file called salesreport.rb, the following
 
     require "salesreport"
 
-    book1 = {:isbn => "978111111111", :title => "Book Number One", :author => "me", :sales => 10}
-    book2 = {:isbn => "978222222222", :title => "Two is better than one", :author => "you", :sales => 267}
-    book3 = {:isbn => "978333333333", :title => "Three Blind Mice", :author => "John Howard", :sales => 1}
-    book4 = {:isbn => "978444444444", :title => "The number 4", :author => "George Bush", :sales => 1829}
+    book1 = {"isbn" => "978111111111", "title" => "Book Number One", "author" => "me", "sales" => 10}
+    book2 = {"isbn" => "978222222222", "title" => "Two is better than one", "author" => "you", "sales" => 267}
+    book3 = {"isbn" => "978333333333", "title" => "Three Blind Mice", "author" => "John Howard", "sales" => 1}
+    book4 = {"isbn" => "978444444444", "title" => "The number 4", "author" => "George Bush", "sales" => 1829}
 
     books = [book1, book2, book3, book4]
 
     text = MyReports::SalesReport.render_txt do |e|
       e.report_title = "December 2006 Sales Figues"
-      e.titles = titles
+      e.titles = books
     end
 
     File.write("dec_sales.txt", text)
@@ -140,7 +140,7 @@ Once the sample data has been built, the report itself is generated with a singl
 
 Sure text is fine in many situations (ie. emailing the report to a co-worker), but these days PDF is becoming the format of choice for many people. How do we add it as an option for our sales report?
 
-As mentioned earlier, Ruport won't try to abstract any of the complexities of formatting your report. The default library for generating PDFs in Ruport is PDF:Writer, and you will need to get your hands dirty with the foibles of this library to make your PDF. The following code placed inside salesreport.rb should get you started.
+As mentioned earlier, Ruport won't try to abstract any of the complexities of formatting your report. The default library for generating PDFs in Ruport is [PDF:Writer](http://ruby-pdf.rubyforge.org/pdf-writer/), and you will need to get your hands dirty with the foibles of this library to make your PDF. The following code placed inside salesreport.rb should get you started.
 
 
     module MyReports
@@ -182,15 +182,10 @@ As mentioned earlier, Ruport won't try to abstract any of the complexities of fo
         end
         
         def build_document_body
-          data = []
-          options.titles.each do |title|
-            data << [title[:isbn], title[:title], title[:author], title[:sales]]
-          end
-
           ::PDF::SimpleTable.new do |table|
             table.maximum_width = 500
             table.orientation   = :center
-            table.data          = data
+            table.data          = options.titles
             table.column_order  = %w[isbn title author sales]
             table.render_on(pdf_writer)
           end
@@ -216,7 +211,7 @@ So what changes do we have to make to our application to generate the pdf instea
 
     pdf = MyReports::SalesReport.render_pdf do |e|
       e.report_title = "December 2006 Sales Figues"
-      e.titles = titles
+      e.titles = books
     end
 
     File.write("dec_sales.pdf", pdf)
@@ -226,3 +221,8 @@ So what changes do we have to make to our application to generate the pdf instea
 * save the file with a pdf extension. 
 
 Switching output format's within your app according to user preference or whatever would be a piece of cake.
+
+### Downloads
+
+* [app.rb](app.rb)
+* [salesreport.rb](salesreport.rb)
