@@ -2,11 +2,11 @@
 
 [Ruport](http://ruport.infogami.com/) is a lightweight reporting framework for Ruby. It's focus is on providing a structure for your report definitions, not on providing a high level language to build the layout of your reports. This means that there are no methods for adding a heading, table or graph to the your report. The developers feel it is important for users of the framework to have flexibility in choosing an output format (pdf, text, html, jpg, svg, smoke signals), and wrapping all those formats with higher level functions is a significant challenge that hasn't yet been solved.
 
-There are 3 major functions Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports - I'll leave working with data for another day.
+There are 3 stages to report that Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports - I'll leave working with data for another day.
 
 Ruport 0.7 was released on 25th December 2006, and with it came a brand new system of defining output formats. This article is intended to be an introduction to using this new system.
 
-As a contrived example, I will run through the definition and use of a report listing book sales for the month of December.
+As a contrived example, I will run through the definition and use of a report listing book sales for the month of December. All code and sample output is available to download at the end of the article.
 
 ### Installing
 
@@ -18,7 +18,7 @@ If prompted, accept any extra required dependencies.
 
 ### Report Definition
 
-Each report is made up of at least 2 classes. I recommend both these classes are kept in the same file for manageability. 
+Generally, each report is made up of at 2 or more classes - 1 for the definition, and 1 for each desired output format. I recommend all these classes are kept in the same file for manageability. 
 
 The first class defines the report and the data required to build it - it is important that keep this data as format independent as possible. For our sales report, something like this might be appropriate:
 
@@ -52,7 +52,7 @@ This defines the following facts about our sales report:
 * There are 2 pieces of data required to build the report: a list of titles and a report title. You can define as many options like this as you wish.
 
 ### Format Definition
-On it's own, the report definition listed above won't do much - we need to tell ruport how to render it in the required format.
+On it's own, the report definition listed above won't do much - we need to tell ruport how to render it into the required format.
 
 To begin with, we will create a text version of the report. Something like the following placed immediately after the first class should work nicely:
 
@@ -204,7 +204,7 @@ As mentioned earlier, Ruport won't try to abstract any of the complexities of fo
 
 The structure of this basically the same as the one that defined the text version, with 2 critical differences:
 
-* It extends Ruport PDF formatting class, with provides and instance of PDF:Writer as pdf_writer
+* It extends Ruport PDF formatting class, which provides and instance of PDF:Writer as pdf_writer
 * The class registers itself to our SalesRreport class with a different format (:pdf)
 
 So what changes do we have to make to our application to generate the pdf instead? Leave the sample data definition the same, just modify the remaining lines like so:
@@ -226,3 +226,5 @@ Switching output format's within your app according to user preference or whatev
 
 * [app.rb](app.rb)
 * [salesreport.rb](salesreport.rb)
+* [dec_sales.txt](dec_sales.txt)
+* [dec_sales.pdf](dec_sales.pdf)
