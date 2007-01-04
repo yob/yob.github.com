@@ -6,7 +6,7 @@ There are 3 stages to report that Ruport can handle - collecting data, manipulat
 
 Ruport 0.7 was released on 25th December 2006, and with it came a brand new system of defining output formats. This article is intended to be an introduction to using this new system.
 
-As a contrived example, I will run through the definition and use of a report listing book sales for the month of December. All code and sample output is available to download at the end of the article.
+As a contrived example, I will run through the definition and use of a report listing book sales for the month of December. All code and sample output is available to download at the end of the article. If at the end you have any questions, feel free to contact me.
 
 ### Installing
 
@@ -108,7 +108,7 @@ The first line of this class registers this output format with our report defini
 
 The pad function is a simple formatting function to simply our work with strings.
 
-The next 3 functions are called to build the report. Notice the function names follow a particular style. These names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
+The next 3 functions are called to build the report. Notice the function names follow a particular style - these names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
 
 The finalize function is also named to match the "finalize" line in the report definition, and returns the entire report.
 
