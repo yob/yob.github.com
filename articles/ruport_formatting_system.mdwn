@@ -106,7 +106,7 @@ To begin with, we will create a text version of the report. Something like the f
 
 The first line of this class registers this output format with our report definition - this allows us to define as many different output formats for each report as we wish.
 
-The pad function is a simple formatting function to simply our work with strings.
+The pad function is a simple formatting function to simplify our work with strings.
 
 The next 3 functions are called to build the report. Notice the function names follow a particular style - these names are important and are a direct result of the "build" line in our first class and will be called in the order we specified in the definition.
 
