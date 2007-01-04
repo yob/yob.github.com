@@ -132,7 +132,7 @@ Assuming the report definition is in a file called salesreport.rb, the following
       e.titles = books
     end
 
-    File.write("dec_sales.txt", text)
+    File.open("dec_sales.txt", "w") { |f| f.write text}
 
 Once the sample data has been built, the report itself is generated with a single block. Using this approach, building the report within your app is limited to a few simple lines, hiding all formatting complexity.
 
@@ -214,7 +214,7 @@ So what changes do we have to make to our application to generate the pdf instea
       e.titles = books
     end
 
-    File.write("dec_sales.pdf", pdf)
+    File.open("dec_sales.pdf", "w") { |f| f.write text}
 
 * call render\_pdf instead of render\_txt
 * modify the text variable name for readability
