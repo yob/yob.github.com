@@ -78,7 +78,8 @@ To begin with, we will create a text version of the report. Something like the f
         
         def build_document_body
           # table heading
-          output << pad("isbn", 15) << "|" << pad("title",30) << "|" << pad("author", 15) << "|" << pad("sales", 10) << "\n"
+          output << pad("isbn", 15) << "|" << pad("title",30) << "|"
+          output << pad("author", 15) << "|" << pad("sales", 10) << "\n"
           output << "".ljust(75,"#") << "\n"
 
           # table data
@@ -128,7 +129,7 @@ Assuming the report definition is in a file called salesreport.rb, the following
     books = [book1, book2, book3, book4]
 
     text = MyReports::SalesReport.render_txt do |e|
-      e.report_title = "December 2006 Sales Figues"
+      e.report_title = "December 2006 Sales Figures"
       e.titles = books
     end
 
