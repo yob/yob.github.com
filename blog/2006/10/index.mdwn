@@ -1,1 +1,0 @@
-[[inline pages="blog/2006/10/* and !*/index" rss="no" atom="no"]]
