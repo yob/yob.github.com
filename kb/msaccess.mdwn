@@ -1,3 +1,5 @@
 A function to return the first day of the previous month:
 
     DateSerial(Year(Date()),Month(Date())-1,1)
+
+If access crashes with no error message on startup, it could be a problem with references. Try opening the file on another computer with a more recent version of access and disable all references.
