@@ -32,6 +32,14 @@ removing only old .deb files
 
     apt-get autoclean
 
+### disabling APT PDiffs
+
+They're only useful for those on dialup - for the rest of us they make apt-get updating slower.
+
+Add the following line to /etc/apt/apt.conf.d/20archive
+
+    Acquire::PDiffs "false";
+
 ### removing orphaned packages
 
 To get a list of what will be removed:
