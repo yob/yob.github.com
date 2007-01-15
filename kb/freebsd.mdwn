@@ -1,0 +1,36 @@
+## FreeSD Tips
+
+### Debian comparison
+
+* pkg_* seems to be a rough dpkg equivilant. A reasonably dumb package installer
+* portupgrade seems to be a rought apt-get equivilant. Somewhat smarter than pkg_*, can satisfy dependencies automatically, etc
+
+### Updating the ports tree
+
+    cvsup -L 2 -h cvsup.jau.freebsd.org /usr/share/examples/cvsup/ports-supfile
+
+### Upgrading a package
+
+To the latest version from the ports tree
+    
+    portupgrade <package>
+
+Upgrade all packages that depend on this one as well
+
+    portupgrade -r <package>
+
+Upgrade all packaged that this one depends on as well
+
+    portupgrade -R <package>
+
+Upgrade this package with a package where availablem otherwise compile from ports
+
+    portupgrade -P <package>
+
+Upgrade this package if it's already installed, or install it if it's not
+
+    portupgrade -N <package>
+
+### Other resources
+
+* (http://www.hypexr.org/freebsd_ports_help.php)
