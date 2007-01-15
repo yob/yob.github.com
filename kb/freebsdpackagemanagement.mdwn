@@ -1,4 +1,4 @@
-## FreeSD Tips
+## FreeSD Package Management
 
 ### Debian comparison
 
@@ -19,11 +19,11 @@ Upgrade all packages that depend on this one as well
 
     portupgrade -r <package>
 
-Upgrade all packaged that this one depends on as well
+Upgrade all packages that this one depends on as well
 
     portupgrade -R <package>
 
-Upgrade this package with a package where availablem otherwise compile from ports
+Upgrade this package with a package where available, otherwise compile from ports
 
     portupgrade -P <package>
 
