@@ -4,7 +4,7 @@ Next week work is sending me on a 3 day SCTP training course and I've been havin
 
 Being the ruby fanboi that I am, I then wanted to try opening an SCTP socket from a ruby script. Without going into SCTP implementation details, there are 2 ways of working with SCTP sockets - via the standard unix socket API, or using libsctp. The libsctp method provides superior functionality, however there don't seem to be any ruby bindings yet.
 
-Using the unix sockets API, and inspiration from a a useful [DCCP](http://en.wikipedia.org/wiki/Datagram_Congestion_Control_Protocol) [example](http://linux-net.osdl.org/index.php/DCCP), I got some simple SCTP test scripts going.
+Using the unix sockets API, and inspiration from a useful [DCCP](http://en.wikipedia.org/wiki/Datagram_Congestion_Control_Protocol) [example](http://linux-net.osdl.org/index.php/DCCP), I got some simple SCTP test scripts going.
 
 Server:
 
@@ -64,6 +64,8 @@ Client:
 
     # close the socket
     client.close
+
+To run the scripts, execute them using two terminals on the same machine. Under linux you will need to have the SCTP kernel module loaded, under FreeBSD i'm not sure what's required.
 
 If you're familiar with using TCP sockets in ruby, you'll notice there's almost no difference. All I've done is use Socket::IPPROTO_SCTP instead of 0 for the third argument to Socket.new.
 
