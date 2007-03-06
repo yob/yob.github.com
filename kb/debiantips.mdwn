@@ -2,7 +2,10 @@
 
 ### Useful packages
 
+apt-file - Search for packages containing a particular file
+auto-apt - Install required packages automatically
 bwm-ng - Realtime bandwidth monitor
+
 
 ### cloning an apt-get installation
 
