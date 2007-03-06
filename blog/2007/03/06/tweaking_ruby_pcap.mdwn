@@ -4,7 +4,7 @@ Unfortunately, they haven't been updated in a long time and I was getting some w
 
     pcap.so: warning: do not use Fixnums as Symbols
 
-I found a site in Japanese that seemed to [explain the warning](http://devlog.moonwolf.com/200410.html) / [google cache version](http://72.14.253.104/search?q=cache:FVV1GK2aUpgJ:devlog.moonwolf.com/200410.html+%22do+not+use+fixnums+as+symbols%22+pcap&hl=en&client=firefox-a&strip=1), and managed to infer the solution to making the warnings go away.
+I found a site in Japanese that seemed to [explain the warning](http://devlog.moonwolf.com/200410.html) ([google cache version](http://72.14.253.104/search?q=cache:FVV1GK2aUpgJ:devlog.moonwolf.com/200410.html+%22do+not+use+fixnums+as+symbols%22+pcap&hl=en&client=firefox-a&strip=1)), and managed to infer the solution to making the warnings go away.
 
 Find the following lines in Pcap.c:
 
