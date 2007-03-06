@@ -20,5 +20,10 @@ and change them to:
       Qnil,
       ID2SYM(rb_intern("recv")),
       ID2SYM(rb_intern("drop")),
-     ID2SYM(rb_intern("ifdrop")));
+      ID2SYM(rb_intern("ifdrop")));
 
+
+then recompile and reinstall the bindings:
+
+    make
+    make install
