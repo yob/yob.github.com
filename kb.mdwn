@@ -24,6 +24,10 @@ My contribution to the data that powers google, and my backup memory.
 
 * [[Latex]]
 
+### Ruby
+
+* [[RubyUnicode]]
+
 ### Windows
 
 * [[WindowsLicensing]]
