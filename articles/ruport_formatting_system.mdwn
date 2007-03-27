@@ -1,5 +1,7 @@
 ## Ruport's Formatting System
 
+## NOTE: THIS GUIDE IS FOR RUPORT 0.7. V0.8 IS NOW AVAILABLE AND THE CODE EXAMPLES HERE ARE A LITTLE WRONG AS I HAVEN'T HAD TIME TO REVISE THEM.
+
 [Ruport](http://ruport.infogami.com/) is a lightweight reporting framework for Ruby. It's focus is on providing a structure for your report definitions, not on providing a high level language to build the layout of your reports. This means that there are no methods for adding a heading, table or graph to the your report. The developers feel it is important for users of the framework to have flexibility in choosing an output format (pdf, text, html, jpg, svg, smoke signals), and wrapping all those formats with higher level functions is a significant challenge that hasn't yet been solved.
 
 There are 3 stages to report that Ruport can handle - collecting data, manipulating data and formatting reports. All three steps can be used independently, and in this article I'm focusing exclusively on the formatting reports - I'll leave working with data for another day.
@@ -215,7 +217,7 @@ So what changes do we have to make to our application to generate the pdf instea
       e.titles = books
     end
 
-    File.open("dec_sales.pdf", "w") { |f| f.write text}
+    File.open("dec_sales.pdf", "w") { |f| f.write pdf}
 
 * call render\_pdf instead of render\_txt
 * modify the text variable name for readability
