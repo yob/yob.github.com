@@ -1,0 +1,38 @@
+## Debian Packaging Bits
+
+### svn-buildpackage
+
+This is a tool that makes it easier to maintain the debian/ directory for a package in subversion. A 
+particular repository layout must be followed:
+
+    packagename/
+      trunk/
+        debian/
+      tags/
+
+edit the debian/ directory as necessary, then add a tarballs/ directory under packagename/ and download
+the upstream tarball.
+
+From the trunk/ directory, run svn-buildpackage to have the debian package built
+
+    svn-buildpackage -rfakeroot
+
+There are a range of useful options for svn-buildpackage, so check the manpage.
+
+### Dpatch
+
+Tool for managing patches to the upstream source. This helps with upgrades and allows patches to be
+added and removed as necessary.
+
+Assuming the package is maintained in SVN using svn-buildpackage, use the following command from trunk/
+to create the patch
+
+    dpatch-edit-patch --debianonly=../tarballs/cruisecontrolrb_1.1.0.orig.tar.gz 01_some_name
+
+This will save the file in debian/patches/01_some_name.dpatch. To use it, add the following line to
+debian/patches/00list:
+
+    01_some_name
+
+A few lines need to be added to debian/rules to ensure the patches are applied and un-applied as necessary.
+
