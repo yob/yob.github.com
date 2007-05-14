@@ -36,3 +36,12 @@ debian/patches/00list:
 
 A few lines need to be added to debian/rules to ensure the patches are applied and un-applied as necessary.
 
+### Kernel Packages
+
+The "debian way" of making compiling a custom kernel is to use the make-kpkg tools, which will compile the kernel and then package it in a .deb for easy installation and maintainence.
+
+The basic command I use to build the package these days (2.6.18-2.6.21 at the time of writing) is:
+
+    make-kpg --append-to-version "-jh" --initrd kernel_image
+
+No guaruntees this will work for anyone else though...
