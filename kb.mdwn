@@ -11,6 +11,7 @@ My contribution to the data that powers google, and my backup memory.
 * [[DebianTips]]
 * [[DebianPackaging]]
 * [[EncodingOGG]]
+* [[find]]
 * [[gpg]]
 * [[Handbrake]]
 * [[Mplayer]]

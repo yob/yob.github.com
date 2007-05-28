@@ -1,0 +1,5 @@
+## Find Shenanigans
+
+Quoting all matching filenames in quotes to save spaces and passing them to a command
+
+    find . -name "*.jpg" -exec bash -c "somecmd \"{}\" ";"
