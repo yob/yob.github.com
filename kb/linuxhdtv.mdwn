@@ -2,7 +2,7 @@
 
 I've been working to setup a HDTV card on a headless linux box. This idea is to use it purely for timed recording, not live viewing, so I'm looking solely at commandline apps for use in scripts, not GUI apps or MythTV.
 
-The card I'm using is a FusionHDTV DVB-T Lite, 2006 revision (PCI ID: 18ac:db1). Support for this revision was added to the kernel in mid 2006 - (link)[http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commitdiff;h=8c99024b88b5da3a73f0575dad98527c9a278d1b].
+The card I'm using is a FusionHDTV DVB-T Lite, 2006 revision (PCI ID: 18ac:db1). Support for this revision was added to the kernel in mid 2006 - [link](http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commitdiff;h=8c99024b88b5da3a73f0575dad98527c9a278d1b).
 
 The Linux distribution is Debian testing (Lenny at the time of writing).
 
