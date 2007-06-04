@@ -4,16 +4,39 @@ I've been working to setup a HDTV card on a headless linux box. This idea is to 
 
 The card I'm using is a FusionHDTV DVB-T Lite, 2006 revision (PCI ID: 18ac:db1). Support for this revision was added to the kernel in mid 2006 - [link](http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commitdiff;h=8c99024b88b5da3a73f0575dad98527c9a278d1b).
 
-The Linux distribution is Debian testing (Lenny at the time of writing).
+The Linux distribution is Debian testing (Lenny at the time of writing) with a 2.6.20 kernel.
 
 I haven't settled on a recording system I like yet, so this is just a braindump of various useful commands and links.
 
 The first step is to get a channels.conf file for my city (Melbourne, Australia). For some unknown reason the debian dvb-utils has one located at /usr/share/doc/dvb-utils/examples/channels.conf-dvbt-australia.gz. Uncompress a copy of this to ~/.mplayer/channels.conf.
 
-Dumping a stream with mplayer:
+HDTV apps use the strings assigned to each channel in channels.conf as an identifier.
 
-    mplayer -dumpfile ten.ts -dumpstream dvb://"Ten Digital"
+Testing a channel (FE_HAS_LOCK indicates a signal was found):
+
+    tzap -c ~/.mplayer/channels.conf "TEN Digital"
+
+Dumping a stream with mplayer, unfortunately this doesn't allow a duration to be specified (the -endpos flag doesn't work in conjunction with -dumpstream):
+
+    mplayer -dumpfile ten.ts -dumpstream dvb://"TEN Digital"
+
+A hacky little bash script to limit the time mplayer records for (from [here](http://readlist.com/lists/mplayerhq.hu/mplayer-users/1/7095.html)):
+
+    #!/bin/bash
+    
+    TIME=$1
+    shift
+    
+    "$@" &
+    PID=$!
+    sleep $TIME
+    kill $PID
+    wait
+
+Usage:
+
+    runfor 10 mplayer -dumpfile ten.ts -dumpstream dvb://"TEN Digital"
 
 ### Links
 
-* (good tutorial on setting up a HDTV card in Melbourne, Australia)[http://club.csse.monash.edu.au/~tmccoy/index.php?option=content&task=view&id=154&Itemid=26]
+* [good tutorial on setting up a HDTV card in Melbourne, Australia](http://club.csse.monash.edu.au/~tmccoy/index.php?option=content&task=view&id=154&Itemid=2)
