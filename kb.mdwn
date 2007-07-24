@@ -8,15 +8,15 @@ My contribution to the data that powers google, and my backup memory.
 
 ### Leenoox
 
-* [[DebianTips]]
-* [[DebianPackaging]]
-* [[DebianUSB]]
-* [[EncodingOGG]]
+* [[Debian Tips|debiantips]]
+* [[Debian Packaging|debianpackaging]]
+* [[Debian USB Installation|debianusb]]
+* [[Encoding OGG Files|encodingogg]]
 * [[find]]
 * [[gpg]]
 * [[Handbrake]]
-* [[LinuxHDTV]]
-* [[Mplayer]]
+* [[Console-only HDTV under Linux|linuxhdtv]]
+* [[Mplayer Bits and Pieces|mplayer]]
 * [[mutt]]
 * [[openssl]]
 * [[scp]]
@@ -24,21 +24,17 @@ My contribution to the data that powers google, and my backup memory.
 * [[tcpdump]]
 * [[vim]]
 
-### Misc
-
-* [[Latex]]
-
 ### Ruby
 
-* [[RubyUnicode]]
+* [[Unicode|rubyunicode]]
 
 ### Windows
 
-* [[WindowsLicensing]]
-* [[MSAccess]]
-* [[Windows98]]
+* [[Terminal Server Licensing|windowslicensing]]
+* [[Microsoft Access|MSAccess]]
+* [[Windows 98|windows98]]
 
 ### XHTML
 
-* [[XHTMLDoctypes]]
-* [[XHTMLIndentTransform]]
+* [[Doctypes|XHTMLDoctypes]]
+* [[Indent Transform|XHTMLIndentTransform]]

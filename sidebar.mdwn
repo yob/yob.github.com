@@ -2,6 +2,6 @@
 * [[code]]
 * [[kb]]
 * [[contact]]
-* [[where to find me|stalker]]
+* [[where_to_find_me|stalker]]
 
 [[pagestats pages="tags/*"]]
