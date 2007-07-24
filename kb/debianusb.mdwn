@@ -20,7 +20,7 @@ Download a copy of the net install cd for the desired architecture.
 
 Copy the boot files to the USB stick
 
-  zcat boot.img.gz > /dev/sdb
+    zcat boot.img.gz > /dev/sdb
 
 Mount the USB stick
 
