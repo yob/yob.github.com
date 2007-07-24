@@ -12,7 +12,7 @@ The first step is to get a channels.conf file for my city (Melbourne, Australia)
 
 HDTV apps use the strings assigned to each channel in channels.conf as an identifier.
 
-Testing a channel (FE_HAS_LOCK indicates a signal was found):
+Testing a channel (FE\_HAS\_LOCK indicates a signal was found):
 
     tzap -c ~/.mplayer/channels.conf "TEN Digital"
 
