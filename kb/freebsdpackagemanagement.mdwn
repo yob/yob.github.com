@@ -33,4 +33,4 @@ Upgrade this package if it's already installed, or install it if it's not
 
 ### Other resources
 
-* (http://www.hypexr.org/freebsd_ports_help.php)
+* [http://www.hypexr.org/freebsd_ports_help.php](http://www.hypexr.org/freebsd_ports_help.php)

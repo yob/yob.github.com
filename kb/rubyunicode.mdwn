@@ -1,5 +1,5 @@
 ### convert a ISO-8859-1/15 string to UTF-8
 
-via http://www.fngtps.com/2006/12/unspun-encoding-problems
+via [http://www.fngtps.com/2006/12/unspun-encoding-problems](http://www.fngtps.com/2006/12/unspun-encoding-problems)
 
     source.unpack('C*').pack('U*')

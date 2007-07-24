@@ -3,8 +3,8 @@
 My contribution to the data that powers google, and my backup memory.
 
 ### FreeBSD
-* [[FreeBSDPackageManagement]]
-* [[FreeBSDBooting]]
+* [[Package|Management|freebsdpackagemanagement]]
+* [[Booting|freebsdbooting]]
 
 ### Leenoox
 
