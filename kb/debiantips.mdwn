@@ -53,6 +53,18 @@ To actually remove them:
 
     deborphan | sudo xargs apt-get remove --purge --yes
 
+### Static Routes
+
+To add a persistant static route:
+
+    auto eth0
+    iface eth0 inet static
+        address 192.168.1.42
+        netmask 255.255.255.128
+        up route add -net 192.168.1.128 netmask 255.255.255.128 gw 192.168.1.2
+        down route del -net 192.168.1.128 netmask 255.255.255.128 gw 192.168.1.2
+
+
 ### Misc commands
 
 List commonly used commands
