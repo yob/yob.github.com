@@ -24,6 +24,7 @@ My contribution to the data that powers google, and my backup memory.
 * [[tcpdump]]
 * [[Freevo TV Computer|tvcomputer]]
 * [[vim]]
+* [[vmware]]
 
 ### Ruby
 
