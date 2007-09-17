@@ -1,0 +1,77 @@
+## R
+
+R is a powerful graphing tool that I use under linux and FreeBSD. It may be
+available on other systems, I'm not sure.
+
+### Reading in data
+
+Reading a CSV
+
+    d = read.csv("swimming_progress.csv")
+    
+If one of the columns you're reading in has dates, you might need to specify the column types
+
+    d = read.csv("swimming_progress.csv", colClasses=c("Date", "numeric", "numeric","numeric"))
+
+If the csv file is gzipped to save space:
+
+    d = read.csv(gzfile("swimming_progress.csv"))
+
+### Plotting the data to a graph on screen
+
+Bring up a graph window
+
+    x11()
+
+### plot the data
+
+    plot(d[,1], d[,2], type="l", col="blue", xlab="date", ylab="Continuous 50m laps")
+
+The first param is the X axis, the second is the Y axis. The remaining params are named and can be in any order, or ommitted.
+
+useful types: l (line), b (box), p (point)
+
+add lines to the current graph (similar function prototype to plot):
+
+    lines(d[,1], d[,4], type="l", col="red")
+
+add a title:
+
+    title("James' Swimming Progress")
+
+add a legend:
+
+    legend("topleft",c("continuous laps","total laps"), cex=0.8, col=c("red","blue"), lty=1:1)
+
+### Writing to a file instead of to screen:
+
+instead of calling x11() at the start, use:
+
+    pdf(file="swimming.pdf", height=5, width=8)
+
+and then close the file at the end
+
+    dev.off()
+
+### scripting
+
+Interactive use of R is good for tweaking the graphs to just how you need it,
+but once it's sorted, it's worth saving the complete script to a file s oyou
+can recreate the graph as needed. Just save all the commands in a plain text
+file, then:
+
+    R --no-save < some_file.r
+
+### getting help
+
+on a function
+
+    ?plot
+
+searching
+
+    help.search("function")
+
+### Useful links
+
+* [delicious](http://del.icio.us/yob/r)

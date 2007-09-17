@@ -19,6 +19,7 @@ My contribution to the data that powers google, and my backup memory.
 * [[Mplayer_Bits_and_Pieces|mplayer]]
 * [[mutt]]
 * [[openssl]]
+* [[r]]
 * [[scp]]
 * [[tar]]
 * [[tcpdump]]
