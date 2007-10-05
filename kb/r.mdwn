@@ -13,6 +13,10 @@ If one of the columns you're reading in has dates, you might need to specify the
 
     d = read.csv("swimming_progress.csv", colClasses=c("Date", "numeric", "numeric","numeric"))
 
+if the dataset you're reading in is large, to save memory it is possible to ignore the columns you don't need:
+
+    d = read.csv("swimming_progress.csv", colClasses=c("Date", "NULL", "numeric","NULL"))
+
 If the csv file is gzipped to save space:
 
     d = read.csv(gzfile("swimming_progress.csv"))
@@ -35,6 +39,10 @@ add lines to the current graph (similar function prototype to plot):
 
     lines(d[,1], d[,4], type="l", col="red")
 
+draw a histogram:
+
+    hist(d[,4])
+
 add a title:
 
     title("James' Swimming Progress")
@@ -52,6 +60,10 @@ instead of calling x11() at the start, use:
 and then close the file at the end
 
     dev.off()
+
+With large datasets, the resulting vector file may be too large to be useful. To generate a png instead of a pdf:
+
+    png(filename="swimming.png", width=640, height=480)
 
 ### scripting
 
