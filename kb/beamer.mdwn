@@ -1,0 +1,15 @@
+## Beamer
+
+Beamer is an extensive latex class for generating presentation slides. This is
+not a full tutorial, just a collection of notes on performing common tasks that
+I often forget.
+
+For some guides and tutorials, check out my [delicious tag](http://del.icio.us/yob/r).
+
+### Stopping the irritating default slide animations
+
+Presentations where the dot points appear 1 by 1 drive me nuts.
+
+To disable this behaviour, use the following line before \begin{document}
+
+    \beamerdefaultoverlayspecification{}

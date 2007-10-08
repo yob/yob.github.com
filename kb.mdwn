@@ -8,6 +8,7 @@ My contribution to the data that powers google, and my backup memory.
 
 ### Leenoox
 
+* [[beamer]]
 * [[Debian_Tips|debiantips]]
 * [[Debian_Packaging|debianpackaging]]
 * [[Debian_USB_Installation|debianusb]]
