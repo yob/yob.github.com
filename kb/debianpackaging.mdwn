@@ -42,6 +42,6 @@ The "debian way" of making compiling a custom kernel is to use the make-kpkg too
 
 The basic command I use to build the package these days (2.6.18-2.6.21 at the time of writing) is:
 
-    make-kpg --append-to-version "-jh" --initrd kernel_image
+    make-kpkg --append-to-version "-jh" --initrd kernel_image
 
 No guaruntees this will work for anyone else though...
