@@ -65,6 +65,12 @@ With large datasets, the resulting vector file may be too large to be useful. To
 
     png(filename="swimming.png", width=640, height=480)
 
+The current version of outputs uncompressed, version 1.1 PDF files. Nice and
+simple, but the result can be very large files, so it often worth converting
+them to a higher PDF version that supports compression.
+
+    pdftk input.pdf output output.pdf compress
+
 ### scripting
 
 Interactive use of R is good for tweaking the graphs to just how you need it,
