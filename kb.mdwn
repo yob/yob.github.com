@@ -15,6 +15,7 @@ My contribution to the data that powers google, and my backup memory.
 * [[Debian_USB_Installation|debianusb]]
 * [[Encoding_OGG_Files|encodingogg]]
 * [[find]]
+* [[git]]
 * [[gpg]]
 * [[Handbrake]]
 * [[Console-only_HDTV_under_Linux|linuxhdtv]]

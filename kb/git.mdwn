@@ -1,0 +1,26 @@
+### git
+
+Git is a distributed source control system. It can be a little tricky to get
+the hang of initially - here's a few tasks I reguarly perform, but forget.
+
+Clone an SVN repo:
+
+    git-svn clone <svn repo path>
+
+Pass git commits back upstream to SVN:
+
+    git-svn dcommit
+
+Merge a branch back into master (trunk) as a single commit. Run with the master branch checked out:
+
+    git-merge --squash <branch name>
+
+Make another commit, but make it an amendment of the previous one:
+
+    git-commit --amend
+
+Merge several previous commits into one. The selected commits will be displayed
+in a text editior, and you can choose which ones to "squash". HEAD~10 means
+show the last 10 commits.:
+
+    git-rebase -i HEAD~10
