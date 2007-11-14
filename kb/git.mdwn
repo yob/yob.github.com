@@ -15,7 +15,7 @@ Merge a branch back into master (trunk) as a single commit. Run with the master 
 
     git-merge --squash <branch name>
 
-Make another commit, but make it an amendment of the previous one:
+Make another commit, but make it an amendment of the previous one. Great for when you realise you left something out:
 
     git-commit --amend
 
@@ -24,3 +24,7 @@ in a text editior, and you can choose which ones to "squash". HEAD~10 means
 show the last 10 commits.:
 
     git-rebase -i HEAD~10
+
+git-rebase can also to be used to reorder a series of commits - just change the
+order of the commits in the editor that apperas. Check the manpage for more
+info.
