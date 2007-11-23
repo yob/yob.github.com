@@ -80,6 +80,25 @@ file, then:
 
     R --no-save < some_file.r
 
+### manipulating data arrays
+
+return a subset of the data - rows where expressions resolves to true are returned:
+
+    subset(data_array, <expression>)
+
+### packages
+
+Install a package from CRAN:
+
+    install.packages(<package name>)
+
+In debain, better to use the packages via apt-get if available.
+
+Loading a package:
+
+    library(<package name>)
+
+
 ### getting help
 
 on a function
