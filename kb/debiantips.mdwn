@@ -5,6 +5,7 @@
 apt-file - Search for packages containing a particular file
 auto-apt - Install required packages automatically
 bwm-ng - Realtime bandwidth monitor
+scponly - restricted shell useful for giving users access to the filesystem, but not execution 
 
 
 ### cloning an apt-get installation
