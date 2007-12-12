@@ -28,3 +28,7 @@ show the last 10 commits.:
 git-rebase can also to be used to reorder a series of commits - just change the
 order of the commits in the editor that apperas. Check the manpage for more
 info.
+
+Checkout a remote branch to a local branch:
+
+    git-checkout -b <new local branch name> <remote branch name>
