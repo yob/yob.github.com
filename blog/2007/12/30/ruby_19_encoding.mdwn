@@ -38,7 +38,8 @@ the encoding:
     => false
 
 If Ruby has confused itself and has the wrong encoding recorded, you can
-forcibly fix it:
+forcibly fix it. The bytestream will not be modified, just ruby's understanding
+of what the stream represents.
 
     str.force_encoding("ASCII")
     => "\xE3\x83\xA1\xE3\x82\xA4\xE3\x83\xB3\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB8" 
@@ -53,8 +54,9 @@ forcibly fix it:
     => "メインページ" 
 
 Some encodings can be translated to others: the underlying bytestream will be
-translated to the new encoding. The output of the following examples won't
-render correctly as your browser will be interpreting this page as UTF-8:
+changed to represent the same characters in the new encoding. The output of the
+following examples won't render correctly as your browser will be interpreting
+this page as UTF-8:
 
     str.encode!("Shift_JIS")
     => "���C���y�[�W"
