@@ -1,0 +1,78 @@
+Ruby 1.9 was released last week, and I've been poking around with the changes
+to the String class to see what's possible. 1.9 is a development release, so
+I'm not planning to start using it in production anytime soon, but it's nice to
+be able to test my apps for compatability with the planned 2.0 release.
+
+In ruby <= 1.8, strings were effectively just byte streams. Those bytes would
+often contain text in one encoding or another, but there was no formal way to
+record exactly which encoding (if any; binary data has none). All the default
+methods assumed single byte encoding (such as US-ASCII), so behaviour was odd
+when the encoding was multibyte (such as UTF8).
+
+1.9 now records the encoding of a string, which allows many of the methods to
+be improved to recognise multi-byte strings.
+
+Consider the following UTF-8 string:
+
+    str = "メインページ"
+
+		str.encoding
+		=> #<Encoding:UTF-8>
+
+The size method now returns the size of the string in characters, not bytes. To
+get the size in bytes, use the bytesize method.
+
+		str.bytesize
+		=> 18
+
+		str.size
+		=> 6
+
+To check if the string contains only ASCII compatible characters, regardless of
+the encoding:
+
+		str.ascii_only?
+		=> false
+
+If Ruby has confused itself and has the wrong encoding recorded, you can
+forcible fix it:
+
+		str.force_encoding("ASCII")
+		=> "\xE3\x83\xA1\xE3\x82\xA4\xE3\x83\xB3\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB8" 
+
+		str.size
+		=> 18
+
+		str.bytesize
+		=> 18
+
+		str.force_encoding("UTF-8")
+		=> "メインページ" 
+
+Some encodings can be translated to others. The underlying bytestream will be
+translated to the new encoding. The output of these won't render correctly as
+your browser will be interpretting this page as UTF-8:
+
+	str.encode!("Shift_JIS")
+	=> "���C���y�[�W"
+	str.bytesize
+	=> 12
+	
+	str.encode!("EUC-JP")
+	=> "�ᥤ���ڡ���"
+	str.bytesize
+	=> 12
+	 
+	str.encode!("UTF-8")
+	=> "メインページ"
+	str.bytesize
+	=> 18
+
+If you try to encode a string into an encoding for which there are no
+equivilant characters (ie. a UTF-8 string with Hebrew characters in to
+Shift-JIS), then a runtime exception will be raised.
+
+To view the encodings available on the system:
+
+    Encoding.list
+    => [#<Encoding:ASCII-8BIT>, #<Encoding:EUC-JP>, #<Encoding:Shift_JIS>, #<Encoding:UTF-8>, #<Encoding:ISO-2022-JP (dummy)>]
