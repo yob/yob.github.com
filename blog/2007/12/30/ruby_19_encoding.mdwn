@@ -56,20 +56,20 @@ Some encodings can be translated to others: the underlying bytestream will be
 translated to the new encoding. The output of the following examples won't
 render correctly as your browser will be interpreting this page as UTF-8:
 
-	str.encode!("Shift_JIS")
-	=> "���C���y�[�W"
-	str.bytesize
-	=> 12
+    str.encode!("Shift_JIS")
+    => "���C���y�[�W"
+    str.bytesize
+    => 12
 	
-	str.encode!("EUC-JP")
-	=> "�ᥤ���ڡ���"
-	str.bytesize
-	=> 12
+    str.encode!("EUC-JP")
+    => "�ᥤ���ڡ���"
+    str.bytesize
+    => 12
 	 
-	str.encode!("UTF-8")
-	=> "メインページ"
-	str.bytesize
-	=> 18
+    str.encode!("UTF-8")
+    => "メインページ"
+    str.bytesize
+    => 18
 
 If you try to encode a string into an encoding for which there are no
 equivalent characters (ie. a UTF-8 string with Hebrew characters into
@@ -79,3 +79,7 @@ To view the encodings available on the system:
 
     Encoding.list
     => [#<Encoding:ASCII-8BIT>, #<Encoding:EUC-JP>, #<Encoding:Shift_JIS>, #<Encoding:UTF-8>, #<Encoding:ISO-2022-JP (dummy)>]
+
+All this encoding sugar makes for a promising future for Ruby's international
+support. I see it being a few of the libraries I maintain to ensure developers
+pass in strings with the correct encoding.
