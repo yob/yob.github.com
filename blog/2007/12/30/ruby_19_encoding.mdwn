@@ -86,6 +86,11 @@ To set the default encoding to use in your scripts, use the following magic comm
 
     # -* coding: UTF-8 -*-
 
+If you are reading in a file that is encoded differently to your default, you
+can specify what to use when opening it:
+
+		File.open("/home/jh/downloads/UTF-8-demo.txt", "r:UTF-8") { |f| puts f.gets; puts f.gets; puts f.gets }
+
 All this encoding sugar makes for a promising future for Ruby's international
 support. I see it being a few of the libraries I maintain to ensure developers
 pass in strings with the correct encoding.
