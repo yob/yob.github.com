@@ -82,7 +82,7 @@ To view the encodings available on the system:
     Encoding.list
     => [#<Encoding:ASCII-8BIT>, #<Encoding:EUC-JP>, #<Encoding:Shift_JIS>, #<Encoding:UTF-8>, #<Encoding:ISO-2022-JP (dummy)>]
 
-To set the default encoding to use in your scripts, use the following magic comment:
+To set the default encoding to use in your scripts, use the following magic comment on the first or second line:
 
     # -* coding: UTF-8 -*-
 
