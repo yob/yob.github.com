@@ -12,7 +12,7 @@ when the encoding was multibyte (such as UTF8).
 
 1.9 now records the encoding of a string, which allows many of the methods to
 be improved to recognise multi-byte strings. For further background on
-encodings, read Joel Sposky's
+encodings, read Joel Spolsky's
 [article](http://www.joelonsoftware.com/articles/Unicode.html).
 
 Consider the following UTF-8 string:
@@ -92,5 +92,5 @@ can specify what to use when opening it:
 		File.open("/home/jh/downloads/UTF-8-demo.txt", "r:UTF-8") { |f| puts f.gets; puts f.gets; puts f.gets }
 
 All this encoding sugar makes for a promising future for Ruby's international
-support. I see it being a few of the libraries I maintain to ensure developers
-pass in strings with the correct encoding.
+support. I see it being useful in a few of the libraries I maintain to ensure
+developers pass in strings with the correct encoding.
