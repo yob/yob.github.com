@@ -99,6 +99,17 @@ Loading a package:
     library(<package name>)
 
 
+### colours
+
+Colours can be specified using a name as a string, or using rgb().
+
+  col = "red"
+  col = rbg(1,0,0)
+
+the rgb() function has an additional element that provides control over the alpha channel of the colour:
+
+  col = rbg(1,0,0,0.25)
+
 ### getting help
 
 on a function
