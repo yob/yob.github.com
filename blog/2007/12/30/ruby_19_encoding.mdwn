@@ -62,12 +62,12 @@ this page as UTF-8:
     => "���C���y�[�W"
     str.bytesize
     => 12
-	
+
     str.encode!("EUC-JP")
     => "�ᥤ���ڡ���"
     str.bytesize
     => 12
-	 
+
     str.encode!("UTF-8")
     => "メインページ"
     str.bytesize
@@ -82,15 +82,19 @@ To view the encodings available on the system:
     Encoding.list
     => [#<Encoding:ASCII-8BIT>, #<Encoding:EUC-JP>, #<Encoding:Shift_JIS>, #<Encoding:UTF-8>, #<Encoding:ISO-2022-JP (dummy)>]
 
-To set the default encoding to use in your scripts, use the following magic comment on the first or second line:
+To set the default encoding to use in your scripts, use the following magic comment on the first line (or second if the first starts with #!):
 
-    # -* coding: UTF-8 -*-
+    # coding: utf-8
 
 If you are reading in a file that is encoded differently to your default, you
 can specify what to use when opening it:
 
-		File.open("/home/jh/downloads/UTF-8-demo.txt", "r:UTF-8") { |f| puts f.gets; puts f.gets; puts f.gets }
+    File.open("/home/jh/downloads/UTF-8-demo.txt", "r:UTF-8") { |f| puts f.gets; puts f.gets; puts f.gets }
 
 All this encoding sugar makes for a promising future for Ruby's international
 support. I see it being useful in a few of the libraries I maintain to ensure
 developers pass in strings with the correct encoding.
+
+For a more detailed look at the encoding support in 1.9, I highly recommend to
+chapter on encoding in the [3rd Edition of the
+pickaxe](http://www.pragprog.com/titles/ruby3).
