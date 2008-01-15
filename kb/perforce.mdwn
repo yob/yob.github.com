@@ -1,0 +1,26 @@
+## Perforce
+
+Perforce is a proprietary version control system used by FreeBSD (amongst
+others). It's a little archaic, so here's a few common steps I use.
+
+A great source of further info is (Perforce in FreeBSD Development)[http://www.freebsd.org/doc/en_US.ISO8859-1/articles/p4-primer/article.html]
+
+### Integrate
+
+Integrating it pulling changes from the original branch your branch came from
+to keep them in sync.
+
+    p4 integrate -b <branch_name>
+
+After integrating, you'll want to resolve any conflicts, then submit the changes
+
+    p4 resolve -as
+    p4 submit
+
+### Diffs
+
+To diff a branch against the branch it forked from:
+
+    p4 diff2 -u -b <branch_name>
+
+You'll want to do an integration before doing this, to ensure the diff contains only the changes in your branch.

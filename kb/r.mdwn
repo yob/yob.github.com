@@ -80,6 +80,12 @@ file, then:
 
     R --no-save < some_file.r
 
+Alternatively, there is a R wrapper called
+(littler)[http://dirk.eddelbuettel.com/code/littler.html]. With that installed,
+you can make executable R scripts using the following \#! line
+
+    #!/usr/bin/env r
+
 ### manipulating data arrays
 
 return a subset of the data - rows where expressions resolves to true are returned:
