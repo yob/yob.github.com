@@ -1,0 +1,19 @@
+## C
+
+### Pointers
+
+Define a new pointer:
+
+    int *p
+
+Return the address the pointer points to:
+
+    p
+
+Return the pointer's address instead of the address it points to:
+
+    &p
+
+Return the value of the pointers target
+
+    *p

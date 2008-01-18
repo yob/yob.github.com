@@ -31,8 +31,9 @@ My contribution to the data that powers google, and my backup memory.
 * [[vim]]
 * [[vmware]]
 
-### Ruby
+### Development
 
+* [[c]]
 * [[Unicode|rubyunicode]]
 
 ### Windows
