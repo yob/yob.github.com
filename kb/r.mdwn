@@ -116,6 +116,19 @@ the rgb() function has an additional element that provides control over the alph
 
   col = rbg(1,0,0,0.25)
 
+### multiple axes
+
+To plot 2 lines on the same graph using seperate axes (left, right):
+
+    # plot the first line
+    plot()
+    # reset the canvas 
+    par(new=T)
+    # add the second axis on the right of the plot
+    axis(4)
+    # plot the second line
+    plot()
+
 ### getting help
 
 on a function
