@@ -1,0 +1,8 @@
+## Scapy
+
+Scapy is a python shell that provides a suite of powerful network debugging tools.
+
+### Traceoute with graphviz maps
+
+    res,unans = traceroute(["www.google.com","www.cnn.com","dib.deefa.com"])
+    res.graph(target="> /tmp/trace.svg")
