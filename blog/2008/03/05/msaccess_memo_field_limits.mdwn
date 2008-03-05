@@ -34,6 +34,7 @@ everything to ADO as yet. The error is raised by the db.Execute line.
       sql = sql & """)"
 
       db.Execute sql, dbFailOnError
+      db.close
     End Sub
 
 By switching the test function over to ADO, I can now insert more than 64K into my memo field.
@@ -58,6 +59,7 @@ By switching the test function over to ADO, I can now insert more than 64K into 
       sql = sql & """)"
 
       db.Execute sql, dbFailOnError
+      db.close
     End Sub
 
 The lesson? Use [ADO](http://en.wikipedia.org/wiki/ActiveX_Data_Objects) whenever possible.
