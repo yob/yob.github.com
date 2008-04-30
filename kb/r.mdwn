@@ -129,6 +129,14 @@ To plot 2 lines on the same graph using seperate axes (left, right):
     # plot the second line
     plot()
 
+### CDF plot
+
+Generating a cumulative distribution function plot
+
+    data = read.csv("somefile")
+    cdf = ecdf(d[,1])
+    plot(cdf)
+
 ### getting help
 
 on a function

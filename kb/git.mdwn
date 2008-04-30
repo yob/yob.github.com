@@ -5,25 +5,25 @@ the hang of initially - here's a few tasks I reguarly perform, but forget.
 
 Clone an SVN repo:
 
-    git-svn clone <svn repo path>
+    git svn clone <svn repo path>
 
 Pass git commits back upstream to SVN:
 
-    git-svn dcommit
+    git svn dcommit
 
 Merge a branch back into master (trunk) as a single commit. Run with the master branch checked out:
 
-    git-merge --squash <branch name>
+    git merge --squash <branch name>
 
 Make another commit, but make it an amendment of the previous one. Great for when you realise you left something out:
 
-    git-commit --amend
+    git commit --amend
 
 Merge several previous commits into one. The selected commits will be displayed
 in a text editior, and you can choose which ones to "squash". HEAD~10 means
 show the last 10 commits.:
 
-    git-rebase -i HEAD~10
+    git rebase -i HEAD~10
 
 git-rebase can also to be used to reorder a series of commits - just change the
 order of the commits in the editor that apperas. Check the manpage for more
@@ -31,4 +31,16 @@ info.
 
 Checkout a remote branch to a local branch:
 
-    git-checkout -b <new local branch name> <remote branch name>
+    git checkout -b <new local branch name> <remote branch name>
+
+A useful bash hack to display the current branch in the prompt:
+
+    export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+
+Adding a remote repo and tracking it locally
+
+    git remote add <name> <url>
+    git fetch <remote name>
+    git merge <remote's local branch>
+OR
+    git cherry-pick <commit>
