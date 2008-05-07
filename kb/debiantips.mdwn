@@ -81,3 +81,7 @@ To add a persistant static route:
 List commonly used commands
 
     history 1|awk '{print $2}'|awk 'BEGIN {FS="|"} {print $1}'|sort|uniq -c|sort -nr|head -10
+
+List the installed size of all packages
+
+    dpkg-query -W --showformat='${Installed-Size} ${Package}\n' | sort -n

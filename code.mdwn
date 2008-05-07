@@ -3,4 +3,6 @@
 By day (and occasionally at night) I'm a programmer with a penchant for Ruby. Here's a few of the projects I'm involved in (or have been involved in).
 
 * [RBook](http://rubyforge.org/projects/rbook) - A ruby library for working with bibliographic data
-* [Ruport](http://ruport.infogami.com/) - A ruby library for generating reports
+* [PDF::Reader](http://rubyforge.org/projects/pdf-reader) - A pure ruby library for extracting data and stats on PDF files
+* [PDF::Wrapper](http://rubyforge.org/projects/pdf-wrapper) - A Unicode aware ruby library for generating PDF files
+* [Ruport](http://www.rubyreports.com/) - A ruby library for generating reports
