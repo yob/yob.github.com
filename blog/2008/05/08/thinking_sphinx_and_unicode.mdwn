@@ -16,9 +16,11 @@ datasets), it can sort by relevance, and it can sort across models.
 There are three characteristic of our current project that recently made me
 delve into some of the complexities of sphinx.
 
+
 - Our main database was carefully constructed to be utf-8 encoded
 - The database primarily contains data on books. Generally English language, but plenty of the titles and authors have non English characters in them
 - Our office is in Australia, so all our users have English language keyboards
+
 
 Say we have an author whose name is "Alex Čihař". Authors keep us in business,
 so we'd prefer to keep them happy. Therefore, mangling their name on our
@@ -43,7 +45,7 @@ Lucky for us, Sphinx has a feature called
 just this situation. It purpose in life is to map one Unicode character to
 another and make them functionally equivalent in the indexes.
 
-With a bit of processing of a [CSV
+With some processing of a [CSV
 file](http://www.unicode.org/Public/UNIDATA/UnicodeData.txt) provided by the
 Unicode consortium, it was possible to build a reasonable value for the
 charset_table option.
@@ -134,12 +136,15 @@ In thinking sphinx, it should go into your config/sphinx.yml file (with no line 
         U+1EF4->y, U+1EF5->y, U+1EF6->y, U+1EF7->y, U+1EF8->y, U+1EF9->y"
 
 This charset_table option is saying that: 
+
+
 - The characters 0->9, a->z and _ should be considered their usual values
 - A should be considered equal to a
 - M should be considered equal to m
 - Unicode Codepoint U+00C0 (À) should be considered equal to a.
 - Unicode Codepoint U+1EEC (Ử) should be considered equal to u.
 - etc.
+
 
 Anything not listed in the table (ie. punctuation, hebrew characters, japanese
 characters) is considered white space and cannot be searched for. If
