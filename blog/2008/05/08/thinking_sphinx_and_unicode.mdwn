@@ -36,13 +36,13 @@ I bet you can see where this is going. No results.
 The trick here is to use a thing called character folding. The Unicode
 consortium have a [technical report](http://unicode.org/reports/tr30/) on the
 topic if you feel like some bedtime reading. The long and the short of it is that
-in our particular environment, we wanted most of the following characters to be
-equivalent when searching: C c Ć ć Ĉ ĉ Ċ ċ Č č. And much the same for the
+in our particular environment, we wanted all of the following characters to be
+equivalent when searching: C c Ć ć Ĉ ĉ Ċ ċ Č č, and much the same for the
 accented versions of all the other latin-ish looking characters.
 
 Lucky for us, Sphinx has a feature called
 [charset_table](http://www.sphinxsearch.com/doc.html#conf-charset-table) for
-just this situation. It purpose in life is to map one Unicode character to
+just this situation. It's purpose in life is to map one Unicode character to
 another and make them functionally equivalent in the indexes.
 
 With some processing of a [CSV
@@ -50,7 +50,8 @@ file](http://www.unicode.org/Public/UNIDATA/UnicodeData.txt) provided by the
 Unicode consortium, it was possible to build a reasonable value for the
 charset_table option.
 
-In thinking sphinx, it should go into your config/sphinx.yml file (with no line breaks):
+In Thinking Sphinx, it should go into your config/sphinx.yml file (with no line
+breaks):
 
     development:
       allow_star: true
@@ -146,7 +147,7 @@ This charset_table option is saying that:
 - etc.
 
 
-Anything not listed in the table (ie. punctuation, hebrew characters, japanese
+Anything not listed in the table (ie. punctuation, Hebrew characters, Japanese
 characters) is considered white space and cannot be searched for. If
 punctuation is important to you, don't forget to add it in.
 
@@ -157,3 +158,8 @@ charset_type setting.
 
 Mr Čihař is happy, our customer is happy, and we don't lose a potential sale.
 Winners all around.
+
+Futher Reading:
+
+- [Sphinx](http://www.sphinxsearch.com/)
+- [Searching database content with Sphinx](http://www.linux.com/feature/118721)
