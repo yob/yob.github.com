@@ -12,7 +12,7 @@ requires a tiny bit of massaging to get working under linux.
 Start by grabbing the dnssd 0.6 tarball from
 [rubyforge](http://rubyforge.org/projects/dnssd/).
 
-Unpack it, and apply this very [simple patch](dnssd_linux.diff).
+Unpack it, and apply this very [simple patch](dnssd_linux).
 
     patch -p1 < dnssd_linux.diff
 
@@ -20,8 +20,8 @@ Build the gem:
 
     gem build dnssd_osx.gemspec
 
-If this fails, make sure you have the avahi libdnssd compatability library
-install. On my Debian system, I needed the following 2 packages:
+If this fails, make sure you have the avahi libdnssd compatibility library
+installed. On my Debian system, I needed the following 2 packages:
 
     aptitude install libavahi-compat-libdnssd1 libavahi-compat-libdnssd-dev
 
@@ -30,13 +30,13 @@ Install the gem:
     gem install dnssd-0.6.0.gem
 
 Now you should be right to install the gijour gem. You could clone their
-repoistory on github if you like the live on the edge, but the code is in a
+repository on github if you like the live on the edge, but the code is in a
 high state of change is seems to be broken at the moment.
 
     gem install gitjour
 
 When using gitjour, you'll probably get a nice subtle warning about your use of
-the dnssd compatability layer, but it should till work.
+the dnssd compatibility layer, but it should till work.
 
     *** WARNING *** The program 'ruby1.8' uses the Apple Bonjour compatibility layer of Avahi.
     *** WARNING *** Please fix your application to use the native API of Avahi!
