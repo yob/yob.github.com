@@ -16,7 +16,12 @@ Unpack it, and apply this very [[simple patch|dnssd_linux]].
 
     patch -p1 < dnssd_linux.diff
 
-Build the gem:
+Compile (but don't install) the extension:
+
+    ruby setup.rb config
+    ruby setup.rb setup
+
+Package the gem:
 
     gem build dnssd_osx.gemspec
 
