@@ -26,17 +26,23 @@ Package the gem:
     gem build dnssd_osx.gemspec
 
 If this fails, make sure you have the avahi libdnssd compatibility library
-installed. On my Debian system, I needed the following 2 packages:
+installed, and try again. On my Debian system, I needed the following 2
+packages:
 
     aptitude install libavahi-compat-libdnssd1 libavahi-compat-libdnssd-dev
+
+Essentially, dnssd binds to the Zeroconf/Bonjour library provided by Apple in
+OSX. On Linux the standard library used for Zeroconf is Avahi, but it provides
+a completely different API. The compatability layer lets Avahi pretend to be
+Apple's Bonjour library.
 
 Install the gem:
 
     gem install dnssd-0.6.0.gem
 
 Now you should be right to install the gijour gem. You could clone their
-repository on github if you like the live on the edge, but the code is in a
-high state of change is seems to be broken at the moment.
+repository on github if you like to live on the edge, but the code is in a
+high state of change and seems to be broken at the moment.
 
     gem install gitjour
 
