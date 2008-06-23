@@ -11,7 +11,7 @@ I've locked the app to, and therefore don't realise when it's loading an out of
 date version. An out of date gem isn't a huge issue, but there might be new 
 features that are useful, or fixed bugs that I hadn't noticed.
 
-I've put together a [[little initializer|check_gem_versions]] that checks all
+I've put together a [little initializer](/files/check_gem_versions.rb) that checks all
 the gems I've loaded when the rails app starts, and logs a notice to let me
 know if it's out of date. It's non fatal - sometimes there are gems where I
 want to be using an old version, but it's nice to be reminded that it might be
