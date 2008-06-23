@@ -1,0 +1,18 @@
+I'm a fan of the new [gem dependency](http://railscasts.com/episodes/110)
+feature added to Rails 2.1 and have started using it where possible.
+
+Locking the app to a particular version is the right thing to do - loading the
+most recent version is just asking for trouble. What happens when your
+development and production boxes have different gem versions, or when the gem
+maintainer introduces an API incompatible change?
+
+I have a few apps in production though, and often forget what gem versions
+I've locked the app to, and therefore don't realise when it's loading an out of
+date version. An out of date gem isn't a huge issue, but there might be new 
+features that are useful, or fixed bugs that I hadn't noticed.
+
+I've put together a [[little initializer|check_gem_versions]] that checks all
+the gems I've loaded when the rails app starts, and logs a notice to let me
+know if it's out of date. It's non fatal - sometimes there are gems where I
+want to be using an old version, but it's nice to be reminded that it might be
+worth upgrading.
