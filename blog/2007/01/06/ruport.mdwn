@@ -1,3 +1,5 @@
+[[!meta date="2007-01-06"]]
+
 Ruport is a lightweight reporting framework for ruby that i've been playing with on and off for a few months.
 
 In the course of my explorations, I've learnt a little about how it works, so I've put together a shortish [tutorial on it's formatting system](http://www.yob.id.au/articles/ruport_formatting_system.html) that some people out there might find useful.
