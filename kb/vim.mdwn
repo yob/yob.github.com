@@ -4,3 +4,7 @@
 
     :%s/find/replace_with/g
 
+### Convert between line terminators
+
+    :set ff=unix
+    :set ff=dos
