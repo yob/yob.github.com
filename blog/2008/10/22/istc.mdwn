@@ -1,0 +1,41 @@
+[[!meta date="2008-10-22"]]
+
+The [International Standard Text
+Number](http://en.wikipedia.org/wiki/International_Standard_Text_Code) (ISTC)
+is a new ISO standard for identifying textual works.
+
+Where an ISBN is used to identify a particular version of a textual work, the
+ISTC will be be identical across all versions. There are many versions (and
+therefore ISBNs) of Harry Potter and the Half Blood Price, but there will be a
+single ISTC for all of them.
+
+This should make it easier for companies like the one I work for to identify
+alternate versions, improve product recommendations and track sales trends.
+
+It's likely we won't start seeing them in the wild until sometime in 2009, but
+I've been exploring how they work and have created a rubygem for working with
+them.
+
+Installation is easy:
+
+    gem install istc
+
+And so is using it:
+
+    ISTC.new("0A9200800000007C").valid?
+    => true
+
+    ISTC.valid?("0A9200800000007C")
+    => true
+
+    ISTC.valid?("0A9200800000007B")
+    => false
+
+    ISTC.complete?("0A9200800000007")
+    => "0A9200800000007C"
+
+    ISTC.new("0A9200800000007").to_s
+    => "0A9-2008-00000007-C"
+
+The source is on github: [https://github.com/yob/istc/tree](https://github.com/yob/istc/tree)
+The gem is in my misc gems rubyforge project: [http://rubyforge.org/projects/yob-projects/](http://rubyforge.org/projects/yob-projects/)
