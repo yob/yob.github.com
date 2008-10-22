@@ -6,7 +6,7 @@ is a new ISO standard for identifying textual works.
 
 Where an ISBN is used to identify a particular version of a textual work, the
 ISTC will be be identical across all versions. There are many versions (and
-therefore ISBNs) of Harry Potter and the Half Blood Price, but there will be a
+therefore ISBNs) of Harry Potter and the Half Blood Prince, but there will be a
 single ISTC for all of them.
 
 This should make it easier for companies like the one I work for to identify
