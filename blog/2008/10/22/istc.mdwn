@@ -1,7 +1,7 @@
 [[!meta date="2008-10-22"]]
 
 The [International Standard Text
-Number](http://en.wikipedia.org/wiki/International_Standard_Text_Code) (ISTC)
+Code](http://en.wikipedia.org/wiki/International_Standard_Text_Code) (ISTC)
 is a new ISO standard for identifying textual works.
 
 Where an ISBN is used to identify a particular version of a textual work, the
