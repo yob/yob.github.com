@@ -37,5 +37,5 @@ And so is using it:
     ISTC.new("0A9200800000007").to_s
     => "0A9-2008-00000007-C"
 
-The source is on github: [https://github.com/yob/istc/tree](https://github.com/yob/istc/tree)
-The gem is in my misc gems rubyforge project: [http://rubyforge.org/projects/yob-projects/](http://rubyforge.org/projects/yob-projects/)
+- The source is on github: [https://github.com/yob/istc/tree](https://github.com/yob/istc/tree)
+- The gem is in my misc gems rubyforge project: [http://rubyforge.org/projects/yob-projects/](http://rubyforge.org/projects/yob-projects/)
