@@ -1,0 +1,45 @@
+[[!meta date="2008-11-03"]]
+
+Why stop at two post on IDs, here's a third.
+
+The [cuecat](http://en.wikipedia.org/wiki/Cuecat) is a cheap "wand" style
+barcode scanner with an semi-interesting history. The end of the story is that
+the company went bust, and they're now fairly cheaply available.
+
+I got one for ~AU$30 from
+[librarything.com](http://www.librarything.com/wiki/index.php/CueCat:_ISBNs_and_Barcodes).
+I work with books, and real barcode scanners cost an arm and a leg, so I
+justified it as a useful work expense.
+
+It's USB, and appears as a keyboard to the computer, so no special drivers are
+required. The one hiccup is that it returns an obfuscated code. No worries, the
+decoding algorithm is simple and available all over the net.
+
+Here's a ruby version:
+
+    gem install cuecat
+
+Is the code from a cuecat?
+
+    puts CueCat.valid?(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
+    => true
+
+Is the code an obfuscated EAN13?
+
+    puts CueCat.ean?(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
+    => true
+
+Extract more detail from the code:
+
+    code = CueCat.new(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
+    puts code.code_type
+
+    => "IBN"
+    puts code.id
+
+    => "000000005112157601"
+    puts code.value
+    => "978184354916"
+
+API look familiar? It's more or less the same as my oodles of [other ID
+gems](http://yob.id.au/blog/2008/10/23/barrage_of_new_gems/).
