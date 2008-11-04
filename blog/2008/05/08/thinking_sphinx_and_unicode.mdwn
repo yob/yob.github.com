@@ -166,3 +166,7 @@ Futher Reading:
 
 - [Sphinx](http://www.sphinxsearch.com/)
 - [Searching database content with Sphinx](http://www.linux.com/feature/118721)
+
+Update, 23rd September 2008:
+- Thanks to an email from [David Krmpotic](http://www.davidkrmpotic.com/), I've
+  added a few missing entries to the mapping list.
