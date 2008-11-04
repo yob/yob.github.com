@@ -33,11 +33,11 @@ Extract more detail from the code:
 
     code = CueCat.new(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
     puts code.code_type
-
     => "IBN"
-    puts code.id
 
+    puts code.id
     => "000000005112157601"
+
     puts code.value
     => "978184354916"
 
