@@ -5,7 +5,9 @@ for rails that warns you if you've loaded an out of date gem.
 
 It's a non fatal warning, just a reminder that it might be worthwhile upgrading.
 
-I still use the fragment, but have updated it to support rails 2.2+.
+I still use the fragment, but have updated it to support rails 2.2+. To use it,
+just drop the code into a file in the config/initializers directory of your
+app.
 
     # *************************************
     # A handy initiliser that logs when the loaded version of
