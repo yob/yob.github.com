@@ -1,0 +1,80 @@
+[[!meta date="2008-11-26"]]
+
+I've been meaning to give jruby a trial for some time, and [this
+artilce](http://syntatic.wordpress.com/2008/11/25/the-closet-jrubyists/)
+finally gave me the motivation I needed.
+
+I'm no "enterprise" ruby user, but I do have an interesting in alternative
+implementations and the future of Ruby, so keeping up with developments seems
+like a sensible idea.
+
+I run Debian on most of my personal and production systems, and as luck would
+have it, jruby1.1 has been available in Debian unstable since late October.
+
+Installing jruby was easy:
+
+    sudo aptitude install sun-java6-bin sun-java6-jre
+    sudo aptitude install jruby1.1
+
+This installs the core files to /usr/lib/jruby1.1
+
+/usr/bin/jruby1.1 is symlinked to the binary available under /usr/lib/jruby1.1,
+but I like to have a non versioned binary name as well.
+
+    sudo ln -s /usr/lib/jruby1.1/bin/jruby /usr/bin/jruby
+
+Working with gems was also fairly painless:
+
+    sudo jruby -S gem install prawn
+
+Unfortunately the version of jruby currently in Debian only has rubygems 1.2,
+and since I wanted to explore rails 2.2, I had to upgrade:
+
+    sudo jruby -S gem install rubygems-update
+    sudo jruby -S update_rubygems
+    sudo jruby -S gem install rails
+
+A common way to deploy rails under jruby seems to be with the glassfish
+application server, so I installed that. It uses rack to serve rails, so that
+was added to the list as well.
+
+    sudo jruby -S gem install glassfish rack
+
+Next up, building and starting a rails app:
+
+    sudo jruby -S rails glassfishtest
+    cd glassfishtest
+    /usr/lib/jruby1.1/lib/ruby/gems/1.8/gems/glassfish-0.9.1-universal-java/bin/glassfish_rails -n 2
+
+The output to stdout was typically verbose, but after hunting for a while I
+found 2 errors. 
+
+The first was "java.lang.InternalError: One of the management beans is not
+compliant.". A bit of googling turned up [a
+solution](http://justinmaccarthy.org/?p=109): remove these packages:
+java-gcj-compat java-gcj-compat-headless.
+
+The second was "the domain directory is not writable". There was a [bug
+report](https://glassfish.dev.java.net/issues/show_bug.cgi?id=5093) on the
+glassfish site that pointed to the issue - a directory inside the glassfish gem
+dir needs to be writeable by the user running glassfish. A quick chmod ugo+rw
+on the dir stopped the error, although it's not really a solution.
+
+To make things easy for myself, I disabled active record by adding the following
+line to my config/environment.rb file:
+
+    config.frameworks -= [ :active_record ]
+
+Obviously most real world apps will use active record, but at this stage of my JRuby career,
+baby steps are the order of the day.
+
+With that fixed, rails loaded as expected. A default route, controller action
+and view later, I was serving up my first page from Rails under JRuby.
+
+
+***********************
+Notes
+***********************
+works:
+- jruby ./script/server
+uses webrick, probably slow
