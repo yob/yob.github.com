@@ -4,4 +4,4 @@
 * [[contact]]
 * [[where_to_find_me|stalker]]
 
-[[pagestats pages="tags/*"]]
+[[!pagestats pages="tags/*"]]
