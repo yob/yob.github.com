@@ -1,6 +1,6 @@
 [[!meta date="2009-02-27"]]
 
-Last year I [shared a short initialiser fragment](/blog/2008/6/23/outdated_gems_under_rails)
+Last year I [shared a short initialiser fragment](/blog/2008/06/23/outdated_gems_under_rails)
 for rails that warns you if you've loaded an out of date gem.
 
 It's a non fatal warning, just a reminder that it might be worthwhile upgrading.
