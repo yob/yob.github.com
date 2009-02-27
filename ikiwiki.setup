@@ -169,7 +169,7 @@ use IkiWiki::Setup::Standard {
 
 	# htmlscrubber plugin
 	# PageSpec specifying pages not to scrub
-	#htmlscrubber_skip => '!*/Discussion',
+htmlscrubber_skip => '*',
 
 	# inline plugin
 	# enable rss feeds by default?
