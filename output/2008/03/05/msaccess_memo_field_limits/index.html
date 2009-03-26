@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: MS Access Field Limits</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>MS Access Field Limits</h1>
+<p>One small part of my current job involves maintaining a legacy MS Access XP
+database, and I recently ran into an issue that caused some consternation.</p>
+
+<p>In all the documentation I could find, the maximum length of a Memo field was
+64K when the data was entered via the UI, and 1Gb when entered
+programatically. However the app was raising an error when I tried to insert
+more than 64K programatically. The field in question was in a linked table,
+with the actual table residing inside another access database.</p>
+
+<p>The error I was getting was "Error 3035 - system resource exceeded".</p>
+
+<p>I used the following VBA method to test the theory. Most functions in the 
+database use the old <a href="http://en.wikipedia.org/wiki/Data_Access_Objects">DAO</a>
+instead of <a href="http://en.wikipedia.org/wiki/ActiveX_Data_Objects">ADO</a> for legacy
+reasons. We haven't had enough reason to go through the pain of switching
+everything to ADO as yet. The error is raised by the db.Execute line.</p>
+
+<pre><code>Sub testMemoSizeLimit()
+  Dim db As Database
+  Dim rs As Recordset
+  Dim sql As String
+  Dim i As Long
+
+  Set db = CurrentDb()
+
+  i = 0
+  sql = "INSERT INTO mailQueue(bodyText) VALUES("""
+
+  While i &lt; 70000
+    sql = sql &amp; "a"
+    i = i + 1
+  Wend
+
+  sql = sql &amp; """)"
+
+  db.Execute sql, dbFailOnError
+  db.close
+End Sub
+</code></pre>
+
+<p>By switching the test function over to ADO, I can now insert more than 64K into my memo field.</p>
+
+<pre><code>Sub testMemoSizeLimitADO()
+  Dim db As ADODB.Connection
+
+  Dim sql As String
+  Dim i As Long
+
+  Set db = New ADODB.Connection
+  db.Open "Provider='Microsoft.JET.OLEDB.4.0';Data Source='c:\database.mdb';"
+
+  i = 0
+  sql = "INSERT INTO mailQueue(bodyText) VALUES("""
+
+  While i &lt; 70000
+    sql = sql &amp; "a"
+    i = i + 1
+  Wend
+
+  sql = sql &amp; """)"
+
+  db.Execute sql, dbFailOnError
+  db.close
+End Sub
+</code></pre>
+
+<p>The lesson? Use <a href="http://en.wikipedia.org/wiki/ActiveX_Data_Objects">ADO</a> whenever possible.</p>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

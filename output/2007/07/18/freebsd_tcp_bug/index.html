@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: FreeBSD TCP Bug</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>FreeBSD TCP Bug</h1>
+<p>We found an interesting bug in the FreeBSD 6.2 TCP stack at work this week. Full details are available in <a href="http://lists.freebsd.org/pipermail/freebsd-net/2007-July/014780.html">this thread</a> on the freebsd-net mailing list, but essentially it caused the initial congestion window on the majority of connections to start at 1 segment size instead of 3 as recommended by RFC 3390.</p>
+
+<p>With most hosts using delayed ACKs these days, a starting window of 1 segment means there will be a pause while the other end waits for a second packet or a timer expiry before sending an ACK. If the receiving host is FreeBSD the pause defaults to 100ms - it may differ on other systems.</p>
+
+<p>For short flows (web, email, etc), 100ms is a significant amount of time for there to be no data transfer - particularly on a low RTT link like a LAN.</p>
+
+<p>The bug was fixed a few months ago for FreeBSD 6.3 and 7.0, but from a quick check of the CVS logs it's existed since at least the 4.X days.</p>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

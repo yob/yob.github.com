@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: An EventMachine based FTP Server</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>An EventMachine based FTP Server</h1>
+<h3>The short version</h3>
+
+<p>I've released a demo of an FTP server for ruby, built on the EventMachine library.</p>
+
+<p>Check it out here: <a href="http://github.com/yob/em-ftpd/tree">http://github.com/yob/em-ftpd/tree</a></p>
+
+<h3>The full version</h3>
+
+<p>Inside our little web 2.0 bubble we all get very excited about shiny things
+like REST, web services and open JSON APIs, so it's easy to forget in the
+business world with many trading partners and legacy systems, a technology that
+works tends to hang around for an awfully long time.</p>
+
+<p>In the supply chain world, the most common way I've encountered for electronic
+trading between businesses (submitting orders, receiving invoices, etc) is over
+good 'ole <a href="http://tools.ietf.org/rfc/rfc959.txt">FTP</a>.</p>
+
+<p>Yes, it's old and insecure. However it's also simple, well understood, has
+plenty of library support and is now embedded in inventory management software
+all over the place. You work with what you've got.</p>
+
+<p>For a few years I've maintained a custom FTP server for a client. It accepts
+uploaded orders from their customers, translates them to a format the clients
+system can understand and saves a copy to a outbox folder. Every few hours the
+clients inventory software connects and downloads the orders directly into
+their system. It's hardly a high traffic site, maybe 20 transfers a day, all
+small text files.</p>
+
+<p>The server was a small ruby daemon, based on the
+<a href="http://rubyforge.org/projects/ftpd/">ftpd.rb</a> script published by Chris
+Wanstrath, and it performed admirably. Recently I was asked to add some new
+features, and I realised over the years the code had turned into 800 lines of
+spaghetti. A rewrite was in order.</p>
+
+<p>At the same time a few fellow Australian Rubyist's had been <a href="http://gist.github.com/81523/">playing
+around</a> with
+<a href="http://rubyeventmachine.com/">EventMachine</a>, a library that claims to help
+produce highly scalable network code. Scalability wasn't my issue, but the
+examples I could see looked alarmingly clean and simple for network socket
+based applications. Best of all, there was no need to involve threads, the arch
+nemesis of maintainable code.</p>
+
+<p>Clean and simple was the goal of my rewrite. Bingo.</p>
+
+<p>It took a little while to come to a working solution, mainly because I found
+few public EventMachine samples that indicated how to open multiple sockets and
+share data between them. It turned out to be possible and my rewritten server
+went into production a few days ago.</p>
+
+<p>There was no point asking this client to release their new server as open
+source, it's fairly specific to their needs. However I was keen to provide a
+public demo of an EventMachine based FTP server, so I've published a new
+demo script on github:
+<a href="http://github.com/yob/em-ftpd/tree">http://github.com/yob/em-ftpd/tree</a></p>
+
+<p>It's not particularly useful as a real FTP server - it hard codes the
+authentication tokens and provides a simulated directory structure. Hopefully
+it proves interesting or useful to someone out there though - as a basis for their
+own custom FTP server or some other multi-socket protocol.</p>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

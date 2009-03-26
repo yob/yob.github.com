@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: Outdated Gems Under Rails</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Outdated Gems Under Rails</h1>
+<p>I'm a fan of the new <a href="http://railscasts.com/episodes/110">gem dependency</a>
+feature added to Rails 2.1 and have started using it where possible.</p>
+
+<p>Locking the app to a particular version is the right thing to do - loading the
+most recent version is just asking for trouble. What happens when your
+development and production boxes have different gem versions, or when the gem
+maintainer introduces an API incompatible change?</p>
+
+<p>I have a few apps in production though, and often forget what gem versions
+I've locked the app to, and therefore don't realise when it's loading an out of
+date version. An out of date gem isn't a huge issue, but there might be new 
+features that are useful, or fixed bugs that I hadn't noticed.</p>
+
+<p>I've put together a <a href="/files/check_gem_versions.rb">little initializer</a> that checks all
+the gems I've loaded when the rails app starts, and logs a notice to let me
+know if it's out of date. It's non fatal - sometimes there are gems where I
+want to be using an old version, but it's nice to be reminded that it might be
+worth upgrading.</p>
+
+<pre><code># *************************************
+# A handy initilizer that logs when the loaded version of
+# Rails or a gem dependency is out of date. The notice is
+# non-fatal (often we want it to be out of date). I often
+# forget which version of a gem my apps are using, and 
+# don't notice when there is a newer version available.
+#
+# Only really makes sense on Rails &gt;= 2.1, where initializers
+# and gem dependencies first appeared. Drop this file in
+# config/initializers/
+#
+# James Healy
+# 23rd June 2008
+# *************************************
+
+outdated = []
+
+# *************************************
+# check the current version of Rails to see if it's the latest
+# *************************************
+max_rails_gem = Gem.cache.search('rails').map(&amp;:version).map(&amp;:version).max
+
+if max_rails_gem &amp;&amp; (Rails::VERSION::STRING &lt; max_rails_gem)
+  outdated &lt;&lt; {:name =&gt; "rails", :loaded =&gt; Rails::VERSION::STRING, :max =&gt; max_rails_gem}
+end
+
+# *************************************
+# check the current version of all required gems to see if they're the latest
+# *************************************
+Rails.configuration.gems.each do |gem|
+  name = gem.name
+  loaded_version = gem.version.to_s
+  max_gem_version = Gem.cache.search(name).map(&amp;:version).map(&amp;:version).max
+
+  if max_gem_version &amp;&amp; (loaded_version &lt; max_gem_version)
+    outdated &lt;&lt; {:name =&gt; name, :loaded =&gt; loaded_version, :max =&gt; max_gem_version}
+  end
+end
+
+# *************************************
+# print notices 
+# *************************************
+unless outdated.empty?
+  logger = RAILS_DEFAULT_LOGGER
+  logger.info 
+  logger.info "*******************************"
+  outdated.each do |w|
+    logger.info "NOTICE: #{w[:name]} version #{w[:loaded]} is not the most recent version of rails available on the system (#{w[:max]})"
+  end
+  logger.info "*******************************"
+  logger.info 
+end
+</code></pre>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

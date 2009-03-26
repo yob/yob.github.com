@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: Thinking Sphinx and Unicode</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Thinking Sphinx and Unicode</h1>
+<p>For a major project at my current day job, we're using the excellent <a href="http://ts.freelancing-gods.com">Thinking
+Sphinx</a> Ruby on Rails plugin to provide speedy
+and useful search functionality.</p>
+
+<p>The Thinking Sphinx developer has an introduction <a href="http://freelancing-gods.com/posts/sphinx_a_primer">over on his
+blog</a> but here's the
+condensed version. Sphinx is a separate daemon that runs on your system which
+indexes a range of attributes and fields back to an integer 'document id'. In
+Rails terms, this means it can index 1 or more of your model attributes to the
+model id.</p>
+
+<p>What's the point when you can just do an find() call on the model and let the
+database do the searching? Sphinx is blindingly fast (even with very large
+datasets), it can sort by relevance, and it can sort across models.</p>
+
+<p>There are three characteristic of our current project that recently made me
+delve into some of the complexities of sphinx.</p>
+
+<ul>
+<li>Our main database was carefully constructed to be utf-8 encoded</li>
+<li>The database primarily contains data on books. Generally English language, but plenty of the titles and authors have non English characters in them</li>
+<li>Our office is in Australia, so all our users have English language keyboards</li>
+</ul>
+
+<p>Say we have an author whose name is "Alex Čihař". Authors keep us in business,
+so we'd prefer to keep them happy. Therefore, mangling their name on our
+promotional material is probably something to avoid, so we store Alex's name in
+our database accents and all and give ourselves a pat on the back.</p>
+
+<p>Then one of our clients calls customer service and asks for a copy of the new
+book from Mr Čihař. Our staff member does their best with the keyboard at hand
+and searches the system for "Alex Cihar".</p>
+
+<p>I bet you can see where this is going. No results.</p>
+
+<p>The trick here is to use a thing called character folding. The Unicode
+consortium have a <a href="http://unicode.org/reports/tr30/">technical report</a> on the
+topic if you feel like some bedtime reading. The long and the short of it is that
+in our particular environment, we wanted all of the following characters to be
+equivalent when searching: C c Ć ć Ĉ ĉ Ċ ċ Č č, and much the same for the
+accented versions of all the other latin-ish looking characters.</p>
+
+<p>Lucky for us, Sphinx has a feature called
+<a href="http://www.sphinxsearch.com/doc.html#conf-charset-table">charset_table</a> for
+just this situation. It's purpose in life is to map one Unicode character to
+another and make them functionally equivalent in the indexes.</p>
+
+<p>With some processing of a <a href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">CSV
+file</a> provided by the
+Unicode consortium, it was possible to build a reasonable value for the
+charset_table option.</p>
+
+<p>In Thinking Sphinx, it should go into your config/sphinx.yml file (with no line
+breaks):</p>
+
+<pre><code>development:
+  allow_star: true
+  charset_table: "0..9, a..z, _, A..Z-&gt;a..z, U+00C0-&gt;a, U+00C1-&gt;a,
+    U+00C2-&gt;a, U+00C3-&gt;a, U+00C4-&gt;a, U+00C5-&gt;a, U+00C7-&gt;c, U+00C8-&gt;e,
+    U+00C9-&gt;e, U+00CA-&gt;e, U+00CB-&gt;e, U+00CC-&gt;i, U+00CD-&gt;i, U+00CE-&gt;i,
+    U+00CF-&gt;i, U+00D1-&gt;n, U+00D2-&gt;o, U+00D3-&gt;o, U+00D4-&gt;o, U+00D5-&gt;o,
+    U+00D6-&gt;o, U+00D9-&gt;u, U+00DA-&gt;u, U+00DB-&gt;u, U+00DC-&gt;u, U+00DD-&gt;y,
+    U+00E0-&gt;a, U+00E1-&gt;a, U+00E2-&gt;a, U+00E3-&gt;a, U+00E4-&gt;a, U+00E5-&gt;a,
+    U+00E7-&gt;c, U+00E8-&gt;e, U+00E9-&gt;e, U+00EA-&gt;e, U+00EB-&gt;e, U+00EC-&gt;i,
+    U+00ED-&gt;i, U+00EE-&gt;i, U+00EF-&gt;i, U+00F1-&gt;n, U+00F2-&gt;o, U+00F3-&gt;o,
+    U+00F4-&gt;o, U+00F5-&gt;o, U+00F6-&gt;o, U+00F9-&gt;u, U+00FA-&gt;u, U+00FB-&gt;u,
+    U+00FC-&gt;u, U+00FD-&gt;y, U+00FF-&gt;y, U+0100-&gt;a, U+0101-&gt;a, U+0102-&gt;a,
+    U+0103-&gt;a, U+0104-&gt;a, U+0105-&gt;a, U+0106-&gt;c, U+0107-&gt;c, U+0108-&gt;c,
+    U+0109-&gt;c, U+010A-&gt;c, U+010B-&gt;c, U+010C-&gt;c, U+010D-&gt;c, U+010E-&gt;d,
+    U+010F-&gt;d, U+0112-&gt;e, U+0113-&gt;e, U+0114-&gt;e, U+0115-&gt;e, U+0116-&gt;e,
+    U+0117-&gt;e, U+0118-&gt;e, U+0119-&gt;e, U+011A-&gt;e, U+011B-&gt;e, U+011C-&gt;g,
+    U+011D-&gt;g, U+011E-&gt;g, U+011F-&gt;g, U+0120-&gt;g, U+0121-&gt;g, U+0122-&gt;g,
+    U+0123-&gt;g, U+0124-&gt;h, U+0125-&gt;h, U+0128-&gt;i, U+0129-&gt;i, U+012A-&gt;i,
+    U+012B-&gt;i, U+012C-&gt;i, U+012D-&gt;i, U+012E-&gt;i, U+012F-&gt;i, U+0130-&gt;i,
+    U+0134-&gt;j, U+0135-&gt;j, U+0136-&gt;k, U+0137-&gt;k, U+0139-&gt;l, U+013A-&gt;l,
+    U+013B-&gt;l, U+013C-&gt;l, U+013D-&gt;l, U+013E-&gt;l, U+0143-&gt;n, U+0144-&gt;n,
+    U+0145-&gt;n, U+0146-&gt;n, U+0147-&gt;n, U+0148-&gt;n, U+014C-&gt;o, U+014D-&gt;o,
+    U+014E-&gt;o, U+014F-&gt;o, U+0150-&gt;o, U+0151-&gt;o, U+0154-&gt;r, U+0155-&gt;r,
+    U+0156-&gt;r, U+0157-&gt;r, U+0158-&gt;r, U+0159-&gt;r, U+015A-&gt;s, U+015B-&gt;s,
+    U+015C-&gt;s, U+015D-&gt;s, U+015E-&gt;s, U+015F-&gt;s, U+0160-&gt;s, U+0161-&gt;s,
+    U+0162-&gt;t, U+0163-&gt;t, U+0164-&gt;t, U+0165-&gt;t, U+0168-&gt;u, U+0169-&gt;u,
+    U+016A-&gt;u, U+016B-&gt;u, U+016C-&gt;u, U+016D-&gt;u, U+016E-&gt;u, U+016F-&gt;u,
+    U+0170-&gt;u, U+0171-&gt;u, U+0172-&gt;u, U+0173-&gt;u, U+0174-&gt;w, U+0175-&gt;w,
+    U+0176-&gt;y, U+0177-&gt;y, U+0178-&gt;y, U+0179-&gt;z, U+017A-&gt;z, U+017B-&gt;z,
+    U+017C-&gt;z, U+017D-&gt;z, U+017E-&gt;z, U+01A0-&gt;o, U+01A1-&gt;o, U+01AF-&gt;u,
+    U+01B0-&gt;u, U+01CD-&gt;a, U+01CE-&gt;a, U+01CF-&gt;i, U+01D0-&gt;i, U+01D1-&gt;o,
+    U+01D2-&gt;o, U+01D3-&gt;u, U+01D4-&gt;u, U+01D5-&gt;u, U+01D6-&gt;u, U+01D7-&gt;u,
+    U+01D8-&gt;u, U+01D9-&gt;u, U+01DA-&gt;u, U+01DB-&gt;u, U+01DC-&gt;u, U+01DE-&gt;a,
+    U+01DF-&gt;a, U+01E0-&gt;a, U+01E1-&gt;a, U+01E6-&gt;g, U+01E7-&gt;g, U+01E8-&gt;k,
+    U+01E9-&gt;k, U+01EA-&gt;o, U+01EB-&gt;o, U+01EC-&gt;o, U+01ED-&gt;o, U+01F0-&gt;j,
+    U+01F4-&gt;g, U+01F5-&gt;g, U+01F8-&gt;n, U+01F9-&gt;n, U+01FA-&gt;a, U+01FB-&gt;a,
+    U+0200-&gt;a, U+0201-&gt;a, U+0202-&gt;a, U+0203-&gt;a, U+0204-&gt;e, U+0205-&gt;e,
+    U+0206-&gt;e, U+0207-&gt;e, U+0208-&gt;i, U+0209-&gt;i, U+020A-&gt;i, U+020B-&gt;i,
+    U+020C-&gt;o, U+020D-&gt;o, U+020E-&gt;o, U+020F-&gt;o, U+0210-&gt;r, U+0211-&gt;r,
+    U+0212-&gt;r, U+0213-&gt;r, U+0214-&gt;u, U+0215-&gt;u, U+0216-&gt;u, U+0217-&gt;u,
+    U+0218-&gt;s, U+0219-&gt;s, U+021A-&gt;t, U+021B-&gt;t, U+021E-&gt;h, U+021F-&gt;h,
+    U+0226-&gt;a, U+0227-&gt;a, U+0228-&gt;e, U+0229-&gt;e, U+022A-&gt;o, U+022B-&gt;o,
+    U+022C-&gt;o, U+022D-&gt;o, U+022E-&gt;o, U+022F-&gt;o, U+0230-&gt;o, U+0231-&gt;o,
+    U+0232-&gt;y, U+0233-&gt;y, U+1E00-&gt;a, U+1E01-&gt;a, U+1E02-&gt;b, U+1E03-&gt;b,
+    U+1E04-&gt;b, U+1E05-&gt;b, U+1E06-&gt;b, U+1E07-&gt;b, U+1E08-&gt;c, U+1E09-&gt;c,
+    U+1E0A-&gt;d, U+1E0B-&gt;d, U+1E0C-&gt;d, U+1E0D-&gt;d, U+1E0E-&gt;d, U+1E0F-&gt;d,
+    U+1E10-&gt;d, U+1E11-&gt;d, U+1E12-&gt;d, U+1E13-&gt;d, U+1E14-&gt;e, U+1E15-&gt;e,
+    U+1E16-&gt;e, U+1E17-&gt;e, U+1E18-&gt;e, U+1E19-&gt;e, U+1E1A-&gt;e, U+1E1B-&gt;e,
+    U+1E1C-&gt;e, U+1E1D-&gt;e, U+1E1E-&gt;f, U+1E1F-&gt;f, U+1E20-&gt;g, U+1E21-&gt;g,
+    U+1E22-&gt;h, U+1E23-&gt;h, U+1E24-&gt;h, U+1E25-&gt;h, U+1E26-&gt;h, U+1E27-&gt;h,
+    U+1E28-&gt;h, U+1E29-&gt;h, U+1E2A-&gt;h, U+1E2B-&gt;h, U+1E2C-&gt;i, U+1E2D-&gt;i,
+    U+1E2E-&gt;i, U+1E2F-&gt;i, U+1E30-&gt;k, U+1E31-&gt;k, U+1E32-&gt;k, U+1E33-&gt;k,
+    U+1E34-&gt;k, U+1E35-&gt;k, U+1E36-&gt;l, U+1E37-&gt;l, U+1E38-&gt;l, U+1E39-&gt;l,
+    U+1E3A-&gt;l, U+1E3B-&gt;l, U+1E3C-&gt;l, U+1E3D-&gt;l, U+1E3E-&gt;m, U+1E3F-&gt;m,
+    U+1E40-&gt;m, U+1E41-&gt;m, U+1E42-&gt;m, U+1E43-&gt;m, U+1E44-&gt;n, U+1E45-&gt;n,
+    U+1E46-&gt;n, U+1E47-&gt;n, U+1E48-&gt;n, U+1E49-&gt;n, U+1E4A-&gt;n, U+1E4B-&gt;n,
+    U+1E4C-&gt;o, U+1E4D-&gt;o, U+1E4E-&gt;o, U+1E4F-&gt;o, U+1E50-&gt;o, U+1E51-&gt;o,
+    U+1E52-&gt;o, U+1E53-&gt;o, U+1E54-&gt;p, U+1E55-&gt;p, U+1E56-&gt;p, U+1E57-&gt;p,
+    U+1E58-&gt;r, U+1E59-&gt;r, U+1E5A-&gt;r, U+1E5B-&gt;r, U+1E5C-&gt;r, U+1E5D-&gt;r,
+    U+1E5E-&gt;r, U+1E5F-&gt;r, U+1E60-&gt;s, U+1E61-&gt;s, U+1E62-&gt;s, U+1E63-&gt;s,
+    U+1E64-&gt;s, U+1E65-&gt;s, U+1E66-&gt;s, U+1E67-&gt;s, U+1E68-&gt;s, U+1E69-&gt;s,
+    U+1E6A-&gt;t, U+1E6B-&gt;t, U+1E6C-&gt;t, U+1E6D-&gt;t, U+1E6E-&gt;t, U+1E6F-&gt;t,
+    U+1E70-&gt;t, U+1E71-&gt;t, U+1E72-&gt;u, U+1E73-&gt;u, U+1E74-&gt;u, U+1E75-&gt;u,
+    U+1E76-&gt;u, U+1E77-&gt;u, U+1E78-&gt;u, U+1E79-&gt;u, U+1E7A-&gt;u, U+1E7B-&gt;u,
+    U+1E7C-&gt;v, U+1E7D-&gt;v, U+1E7E-&gt;v, U+1E7F-&gt;v, U+1E80-&gt;w, U+1E81-&gt;w,
+    U+1E82-&gt;w, U+1E83-&gt;w, U+1E84-&gt;w, U+1E85-&gt;w, U+1E86-&gt;w, U+1E87-&gt;w,
+    U+1E88-&gt;w, U+1E89-&gt;w, U+1E8A-&gt;x, U+1E8B-&gt;x, U+1E8C-&gt;x, U+1E8D-&gt;x,
+    U+1E8E-&gt;y, U+1E8F-&gt;y, U+1E96-&gt;h, U+1E97-&gt;t, U+1E98-&gt;w, U+1E99-&gt;y,
+    U+1EA0-&gt;a, U+1EA1-&gt;a, U+1EA2-&gt;a, U+1EA3-&gt;a, U+1EA4-&gt;a, U+1EA5-&gt;a,
+    U+1EA6-&gt;a, U+1EA7-&gt;a, U+1EA8-&gt;a, U+1EA9-&gt;a, U+1EAA-&gt;a, U+1EAB-&gt;a,
+    U+1EAC-&gt;a, U+1EAD-&gt;a, U+1EAE-&gt;a, U+1EAF-&gt;a, U+1EB0-&gt;a, U+1EB1-&gt;a,
+    U+1EB2-&gt;a, U+1EB3-&gt;a, U+1EB4-&gt;a, U+1EB5-&gt;a, U+1EB6-&gt;a, U+1EB7-&gt;a,
+    U+1EB8-&gt;e, U+1EB9-&gt;e, U+1EBA-&gt;e, U+1EBB-&gt;e, U+1EBC-&gt;e, U+1EBD-&gt;e,
+    U+1EBE-&gt;e, U+1EBF-&gt;e, U+1EC0-&gt;e, U+1EC1-&gt;e, U+1EC2-&gt;e, U+1EC3-&gt;e,
+    U+1EC4-&gt;e, U+1EC5-&gt;e, U+1EC6-&gt;e, U+1EC7-&gt;e, U+1EC8-&gt;i, U+1EC9-&gt;i,
+    U+1ECA-&gt;i, U+1ECB-&gt;i, U+1ECC-&gt;o, U+1ECD-&gt;o, U+1ECE-&gt;o, U+1ECF-&gt;o,
+    U+1ED0-&gt;o, U+1ED1-&gt;o, U+1ED2-&gt;o, U+1ED3-&gt;o, U+1ED4-&gt;o, U+1ED5-&gt;o,
+    U+1ED6-&gt;o, U+1ED7-&gt;o, U+1ED8-&gt;o, U+1ED9-&gt;o, U+1EDA-&gt;o, U+1EDB-&gt;o,
+    U+1EDC-&gt;o, U+1EDD-&gt;o, U+1EDE-&gt;o, U+1EDF-&gt;o, U+1EE0-&gt;o, U+1EE1-&gt;o,
+    U+1EE2-&gt;o, U+1EE3-&gt;o, U+1EE4-&gt;u, U+1EE5-&gt;u, U+1EE6-&gt;u, U+1EE7-&gt;u,
+    U+1EE8-&gt;u, U+1EE9-&gt;u, U+1EEA-&gt;u, U+1EEB-&gt;u, U+1EEC-&gt;u, U+1EED-&gt;u,
+    U+1EEE-&gt;u, U+1EEF-&gt;u, U+1EF0-&gt;u, U+1EF1-&gt;u, U+1EF2-&gt;y, U+1EF3-&gt;y,
+    U+1EF4-&gt;y, U+1EF5-&gt;y, U+1EF6-&gt;y, U+1EF7-&gt;y, U+1EF8-&gt;y, U+1EF9-&gt;y"
+</code></pre>
+
+<p>This charset_table option is saying that: </p>
+
+<ul>
+<li>The characters 0->9, a->z and _ should be considered their usual values</li>
+<li>A should be considered equal to a</li>
+<li>M should be considered equal to m</li>
+<li>Unicode Codepoint U+00C0 (À) should be considered equal to a.</li>
+<li>Unicode Codepoint U+1EEC (Ử) should be considered equal to u.</li>
+<li>etc.</li>
+</ul>
+
+<p>Anything not listed in the table (ie. punctuation, Hebrew characters, Japanese
+characters) is considered white space and cannot be searched for. If
+punctuation is important to you, don't forget to add it in.</p>
+
+<p>If your not using Thinking Sphinx, then the value can go directly into your
+Sphinx config file under the appropriate index. Without Thinking Sphinx, you
+should also make sure that your index is set to utf-8 mode using the
+charset_type setting.</p>
+
+<p>Mr Čihař is happy, our customer is happy, and we don't lose a potential sale.
+Winners all around.</p>
+
+<p>Futher Reading:</p>
+
+<ul>
+<li><a href="http://www.sphinxsearch.com/">Sphinx</a></li>
+<li><a href="http://www.linux.com/feature/118721">Searching database content with Sphinx</a></li>
+</ul>
+
+<p>Update, 23rd September 2008:</p>
+
+<ul>
+<li>Thanks to an email from <a href="http://www.davidkrmpotic.com/">David Krmpotic</a>, I've
+added a few missing entries to the mapping list.</li>
+</ul>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

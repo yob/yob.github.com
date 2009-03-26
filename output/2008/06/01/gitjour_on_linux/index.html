@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>yob.id.au: Gitjour on linux</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml" />
+    <style type="text/css" media="screen">
+      * {
+        margin: 0;
+        padding: 0;
+      
+        font-family: Georgia, Palatino, Times, 'Times New Roman', sans-serif;
+      }
+      
+      body {
+        background: #fff;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      a:link,
+      a:visited {
+        color: #f30;
+      }
+      
+      a:hover {
+        color: #f90;
+      }
+      
+      #main {
+        position: absolute;
+      
+        top: 20px;
+        left: 280px;
+      
+        width: 500px;
+      }
+      
+      #main h1 {
+        font-size: 40px;
+        font-weight: normal;
+      
+        line-height: 40px;
+      
+        padding: 20px 0 20px 0;
+      
+        letter-spacing: -1px;
+      }
+      
+      #main p {
+        margin: 0 0 20px 0;
+        
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #main ul {
+        padding: 0 0 0 20px;
+      }
+      
+      #main li {
+        margin: 0 0 20px 0;
+      
+        list-style-type: square;
+      
+        font-size: 15px;
+        
+        line-height: 20px;
+      }
+      
+      #sidebar {
+        position: absolute;
+      
+        top: 40px;
+        left: 20px;
+        width: 200px;
+      
+        padding: 20px 20px 0 0;
+      
+        border-right: 1px solid #ccc;
+      
+        text-align: right;
+      }
+      
+      #sidebar h2 {
+        text-transform: uppercase;
+      
+        font-size: 13px;
+      
+        color: #333;
+      
+        letter-spacing: 1px;
+      
+        line-height: 20px;
+      }
+      
+      #sidebar ul {
+        list-style-type: none;
+      
+        margin: 20px 0;
+      }
+      
+      #sidebar li {
+        font-size: 14px;
+      
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Gitjour on linux</h1>
+<p>I just read about <a href="http://github.com/chad/gitjour/">gitjour</a> over on the
+<a href="http://github.com/blog/75-git-over-bonjour">github blog</a>, and naturally
+instantly wanted to try out such a cool idea. A similar project for bazaar
+<a href="http://blogs.gnome.org/jamesh/2008/02/19/bzr-avahi/">appeared earlier in the
+year</a>. I've been itching
+for a similar project for git ever since, but been too busy to look into it
+myself.</p>
+
+<p>Unfortunately it depends on the dnssd 0.6 gem, which was built for OSX and
+requires a tiny bit of massaging to get working under linux.</p>
+
+<p>Start by grabbing the dnssd 0.6 tarball from
+<a href="http://rubyforge.org/projects/dnssd/">rubyforge</a>.</p>
+
+<p>Unpack it, and apply this very <a href="/files/dnssd_linux.diff">simple patch</a>.</p>
+
+<pre><code>patch -p1 &lt; dnssd_linux.diff
+</code></pre>
+
+<p>Compile (but don't install) the extension:</p>
+
+<pre><code>ruby setup.rb config
+ruby setup.rb setup
+</code></pre>
+
+<p>Package the gem:</p>
+
+<pre><code>gem build dnssd_osx.gemspec
+</code></pre>
+
+<p>If this fails, make sure you have the avahi libdnssd compatibility library
+installed, and try again. On my Debian system, I needed the following 2
+packages:</p>
+
+<pre><code>aptitude install libavahi-compat-libdnssd1 libavahi-compat-libdnssd-dev
+</code></pre>
+
+<p>Essentially, dnssd binds to the Zeroconf/Bonjour library provided by Apple in
+OSX. On Linux the standard library used for Zeroconf is Avahi, but it provides
+a completely different API. The compatability layer lets Avahi pretend to be
+Apple's Bonjour library.</p>
+
+<p>Install the gem:</p>
+
+<pre><code>gem install dnssd-0.6.0.gem
+</code></pre>
+
+<p>Now you should be right to install the gijour gem. You could clone their
+repository on github if you like to live on the edge, but the code is in a
+high state of change and seems to be broken at the moment.</p>
+
+<pre><code>gem install gitjour
+</code></pre>
+
+<p>When using gitjour, you'll probably get a nice subtle warning about your use of
+the dnssd compatibility layer, but it should till work.</p>
+
+<pre><code>*** WARNING *** The program 'ruby1.8' uses the Apple Bonjour compatibility layer of Avahi.
+*** WARNING *** Please fix your application to use the native API of Avahi!
+*** WARNING *** For more information see &lt;http://0pointer.de/avahi-compat?s=libdns_sd&amp;e=ruby1.8&gt;
+</code></pre>
+    </div>
+    <div id="sidebar">
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/archive">archive</a></li>
+        <li><a href="/about">about</a></li>
+      </ul>
+      <h2>Syndication</h2>
+      <ul>
+        <li><a href="/atom/index.xml">atom</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

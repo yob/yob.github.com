@@ -1,0 +1,9 @@
+# Built-in
+filters_pre:
+- "bluecloth"
+
+# Custom 
+title: Telstra NextG and Linux
+kind: article
+created_at: "2008-05-22 20:15"
+tags: [ 'telstra', 'nextg', '3g', 'linux' ]

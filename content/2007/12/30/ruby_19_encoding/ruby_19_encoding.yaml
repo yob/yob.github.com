@@ -1,0 +1,9 @@
+# Built-in
+filters_pre:
+- "bluecloth"
+
+# Custom 
+title: Ruby 1.9 and Encodings
+kind: article
+created_at: "2007-12-30 00:00"
+tags: [ 'ruby', 'encoding', 'unicode', 'programming' ]
