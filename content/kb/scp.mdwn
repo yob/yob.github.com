@@ -1,1 +1,0 @@
-    scp <local_file> <user>@<remote_host>:<remote_file>

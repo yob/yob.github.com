@@ -1,9 +1,0 @@
-Can never remember the switches in a hurry...
-
-### tar
-
-    tar -cvzf <target> <files>
-
-### untar
-
-    tar -zxvf <target>

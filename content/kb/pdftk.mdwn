@@ -1,9 +1,0 @@
-## PDFTK
-
-### Combine PDF files
-
-    pdftk in1.pdf in2.pdf cat output out1.pdf
-
-### Compress a PDF
-
-    pdftk input.pdf output output.pdf compress

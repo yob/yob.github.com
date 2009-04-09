@@ -1,9 +1,0 @@
-### awk
-
-output the 7th and 15th word on each line (white space as word boundaries)
-
-    cat messages | awk '{ printf("%d\t%d\n",$7,$15)}' | less
-
-output the 7th and 15th word on each line (commas as word boundaries - csv)
-
-    cat messages | awk -F "," '{ printf("%d\t%d\n",$7,$15)}' | less

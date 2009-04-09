@@ -1,3 +1,0 @@
-## Listing processes and the daemon's they're managing
-
-    tasklist /svc

@@ -1,8 +1,0 @@
-## TCPDUMP Usage
-
-### Switches
-
--i <interface> - capture from this interface
--w <dump_file> - save dump to file
--s 0 - save entire packet, not just the start
--A - print each packet in ASCII to improce human readability

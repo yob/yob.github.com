@@ -1,5 +1,0 @@
-## Mutt
-
-tagging all duplicate messages in a folder:
-
-    T~=

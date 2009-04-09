@@ -1,5 +1,0 @@
-## du
-
-Show disk usage, but only include each hard link once.
-
-    du -shc <dirs>

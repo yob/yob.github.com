@@ -1,5 +1,0 @@
-If windows 98 boots without prompting for a username / password, even when part of a domain / AD, try deleting the following option from the registry:
-
-    HKEY_LOCAL_MACHINE/software/microsoft/windows/currentversion/network/real mode net/autologon
-
-[Microsoft KB Article](http://support.microsoft.com/kb/q141858/)

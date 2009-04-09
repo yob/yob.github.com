@@ -1,5 +1,0 @@
-## VMWare under Debian
-
-Use the vmware-package tool to convert the VMWare tar.gz files to debian packages.
-
-make-vmpkg -l <local revision number> --maintainer "James Healy <jimmy@deefa.com>" <path to the VMware tar.gz>
