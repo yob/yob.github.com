@@ -1,0 +1,7 @@
+# Built-in
+layout:
+extension: txt
+custom_path:  "/robots.txt"
+
+# Custom 
+
