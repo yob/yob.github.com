@@ -1,5 +1,5 @@
 # Built-in
-pre_filter:
+filters_pre:
 - "bluecloth"
 
 # Custom 
