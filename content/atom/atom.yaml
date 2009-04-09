@@ -5,3 +5,6 @@ filters_pre:
 - "erb"
 
 # Custom 
+title: yob.id.au
+author_name: "James Healy"
+author_uri: "http://yob.id.au"
