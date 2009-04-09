@@ -3,6 +3,7 @@ layout:
 extension: xml
 filters_pre:
 - "erb"
+custom_path:  "/atom.xml"
 
 # Custom 
 title: yob.id.au
