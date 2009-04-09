@@ -1,7 +1,0 @@
-* [[blog|index]]
-* [[code]]
-* [[kb]]
-* [[contact]]
-* [[where_to_find_me|stalker]]
-
-[[!pagestats pages="tags/*"]]
