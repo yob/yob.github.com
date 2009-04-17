@@ -102,3 +102,12 @@ a:hover {
   line-height: 20px;
 }
 
+.caption {
+  font-size: 0.875em;
+  line-height: 1.7143;
+  margin: 0;
+}
+
+a img {
+  border: 0px;
+}
