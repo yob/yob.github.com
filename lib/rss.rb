@@ -39,6 +39,7 @@ def rss_feed(params = {})
         xml.item do
           xml.title       a.title
           xml.link        url_for(a)
+          xml.guid        url_for(a)
           xml.description do
             xml.cdata! content_proc.call(a)
           end
