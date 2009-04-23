@@ -1,5 +1,11 @@
 <ul>
-  <% sorted_articles.each do |article|%>
-    <li><%= link_to article.title, article %></li>
+  <% articles_by_year.each do |year, articles|%>
+  <li><%=year%>
+    <ul>
+      <% articles.each do |article|%>
+        <li><%= link_to article.title, article %></li>
+      <% end%>
+    </ul>
+  </li>
   <% end%>
 </ul>
