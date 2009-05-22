@@ -1,0 +1,9 @@
+# Built-in
+filters_pre:
+- "bluecloth"
+
+# Custom 
+title: Sanitising ActiveRecord String Attributes
+kind: article
+created_at: "2009-05-22 17:30"
+tags: [ 'plugin', 'rails', 'activerecord', 'ruby' ]
