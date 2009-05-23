@@ -1,17 +1,12 @@
-Some time ago I realised that for the vast majority of string attributes on my
-ActiveRecord models, I want a blank string submitted by the user to be saved
-to the database as NULL. In addition, it would be nice to remove trailing white
-space. [Others](http://marklunds.com/articles/one/398) seem to
-[agree](http://www.webdevbros.net/2008/01/22/automatically-strip-attributes-of-an-activerecord-model/#more-148).
+For the vast majority of string attributes on my ActiveRecord models, I want a
+blank string submitted by the user to be saved to the database as NULL. I
+started writing a small Rails plugin to achieve my goal via a before_validation
+callback, but then found an existing plugin,
+Ryan McGeary's [StripAttributes](http://github.com/rmm5t/strip_attributes) that
+does the job just fine. As an added bonus it removes leading and trailing
+whitespace as well.
 
-I started writing a small Rails plugin to achieve my goal via a
-before_validation callback, but then found an existing
-plugin, [StripAttributes](http://github.com/rmm5t/strip_attributes) that did the job just fine.
-
-More recently I found some additional sanitation I needed to perform on the
-string attributes in a project.
-
-In the first case, I was processing a large volume of CSV data and creating new
+More recently I was processing a large volume of CSV data and creating new
 AR records. It turned out the data had some odd [ASCII control
 characters](http://asciitable.com/) in it (like 0x0B - vertical tab) that were
 causing grief elsewhere in the app.
@@ -47,7 +42,7 @@ The following bytes will be replaced with a standard space (0x20): 0x00, 0x01,
 
 Whilst I was making plugins based on StripAttributes, I made another that
 replaces various "smart quotes" with their ASCII equivalents. It's somewhat
-less useful than StripControlChars and will probably get me in trouble with
+more controversial than StripControlChars and will probably get me in trouble with
 typographers, but them's the breaks. It operates in the same way as
 StripControlChars, so doesn't really deserve its own blog post. Check it out on
 github: [DumbQuotes](https://github.com/yob/dumb_quotes)
