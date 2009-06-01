@@ -16,3 +16,7 @@ def articles_by_year
     [2007, articles_for_year(2007)]
   ]
 end
+
+def nice_date(date)
+  date.strftime("%d %b %Y")
+end
