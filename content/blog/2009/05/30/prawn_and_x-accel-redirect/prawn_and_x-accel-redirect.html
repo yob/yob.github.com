@@ -2,9 +2,9 @@
 library. [PrawnTo](http://www.cracklabs.com/prawnto) is a rails plugin that
 makes it dead easy to add PDF views to standard rails actions.
 
-However, I needed to generate a significant number of reports in an app I
-support and although Prawnto makes things simple I had a few requirements that
-meant it wasn't a good fit:
+I needed to generate a significant number of PDF reports in an app I support
+and although Prawnto makes things simple I had a few requirements that meant it
+wasn't a good fit:
 
 * I wanted to share my reports across several projects
 * I wanted to be able to generate PDFs in situations that weren't responses to
@@ -22,7 +22,7 @@ a similar feature called X-Sendfile that is roughly comparable.
 
 There are a number of steps involved in getting this technique running, so I
 will assume you are familiar with both Prawn, nginx and Rails. I have code
-snippets inline, or you can view a full smaple application at
+snippets inline, or you can view a full sample application at
 [github](https://github.com/yob/prawn-rails-xaccelredirect/tree).
 
 Start by editing your config/enviroment.rb file to add the following three
