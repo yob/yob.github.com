@@ -1,4 +1,5 @@
-pre { font: 12px/1.75em courier, monospace; background-color: #eeeeee; padding: 0 1.75em; margin: 1.75em 0; }
+pre { font: 14px/1.75em courier, monospace; background-color: #eeeeee; padding: 0 1.75em; margin: 1.75em 0; }
+pre code { font: 14px/1.75em courier, monospace;}
 pre .normal {}
 pre .comment { color: #005; }
 pre .keyword { color: #A00; }
