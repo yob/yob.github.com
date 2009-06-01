@@ -6,22 +6,24 @@ However, I needed to generate a significant number of reports in an app I
 support and although Prawnto makes things simple I had a few requirements that
 meant it wasn't a good fit:
 
-* I needed to share my reports across several projects
+* I wanted to share my reports across several projects
 * I wanted to be able to generate PDFs in situations that weren't responses to
   a HTTP request. For example, for attaching to an email or as part of a
   background job
 * I didn't want downloads of large PDFs to tie up one of my rails processes
 
 With these in mind I came up with an alternative (and slightly more complex)
-technique for using Prawn in my app. The key features are storing the reports
-in their own directory (to allow sharing between projects using git sub modlues)
-and using nginx's X-Accel-Redirect feature to let nginx handle streaming the 
-generated file to the client. You can read a little about this feature in the
-[nginx wiki](http://wiki.nginx.org//NginxXSendfile). Apache has a similar
-feature called X-Sendfile that is roughly comparable.
+technique for using Prawn in my app. The key features are storing the report
+definitions in their own directory (to allow sharing between projects using git
+sub modules) and using nginx's X-Accel-Redirect feature to let nginx handle
+streaming the generated file to the client. You can read a little about this
+feature in the [nginx wiki](http://wiki.nginx.org//NginxXSendfile). Apache has
+a similar feature called X-Sendfile that is roughly comparable.
 
-There are a number of steps involved in getting this technique running, so I 
-will assume you are familiar with both Prawn, nginx and Rails.
+There are a number of steps involved in getting this technique running, so I
+will assume you are familiar with both Prawn, nginx and Rails. I have code
+snippets inline, or you can view a full smaple application at
+[github](https://github.com/yob/prawn-rails-xaccelredirect/tree).
 
 Start by editing your config/enviroment.rb file to add the following three
 lines. The first tells Rails about the new directory we'll use to store our
@@ -98,10 +100,11 @@ need to modify it to suit your application.
         end
       end
     end
-    
+
 Next, we need to setup nginx to use the X-Accel-Redirect feature. Add the
 following four lines to your nginx config file, changing the path to point to
-your own rails app directory.
+your own rails app directory. For more information on this step, consult
+google. There's plenty of relevant information around.
 
     location /srv/rails/mypp/tmp/pdfs {
       internal;
@@ -110,7 +113,7 @@ your own rails app directory.
 
 To simplify using X-Accel-Redirect, add two helper methods to your
 ApplicationController:
- 
+
     def x_accel_pdf(path, filename)
       x_accel_redirect(path, :type => "application/pdf", :filename => filename)
     end
@@ -158,14 +161,16 @@ product, I've added it to the show action on my ProductsController.
     end
 
 The key lines for generating a report are:
- 
+
     report = ProductReport.new(@product)
     report.render
 
 I can call these lines any time I need to generate my ProductReport, whether it
-be in a controller action like here, a ActionMailer email, or a rake task.
+be in a controller action like here, a ActionMailer email, or a rake task. The
+output will be rendered to disk and I can retrieve the path by calling
+report.path.
 
-The interesting line for X-Accel-Redirect is:
+The key line for using X-Accel-Redirect is:
 
     x_accel_pdf(report.path, "product-#{@product.id}.pdf")
 
@@ -174,3 +179,8 @@ be streamed to the client by nginx instead of my rails app.
 
 The setup to all this is a little involved, but once it's in your app adding
 new reports is dead simple. A worthwhile tradeoff in my opinion.
+
+=== Troubleshooting
+
+The most likely problem you're likely to run into is misconfiguring nginx. For hints
+on what might be wrong, make sure you check out the nginx error log.
