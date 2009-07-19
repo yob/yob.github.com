@@ -1,0 +1,67 @@
+Ruby 1.9 marks every string with an encoding, and if you attempt to mix two
+strings with incompatible encodings, you'll be looking down the barrel of an
+unhandled exception.
+
+The encoding purist in me says this could be a good thing - maybe it will force
+developers to be more encoding aware. The harsh reality is that it may, but it
+hasn't yet. In the meantime, in my opinion it is the biggest stumbling block to
+ruby 1.9 becoming the mainstream ruby virtual machine.
+
+There are three places in Rails 2.3.2 where these encoding issues rear their
+head:
+
+* all strings in the params hash handed to rails by rack are marked as
+  ASCII-8BIT if they contain bytes > 0xF7
+* if you use MysQL, all string attributes of your models are marked as
+  ASCII-8BIT if they contain bytes > 0xF7
+* ERB templates are marked as ASCII-8BIT if they contain bytes > 0xF7
+
+If you've been following the recent trend of adding "encoding: utf8" to the top of
+all your source files, all the strings you directly create in your code will be
+marked as utf-8. Any attempt to combine these strings with a param, model attribute
+or ERB template, hello exception.
+
+There is a fix for the ERB issue in the Rails3 branch (but not 2.3.3) (visable
+on
+[github](http://github.com/rails/rails/commit/94911c7af7f2e1da0a23d64d2055b77bc1f6ece8)
+).
+
+I have a proposed patch the fixes the encodings of model attributes when using
+MySQL on [lighthouse](https://rails.lighthouseapp.com/projects/8994/tickets/2476-ascii-8bit-encoding-of-query-results-in-rails-232-and-ruby-191) .
+
+That leaves params. Until Rack sorts out what it's doing with param encoding, a relatively simple
+before filter in your ApplicationController can sanitise the encodings for you.
+
+Here's the before_filter I've been experimenting with (also available as a
+[gist](http://gist.github.com/149473) with extra comments):
+
+    class ApplicationController < ActionController::Base
+      before_filter :normalise_param_encodings
+
+      def normalise_param_encodings
+        return unless String.method_defined?(:force_encoding)
+
+        normalise_object_encoding(params)
+      end
+
+      def normalise_object_encoding(obj)
+        case obj
+        when String
+          unless obj.frozen?
+            obj.force_encoding(Encoding::UTF_8)
+            ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+            obj.replace(ic.iconv(obj + ' ')[0..-2])
+          end
+        when Array
+          obj.each { |o| normalise_object_encoding(o) }
+        when Hash
+          obj.each { |k,v| normalise_object_encoding(v) }
+        end
+      end
+    end
+
+It recursivly walks the param hash and marks any strings as UTF-8, then uses iconv
+to ensure each string is valid UTF-8. This should prevent any braindead browsers
+causing invalid data to end up in your database.
+
+The recursion is necesary to fix all submitted data, including form contents.
