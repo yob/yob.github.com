@@ -1,9 +1,0 @@
-# Built-in
-layout:
-extension: xml
-filters_pre:
-- "erb"
-custom_path:  "/sitemap.xml"
-
-# Custom 
-

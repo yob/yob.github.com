@@ -1,9 +1,0 @@
-# Built-in
-filters_pre:
-- "bluecloth"
-
-# Custom 
-title: Outdated Gems Under Rails (the second)
-kind: article
-created_at: "2009-02-27 22:53"
-tags: [ 'rubygems', 'rails', 'ruby' ]

@@ -1,7 +1,0 @@
-<% sorted_articles[0,5].each do |article|%>
-## <%= link_to article.title, article  %>
-<span class="article_date"><%= nice_date(article.created_at) %></span>
-<%= article.content %>
-
-<hr>
-<% end%>

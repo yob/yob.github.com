@@ -1,9 +1,0 @@
-# Built-in
-filters_pre:
-- "bluecloth"
-
-# Custom 
-title: Thinking Sphinx and Unicode
-kind: article
-created_at: "2008-05-08 19:20"
-tags: [ 'ruby', 'rails', 'sphinx', 'programming', 'unicode' ]

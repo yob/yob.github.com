@@ -1,9 +1,0 @@
-# Built-in
-filters_pre:
-- "bluecloth"
-
-# Custom 
-title: Gitjour on linux
-kind: article
-created_at: "2008-06-01 14:43"
-tags: [ 'bonjour', 'zeroconf', 'git', 'gitjour', 'avahi' ]
