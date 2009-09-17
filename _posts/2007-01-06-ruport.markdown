@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ## Ruport's Formatting System
 
 ## NOTE: THIS GUIDE IS FOR RUPORT 0.7. AND IT IS NOW OUT OF DATE.

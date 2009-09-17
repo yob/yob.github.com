@@ -1,3 +1,6 @@
+---
+layout: default
+---
 [SCTP](http://www.sctp.org/) (Stream Control Transmission Protocol) is an alternative to TCP that has been in development for several years and is starting to draw some attention to itself.
 
 Next week work is sending me on a 3 day SCTP training course and I've been having a poke at some sample code so I don't embarass myself when I get there. IBM has a [good introduction](http://www-128.ibm.com/developerworks/linux/library/l-sctp/index.html) with some C sample code that worked well enough on my linux 2.6.19 system. 

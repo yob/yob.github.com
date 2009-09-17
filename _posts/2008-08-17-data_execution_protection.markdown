@@ -1,3 +1,6 @@
+---
+layout: default
+---
 I was just bitten by a feature of recent Windows OS's that I hadn't encountered
 before: [Data Execution Protection](http://en.wikipedia.org/wiki/Data_Execution_Prevention).
 

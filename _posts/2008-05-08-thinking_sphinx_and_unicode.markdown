@@ -1,3 +1,6 @@
+---
+layout: default
+---
 For a major project at my current day job, we're using the excellent [Thinking
 Sphinx](http://ts.freelancing-gods.com) Ruby on Rails plugin to provide speedy
 and useful search functionality.

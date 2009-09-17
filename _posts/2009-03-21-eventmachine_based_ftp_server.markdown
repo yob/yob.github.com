@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ### The short version
 
 I've released a demo of an FTP server for ruby, built on the EventMachine library.

@@ -1,3 +1,6 @@
+---
+layout: default
+---
 I'm a fan of the new [gem dependency](http://railscasts.com/episodes/110)
 feature added to Rails 2.1 and have started using it where possible.
 

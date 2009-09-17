@@ -1,3 +1,6 @@
+---
+layout: default
+---
 I just read about [gitjour](http://github.com/chad/gitjour/) over on the
 [github blog](http://github.com/blog/75-git-over-bonjour), and naturally
 instantly wanted to try out such a cool idea. A similar project for bazaar

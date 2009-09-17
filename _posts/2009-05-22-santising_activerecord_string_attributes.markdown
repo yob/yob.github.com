@@ -1,3 +1,6 @@
+---
+layout: default
+---
 For the vast majority of string attributes on my ActiveRecord models, I want a
 blank string submitted by the user to be saved to the database as NULL. I
 started writing a small Rails plugin to achieve my goal via a before_validation

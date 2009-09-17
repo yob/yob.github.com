@@ -1,3 +1,6 @@
+---
+layout: default
+---
 Last year I [shared a short initialiser fragment](/blog/2008/06/23/outdated_gems_under_rails)
 for rails that warns you if you've loaded an out of date gem.
 

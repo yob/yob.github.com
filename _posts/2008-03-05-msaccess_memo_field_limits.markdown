@@ -1,3 +1,6 @@
+---
+layout: default
+---
 One small part of my current job involves maintaining a legacy MS Access XP
 database, and I recently ran into an issue that caused some consternation.
 

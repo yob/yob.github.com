@@ -1,3 +1,6 @@
+---
+layout: default
+---
 I've never been able to refresh all the keys in the GPG keyring stored on my Xen host with rimuhosting.com, only ever managing to get the following cryptic output:
 
     jh@gir:~$ gpg --refresh

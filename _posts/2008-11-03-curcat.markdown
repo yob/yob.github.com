@@ -1,3 +1,6 @@
+---
+layout: default
+---
 Why stop at two post on IDs, here's a third.
 
 The [cuecat](http://en.wikipedia.org/wiki/Cuecat) is a cheap "wand" style

@@ -1,3 +1,6 @@
+---
+layout: default
+---
 [Prawn](http://prawn.majesticseacreature.com/) is a pure Ruby PDF generation
 library. [PrawnTo](http://www.cracklabs.com/prawnto) is a rails plugin that
 makes it dead easy to add PDF views to standard rails actions.

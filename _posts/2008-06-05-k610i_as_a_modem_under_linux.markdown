@@ -1,3 +1,6 @@
+---
+layout: default
+---
 Last night I found myself a long way from an Internet connection and needing to
 check my email. I thought I'd finally try using my mobile phone (a 2 year old
 Sony Ericsson k610i) as a modem as 3G had recently been enabled in the area. My

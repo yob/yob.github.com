@@ -1,3 +1,6 @@
+---
+layout: default
+---
 Until recently, I was a happy occasional user of a coworkers Telstra NextG card
 on my Linux (Debian Unstable) laptop, thanks to this very [accurate
 guide](http://quozl.linux.org.au/bp3-usb/). The card I'm using is a PCCARD,

@@ -1,3 +1,6 @@
+---
+layout: default
+---
 The [International Standard Text
 Code](http://en.wikipedia.org/wiki/International_Standard_Text_Code) (ISTC)
 is a new ISO standard for identifying textual works.
