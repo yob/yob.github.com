@@ -1,1 +1,38 @@
-<%= xml_sitemap %>
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://yob.id.au</loc>
+    <lastmod>{{ site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://yob.id.au/about.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://yob.id.au/code.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://yob.id.au/posts.html</loc>
+    <lastmod>{{ site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{% for post in site.posts%}
+  <url>
+    <loc>http://yob.id.au{{ post.url }}</loc>
+    <lastmod>{{ site.time | date_to_xmlschema}}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+{% endfor %}
+</urlset>
