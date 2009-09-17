@@ -2,37 +2,65 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>yob.id.au: {{ page.title }}</title>
+    {% if page.title %}
+      <title>yob.id.au: {{ page.title }}</title>
+    {% else %}
+      <title>yob.id.au</title>
+    {% endif %}
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom/index.xml">
     <link rel="openid.server" href="http://www.livejournal.com/openid/server.bml">
     <link rel="openid.delegate" href="http://yobbbo.livejournal.com">
-    <link href="/stylesheets/nanoc.css" media="screen" rel="stylesheet" type="text/css">
-    <link href="/stylesheets/syntax.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/default.css" media="screen" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <div id="main">
-      <h1>{{ page.title }}</h1>
-{{ content }}
+    <div id="header">
+      <div class="site">
+        <h1>James Healy</h1>
+        <ul>
+          <li><a href="/">home</a></li>
+          <li><a href="/posts.html">posts</a></li>
+          <li><a href="/code.html">code</a></li>
+          <li><a href="/about.html">about</a></li>
+        </ul>
+      </div>
     </div>
-    <div id="sidebar">
-      <h2>Pages</h2>
-      <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/archive.html">archive</a></li>
-        <li><a href="/code.html">code</a></li>
-        <li><a href="/about.html">about</a></li>
-      </ul>
-      <h2>Syndication</h2>
-      <ul>
-        <li><a href="/index.rss">rss</a></li>
-        <li><a href="/index.atom">atom</a></li>
-      </ul>
-      <h2>about yob.id.au</h2>
-      <p>I'm James Healy, a developer from <a href="http://www.flickr.com/places/Australia/Victoria/Melbourne">Melbourne, Australia</a>.</p>
-      <p>I specialise at making websites, and prefer <a href="http://www.ruby-lang.org">Ruby</a> when it's appropriate.</p>
-      <p><a href="/about.html">Want more?</a></p>
+    <div id="main">
+      <div class="site">
+      {% if page.title %}
+        <h2>{{ page.title }}</h2>
+      {% endif %}
+{{ content }}
+      </div>
+    </div>
+    <div id="footer">
+      <div class="site">
+        <div class="footbox">
+          <h2>about yob.id.au</h2>
+          <p>I'm James Healy, a developer from <a href="http://www.flickr.com/places/Australia/Victoria/Melbourne">Melbourne, Australia</a>.</p>
+          <p>I specialise at making websites, and prefer <a href="http://www.ruby-lang.org">Ruby</a> when it's appropriate.</p>
+          <p><a href="/about.html">Want more?</a></p>
+        </div>
+        <div class="footbox">
+          <h2>Syndication</h2>
+          <ul>
+            <li><a href="/index.rss">rss</a></li>
+            <li><a href="/index.atom">atom</a></li>
+          </ul>
+        </div>
+        <div class="footbox">
+          <h2>Elsewhere</h2>
+          <ul>
+            <li><a href="http://twitter.com/yob_au">twitter</a></li>
+            <li><a href="http://github.com/yob">github</a></li>
+            <li><a href="http://delicious.com/yob">delicious</a></li>
+            <li><a href="http://flickr.com/photos/yob">flickr</a></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      </div>
     </div>
     <script type="text/javascript">
+    script type="text/javascript">
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
       document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     </script>

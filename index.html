@@ -1,11 +1,21 @@
 ---
 layout: default
 ---
+<h2>Posts</h2>
 <ul id="posts">
   {% for post in site.posts limit:10 %}
   <li>
-    <span class="article_date">{{ post.date | date_to_string }}</span>
-    <a href="{{post.url}}">{{ post.title }}</a>
+    <span class="article_date">{{ post.date | date_to_string }}</span> » <a href="{{post.url}}">{{ post.title }}</a>
   </li>
   {% endfor %}
+</ul>
+
+<h2>Projects</h2>
+<ul id="projects">
+  <li><a href="http://github.com/yob/abn">abn</a>A ruby library for working with Australian Busienss Numbers</li>
+  <li><a href="http://github.com/yob/ean13">ean13</a>A ruby library for working with EAN13 codes</li>
+  <li><a href="http://github.com/yob/em-ftpd">em-ftpd</a>A demo FTP server built on EventMachine</li>
+  <li><a href="http://github.com/yob/onix">onix</a>A ruby library for working with ONIX XML files</li>
+  <li><a href="http://github.com/yob/pdf-reader">pdf-reader</a>A ruby library for extracting data from PDF files</li>
+  <li>… <a href="/code.html">and more</a>…</li>
 </ul>

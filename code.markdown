@@ -1,8 +1,7 @@
 ---
 layout: default
+title: Code
 ---
-## Code
-
 By day (and occasionally at night) I'm a programmer with a penchant for Ruby. Here's a few of the projects I've released:
 
 * [RBook](http://rubyforge.org/projects/rbook) - A set of ruby libraries for working with bibliographic data
