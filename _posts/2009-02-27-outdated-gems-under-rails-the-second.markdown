@@ -10,6 +10,7 @@ I still use the fragment, but have updated it to support rails 2.2+. To use it,
 just drop the code into a file in the config/initializers directory of your
 app.
 
+{% highlight ruby %}
     # *************************************
     # A handy initiliser that logs when the loaded version of
     # Rails or a gem dependency is out of date. The notice is
@@ -66,3 +67,4 @@ app.
       logger.info "*******************************"
       logger.info 
     end
+{% endhighlight %}

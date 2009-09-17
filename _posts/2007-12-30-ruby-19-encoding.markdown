@@ -20,30 +20,37 @@ encodings, read Joel Spolsky's
 
 Consider the following UTF-8 string:
 
+{% highlight ruby %}
     str = "メインページ"
 
     str.encoding
     => #<Encoding:UTF-8>
+{% endhighlight %}
 
 The size method now returns the size of the string in characters, not bytes. To
 get the size in bytes, use the bytesize method.
 
+{% highlight ruby %}
     str.bytesize
     => 18
 
     str.size
     => 6
+{% endhighlight %}
 
 To check if the string contains only ASCII compatible characters, regardless of
 the encoding:
 
+{% highlight ruby %}
     str.ascii_only?
     => false
+{% endhighlight %}
 
 If Ruby has confused itself and has the wrong encoding recorded, you can
 forcibly fix it. The bytestream will not be modified, just ruby's understanding
 of what the stream represents.
 
+{% highlight ruby %}
     str.force_encoding("ASCII")
     => "\xE3\x83\xA1\xE3\x82\xA4\xE3\x83\xB3\xE3\x83\x9A\xE3\x83\xBC\xE3\x82\xB8" 
 
@@ -55,12 +62,14 @@ of what the stream represents.
 
     str.force_encoding("UTF-8")
     => "メインページ" 
+{% endhighlight %}
 
 Some encodings can be translated to others: the underlying bytestream will be
 changed to represent the same characters in the new encoding. The output of the
 following examples won't render correctly as your browser will be interpreting
 this page as UTF-8:
 
+{% highlight ruby %}
     str.encode!("Shift_JIS")
     => "���C���y�[�W"
     str.bytesize
@@ -75,6 +84,7 @@ this page as UTF-8:
     => "メインページ"
     str.bytesize
     => 18
+{% endhighlight %}
 
 If you try to encode a string into an encoding for which there are no
 equivalent characters (ie. a UTF-8 string with Hebrew characters into
@@ -82,17 +92,23 @@ Shift-JIS), then a runtime exception will be raised.
 
 To view the encodings available on the system:
 
+{% highlight ruby %}
     Encoding.list
     => [#<Encoding:ASCII-8BIT>, #<Encoding:EUC-JP>, #<Encoding:Shift_JIS>, #<Encoding:UTF-8>, #<Encoding:ISO-2022-JP (dummy)>]
+{% endhighlight %}
 
 To set the default encoding to use in your scripts, use the following magic comment on the first line (or second if the first starts with #!):
 
+{% highlight ruby %}
     # coding: utf-8
+{% endhighlight %}
 
 If you are reading in a file that is encoded differently to your default, you
 can specify what to use when opening it:
 
+{% highlight ruby %}
     File.open("/home/jh/downloads/UTF-8-demo.txt", "r:UTF-8") { |f| puts f.gets; puts f.gets; puts f.gets }
+{% endhighlight %}
 
 All this encoding sugar makes for a promising future for Ruby's international
 support. I see it being useful in a few of the libraries I maintain to ensure

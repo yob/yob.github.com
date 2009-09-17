@@ -11,6 +11,7 @@ Using the unix sockets API, and inspiration from a useful [DCCP](http://en.wikip
 
 Server:
 
+{% highlight ruby %}
     require "socket"
 
     # add some additional constants to the Socket class
@@ -38,9 +39,11 @@ Server:
       # close the socket
       socket.close
     end
+{% endhighlight %}
 
 Client:
 
+{% highlight ruby %}
     require "socket"
 
     # add some additional constants to the Socket class
@@ -67,6 +70,7 @@ Client:
 
     # close the socket
     client.close
+{% endhighlight %}
 
 To run the scripts, execute them using two terminals on the same machine. Under linux you will need to have the SCTP kernel module loaded, under FreeBSD i'm not sure what's required.
 

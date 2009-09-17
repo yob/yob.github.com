@@ -26,10 +26,13 @@ github and installed as a gem.
 
 Load the gem from your environment.rb file:
 
+{% highlight ruby %}
     config.gem 'strip_control_chars'
+{% endhighlight %}
 
 And add the macro to the models you want to use it with:
 
+{% highlight ruby %}
     class Product < ActiveRecord::Base
       strip_control_chars!
     end
@@ -37,6 +40,7 @@ And add the macro to the models you want to use it with:
     p = Product.create!(:name => "Some\x0BWidget")
     puts p.name
     => Some Widget
+{% endhighlight %}
 
 The following bytes will be replaced with a standard space (0x20): 0x00, 0x01,
 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x0B, 0x0C, 0x0E, 0x0F, 0x10, 0x11,

@@ -20,6 +20,7 @@ know if it's out of date. It's non fatal - sometimes there are gems where I
 want to be using an old version, but it's nice to be reminded that it might be
 worth upgrading.
 
+{% highlight ruby %}
     # *************************************
     # A handy initilizer that logs when the loaded version of
     # Rails or a gem dependency is out of date. The notice is
@@ -72,3 +73,4 @@ worth upgrading.
       logger.info "*******************************"
       logger.info 
     end
+{% endhighlight %}

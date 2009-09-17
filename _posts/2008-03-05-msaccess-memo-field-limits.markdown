@@ -18,6 +18,7 @@ instead of [ADO](http://en.wikipedia.org/wiki/ActiveX_Data_Objects) for legacy
 reasons. We haven't had enough reason to go through the pain of switching
 everything to ADO as yet. The error is raised by the db.Execute line.
 
+{% highlight vbnet %}
     Sub testMemoSizeLimit()
       Dim db As Database
       Dim rs As Recordset
@@ -39,9 +40,11 @@ everything to ADO as yet. The error is raised by the db.Execute line.
       db.Execute sql, dbFailOnError
       db.close
     End Sub
+{% endhighlight %}
 
 By switching the test function over to ADO, I can now insert more than 64K into my memo field.
 
+{% highlight vbnet %}
     Sub testMemoSizeLimitADO()
       Dim db As ADODB.Connection
 
@@ -64,5 +67,6 @@ By switching the test function over to ADO, I can now insert more than 64K into 
       db.Execute sql, dbFailOnError
       db.close
     End Sub
+{% endhighlight %}
 
 The lesson? Use [ADO](http://en.wikipedia.org/wiki/ActiveX_Data_Objects) whenever possible.

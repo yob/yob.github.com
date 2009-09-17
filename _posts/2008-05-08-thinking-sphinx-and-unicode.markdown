@@ -56,6 +56,7 @@ charset_table option.
 In Thinking Sphinx, it should go into your config/sphinx.yml file (with no line
 breaks):
 
+{% highlight yaml %}
     development:
       allow_star: true
       charset_table: "0..9, a..z, _, A..Z->a..z, U+00C0->a, U+00C1->a,
@@ -140,6 +141,7 @@ breaks):
         U+1EED->u, U+1EEE->u, U+1EEF->u, U+1EF0->u, U+1EF1->u, U+1EF2->y,
         U+1EF3->y, U+1EF4->y, U+1EF5->y, U+1EF6->y, U+1EF7->y, U+1EF8->y,
         U+1EF9->y"
+{% endhighlight %}
 
 This charset_table option is saying that: 
 

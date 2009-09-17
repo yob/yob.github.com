@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-## Ruport's Formatting System
 
 ## NOTE: THIS GUIDE IS FOR RUPORT 0.7. AND IT IS NOW OUT OF DATE.
 There is an [updated version](http://rubyreports.org/cheatsheets/formatting.html) of this article available on the official ruport website.
@@ -28,6 +27,7 @@ Generally, each report is made up of at 2 or more classes - 1 for the definition
 
 The first class defines the report and the data required to build it - it is important that keep this data as format independent as possible. For our sales report, something like this might be appropriate:
 
+{% highlight ruby %}
     require 'rubygems'
     require 'ruport'
 
@@ -51,6 +51,7 @@ The first class defines the report and the data required to build it - it is imp
 
       end
     end
+{% endhighlight %}
 
 This defines the following facts about our sales report:
 
@@ -62,6 +63,7 @@ On it's own, the report definition listed above won't do much - we need to tell 
 
 To begin with, we will create a text version of the report. Something like the following placed immediately after the first class should work nicely:
 
+{% highlight ruby %}
     module MyReports
 
       class SalesReportText < Ruport::Format::Plugin
@@ -110,6 +112,7 @@ To begin with, we will create a text version of the report. Something like the f
 
       end
     end
+{% endhighlight %}
 
 The first line of this class registers this output format with our report definition - this allows us to define as many different output formats for each report as we wish.
 
@@ -125,6 +128,7 @@ Now that our report is defined with at least 1 output format, we can use it in o
 
 Assuming the report definition is in a file called salesreport.rb, the following code should be placed in app.rb in the same directory:
 
+{% highlight ruby %}
     require "salesreport"
 
     book1 = {"isbn" => "978111111111", "title" => "Book Number One", "author" => "me", "sales" => 10}
@@ -140,6 +144,7 @@ Assuming the report definition is in a file called salesreport.rb, the following
     end
 
     File.open("dec_sales.txt", "w") { |f| f.write text}
+{% endhighlight %}
 
 Once the sample data has been built, the report itself is generated with a single block. Using this approach, building the report within your app is limited to a few simple lines, hiding all formatting complexity.
 
@@ -150,6 +155,7 @@ Sure text is fine in many situations (ie. emailing the report to a co-worker), b
 As mentioned earlier, Ruport won't try to abstract any of the complexities of formatting your report. The default library for generating PDFs in Ruport is [PDF:Writer](http://ruby-pdf.rubyforge.org/pdf-writer/), and you will need to get your hands dirty with the foibles of this library to make your PDF. The following code placed inside salesreport.rb should get you started.
 
 
+{% highlight ruby %}
     module MyReports
       class SalesReportPDF <  Ruport::Format::PDF
         SalesReport.add_format self, :pdf
@@ -208,6 +214,7 @@ As mentioned earlier, Ruport won't try to abstract any of the complexities of fo
 
       end
     end
+{% endhighlight %}
 
 The structure of this basically the same as the one that defined the text version, with 2 critical differences:
 
@@ -216,12 +223,14 @@ The structure of this basically the same as the one that defined the text versio
 
 So what changes do we have to make to our application to generate the pdf instead? Leave the sample data definition the same, just modify the remaining lines like so:
 
+{% highlight ruby %}
     pdf = MyReports::SalesReport.render_pdf do |e|
       e.report_title = "December 2006 Sales Figues"
       e.titles = books
     end
 
     File.open("dec_sales.pdf", "w") { |f| f.write pdf}
+{% endhighlight %}
 
 * call render\_pdf instead of render\_txt
 * modify the text variable name for readability
@@ -231,7 +240,7 @@ Switching output format's within your app according to user preference or whatev
 
 ### Downloads
 
-* [app.rb](app.rb)
-* [salesreport.rb](salesreport.rb)
-* [dec_sales.txt](dec_sales.txt)
-* [dec_sales.pdf](dec_sales.pdf)
+* [app.rb](/files/ruport/app.rb)
+* [salesreport.rb](/files/ruport/salesreport.rb)
+* [dec_sales.txt](/files/ruport/dec_sales.txt)
+* [dec_sales.pdf](/files/ruport/dec_sales.pdf)

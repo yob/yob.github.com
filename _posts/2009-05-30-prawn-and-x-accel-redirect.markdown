@@ -32,18 +32,23 @@ Start by editing your config/enviroment.rb file to add the following three
 lines. The first tells Rails about the new directory we'll use to store our
 reports and the next 2 load prawn.
 
+{% highlight ruby %}
     config.load_paths += %W( #{RAILS_ROOT}/app/reports )
     config.gem "prawn", :version => "0.4.1", :lib => "prawn"
     config.gem "prawn-format", :version => "0.1.1", :lib => "prawn/format"
+{% endhighlight %}
 
 Next, edit or create config/initializers/mime_types.rb and add a line to register
 the PDF mime type:
 
+{% highlight ruby %}
     Mime::Type.register "application/pdf", :pdf
+{% endhighlight %}
 
 Now, create a new class in app/reports/application_report.rb. This class will be
 a superclass for all the reports you will be generating.
 
+{% highlight ruby %}
     require 'pathname'
 
     class ApplicationReport
@@ -79,12 +84,14 @@ a superclass for all the reports you will be generating.
         path
       end
     end
+{% endhighlight %}
 
 Now, create a subclass of ApplicationReport in app/reports/product_report.rb.
 This will be your first real report. I've created a sample one here called
 ProductReport to display the basic information from my Product model. You will
 need to modify it to suit your application.
 
+{% highlight ruby %}
     class ProductReport < ApplicationReport
       def initialize(product)
         @product = product
@@ -103,6 +110,7 @@ need to modify it to suit your application.
         end
       end
     end
+{% endhighlight %}
 
 Next, we need to setup nginx to use the X-Accel-Redirect feature. Add the
 following four lines to your nginx config file, changing the path to point to
@@ -117,6 +125,7 @@ google. There's plenty of relevant information around.
 To simplify using X-Accel-Redirect, add two helper methods to your
 ApplicationController:
 
+{% highlight ruby %}
     def x_accel_pdf(path, filename)
       x_accel_redirect(path, :type => "application/pdf", :filename => filename)
     end
@@ -137,11 +146,13 @@ ApplicationController:
 
       render :nothing => true
     end
+{% endhighlight %}
 
 Finally, add the rendering and X-Accel-Redirect instructions to the relevant
 controller action. Since my sample report earlier was to display a single
 product, I've added it to the show action on my ProductsController.
 
+{% highlight ruby %}
     class ProductsController < ApplicationController
 
       ...
@@ -162,11 +173,14 @@ product, I've added it to the show action on my ProductsController.
       ...
 
     end
+{% endhighlight %}
 
 The key lines for generating a report are:
 
+{% highlight ruby %}
     report = ProductReport.new(@product)
     report.render
+{% endhighlight %}
 
 I can call these lines any time I need to generate my ProductReport, whether it
 be in a controller action like here, a ActionMailer email, or a rake task. The
@@ -175,7 +189,9 @@ report.path.
 
 The key line for using X-Accel-Redirect is:
 
+{% highlight ruby %}
     x_accel_pdf(report.path, "product-#{@product.id}.pdf")
+{% endhighlight %}
 
 I can call x\_accel\_pdf() in any controller action and the filename I give it will
 be streamed to the client by nginx instead of my rails app.

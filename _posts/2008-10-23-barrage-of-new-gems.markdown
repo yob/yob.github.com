@@ -36,37 +36,45 @@ operate in a similar way to the ISTC gem I talk about
 
 EAN13:
 
+{% highlight ruby %}
     require 'ean13'
 
     EAN13.valid?("9781843549161")
     => true
     EAN13.complete("978184354916")
     => "9781843549161"
+{% endhighlight %}
 
 UPC:
 
+{% highlight ruby %}
     require 'upc'
     
     UPC.valid?("028947663058")
     => true
     UPC.complete("02894766305")
     => "028947663058"
+{% endhighlight %}
 
 SAN: 
 
+{% highlight ruby %}
     require 'san'
 
     SAN.valid?("9013725")
     => true
     SAN.complete("901372")
     => "9013725"
+{% endhighlight %}
 
 ABN:
 
+{% highlight ruby %}
     require 'abn'
 
     ABN.valid?("12042168743")
     => true
+{% endhighlight %}
 
 Nothing groundbreaking or exciting, but useful little libraries when you need
 to decipher what sort of identifier a number is, and for validating fields in

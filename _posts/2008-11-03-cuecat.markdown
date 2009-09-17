@@ -22,16 +22,21 @@ Here's a ruby version:
 
 Is the code from a cuecat?
 
+{% highlight ruby %}
     puts CueCat.valid?(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
     => true
+{% endhighlight %}
 
 Is the code an obfuscated EAN13?
 
+{% highlight ruby %}
     puts CueCat.ean?(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
     => true
+{% endhighlight %}
 
 Extract more detail from the code:
 
+{% highlight ruby %}
     code = CueCat.new(".C3nZC3nZC3n2CNjXCNz0DxnY.cGen.ENr7CNT3Chz3ENj1CG.")
     puts code.code_type
     => "IBN"
@@ -41,6 +46,7 @@ Extract more detail from the code:
 
     puts code.value
     => "978184354916"
+{% endhighlight %}
 
 API look familiar? It's more or less the same as my oodles of [other ID
 gems](http://yob.id.au/blog/2008/10/23/barrage_of_new_gems/).

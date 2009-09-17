@@ -11,20 +11,23 @@ I found a site in Japanese that seemed to [explain the warning](http://devlog.mo
 
 Find the following lines in Pcap.c:
 
+{% highlight c %}
     cPcapStat = rbfuncall(rbcStruct, rb_intern("new"), 4,
       Qnil,
       INT2NUM(rb_intern("recv")),
       INT2NUM(rb_intern("drop")),
       INT2NUM(rb_intern("ifdrop")));
+{% endhighlight %}
 
 and change them to:
 
+{% highlight c %}
     cPcapStat = rbfuncall(rbcStruct, rb_intern("new"), 4,
       Qnil,
       ID2SYM(rb_intern("recv")),
       ID2SYM(rb_intern("drop")),
       ID2SYM(rb_intern("ifdrop")));
-
+{% endhighlight %}
 
 then recompile and reinstall the bindings:
 
