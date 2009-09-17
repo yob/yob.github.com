@@ -1,0 +1,17 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title>yob.id.au</title>
+  <link>http://yob.id.au/</link>
+{% for post in site.posts limit:10 %}
+  <item>
+    <title>{{ post.title }}</title>
+    <link>http://yob.id.au{{ post.url }}</link>
+    <guid>http://yob.id.au{{ post.id }}</guid>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <description>{{ post.content | xml_escape }}</description>
+  </item>
+{% endfor %}
+</rss>

@@ -1,0 +1,25 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://yob.id.au/</id>
+  <title>yob.id.au</title>
+  <link href="http://yob.id.au" rel="alternate"/>
+  <link href="http://yob.id.au/index.atom" rel="self"/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <author>
+    <name>James Healy</name>
+    <email>james@yob.id.au</email>
+    <uri>http://yob.id.au</uri>
+  </author>
+{% for post in site.posts limit:10 %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="http://yob.id.au{{ post.url }}"/>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <id>http://yob.id.au{{ post.id }}</id>
+    <content type="html">{{ post.content | xml_escape }}</content>
+  </entry>
+{% endfor %}
+</feed>
