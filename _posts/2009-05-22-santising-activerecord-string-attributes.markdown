@@ -22,7 +22,9 @@ it's useful.
 [StripControlChars](http://github.com/yob/strip_control_chars) can be found on
 github and installed as a gem.
 
+{% highlight sh %}
     gem install strip_control_chars
+{% endhighlight %}
 
 Load the gem from your environment.rb file:
 
