@@ -44,7 +44,11 @@ This is called the trailer and it is a serialised hashmap. In Ruby syntax, this
 would look something like:
 
 {% highlight ruby %}
-    { :Info => 1 0 R, :Size => 6, :Root => 3 0 R }
+    {
+      :Info => "1 0 R",
+      :Size => 6,
+      :Root => "3 0 R"
+    }
 {% endhighlight %}
 
 This is the top of our object tree. "1 0 R" is the syntax for pointing to
@@ -69,7 +73,7 @@ Merge this with our trailer hash and our object tree now looks like:
     {
       :Info => { :Creator => "Prawn", :Producer => "Prawn" },
       :Size => 6,
-      :Root => 3 0 R
+      :Root => "3 0 R"
     }
 {% endhighlight %}
 
