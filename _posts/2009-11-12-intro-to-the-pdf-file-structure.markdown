@@ -18,8 +18,8 @@ reading a PDF file - the first step in understanding how prawn does the reverse
 process.  I've created a [simple PDF](/files/hexagon.pdf) to use as an example.
 
 The best way to think of the file is a set of objects (strings, hashes,
-symbols, integers, arrays, etc) in a single object tree that descends from a
-single "root" hash.
+symbols, integers, arrays, etc) in an object tree that descends from a single
+"root" hash.
 
 To start navigating the [example file](/files/hexagon.pdf) by eye, open it in a
 text editor and browse to the last line. Just above the end of the file token
