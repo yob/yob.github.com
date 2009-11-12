@@ -6,34 +6,30 @@ most recently in [prawn](http://prawn.majesticseacreature.com/), a pure ruby
 PDF generation library.
 
 Prawn is a long way from implementing all parts of the spec and there has been
-no shortage of people who desire support for various features. The biggest
-barrier in getting new features has been the core developers have limited time.
-
-Many of these users are the kind who will submit a patch to an open source when
-they find a missing feature, yet this has only happened to prawn in a small
-number of cases.
+no shortage of people who desire support for various features. Many of these
+users are the kind who will submit a patch to an open source project when they
+find a missing feature, yet this has only happened to prawn in a small number
+of cases.
 
 The PDF spec is epic (version 1.7 is over 1300 pages), yet the basic structure
-is less complicated than it first appears. There's a fair amount of assumed
-knowledge to wade through, but I figure if I provide a basic overview of the
-file structure that's one less thing for potential prawn contributors to work
-out on their own.
+is less complicated than it first appears. Don't be put off! We'd love more
+contributors to prawn, so this post is intended to be a basic introduction to
+reading a PDF file - the first step in understanding how prawn does the reverse
+process.  I've created a [simple PDF](/files/hexagon.pdf) to use as an example.
 
-I've generated a [simple PDF](/files/hexagon.pdf) to use as an example.
+The best way to think of the file is a set of objects (strings, hashes,
+symbols, integers, arrays, etc) in a single object tree that descends from a
+single "root" hash.
 
-The best way to think of the file is a series of objects (strings, hashes,
-symbols, integers, arrays, etc) in an object tree. In the general case, every
-object in the file will be accessible from an object tree that descends from a
-single hash.
+To start navigating the [example file](/files/hexagon.pdf) by eye, open it in a
+text editor and browse to the last line. Just above the end of the file token
+(%%EOF) is a number that indicates a byte offset in the file.
 
-To start navigating the file by eye, open it in a text editor and browse to the
-last line. Just above the end of the file token (%%EOF) is a number that
-indicates a byte offset in the file.
-
-That byte offset points to the "xref" token on line 46. "0 6" indicates that
-this file has 5 objects in it numbered 1-5 (plus a number 0 null object). The
-following lines indicate object 1 is at byte offset 15, object 2 at offset 71,
-etc.
+That byte offset points to the "xref" token on line 46. Everything between here
+and the "trailer" token several lines below is called the Cross Reference Table
+(xref table to its friends). "0 6" indicates that this file has 5 objects in it
+numbered 1-5 (plus a number 0 null object). The following lines indicate object
+1 is at byte offset 15, object 2 at offset 71, etc.
 
 After the byte offsets you'll see the following lines:
 
@@ -85,6 +81,12 @@ serialise it to a file in the correct format. Prawn has all the tools for
 serialising standard ruby objects into their PDF representation, so the trick is
 to find the correct place to add your new information (an extra font, an
 advanced colour definition, whatever) and insert it as a ruby object. Usually
-this means something adding an entry to an array or hash.
+this means something like adding an entry to an array or hash.
 
 Once that's done, prawn will handle the serialisation when a user calls render.
+
+For homework, download a copy of the [PDF
+spec](http://www.adobe.com/devnet/acrobat/pdfs/PDF32000_2008.pdf) and read
+chapter 7 (particularly sections 7.3, 7.5, 7.7, 7.8 and 7.9). Also check out
+[lib/prawn/pdf_object.rb](http://github.com/sandal/prawn/blob/4b7f1a4d975b3478dad184bd56c7f53e7d92b784/lib/prawn/pdf_object.rb)
+to see how prawn converts each Ruby object into PDF equivalents.
