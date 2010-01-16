@@ -26,11 +26,11 @@ Whatever their reasoning, chances are my money is now being invested in places
 I'd prefer it not to be, so I've been researching my options.
 
 The obvious alternative is [Australian Ethical
-Super](http://www.australianethical.com.au). Their investment policies gels
+Super](http://www.australianethical.com.au). Their investment policies gel
 strongly with my preferences and my non-super investments with them have been
 performing well.
 
-Being a commercial fund, a comparison of fees was in order. The results we
+Being a commercial fund, a comparison of fees was in order. The results were
 surprising and a little disappointing.
 
 [Australian Super's Fees](http://australiansuper.com/formembers_feesandothercharges.aspx):
@@ -47,7 +47,7 @@ surprising and a little disappointing.
 
 For the 08-09 financial year, Australian Ethical fees for my super balance
 would've been a little more than *triple* what I actually paid Australian
-Super.
+Super. Bugger.
 
 All this is ignoring historical returns for each fund, a topic that would
 demand an entirely separate blog post. The short of it is that over the
