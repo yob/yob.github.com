@@ -8,14 +8,14 @@ A lot of the time, the exceptions are caused by database drivers passing back
 multi-byte strings incorrectly tagged as ASCII-8BIT instead of UTF-8.
 
 The work around was ususally to do something like the monkey patch described
-(here)[http://gnuu.org/2009/11/06/ruby19-rails-mysql-utf8/]. I've used that
+[here](http://gnuu.org/2009/11/06/ruby19-rails-mysql-utf8/). I've used that
 particular patch in production for a few months and it works fine, but monkey
 patches make me squirm.
 
 This week I was finally able to replace the patch with an alternative mysql gem
 that retrieves all strings from the database as utf-8 and marks them correctly.
 
-Brian Mario has released (mysql2)[http://github.com/brianmario/mysql2]. The
+Brian Mario has released [mysql2](http://github.com/brianmario/mysql2). The
 basic API is different to the standard mysql gem, but he's included an
 ActiveRecord adapter that acts as a drop-in replacement for the mysql one.
 
