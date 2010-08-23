@@ -5,8 +5,7 @@ ul { padding: 10px 0 10px 20px; }
 p { margin: 10px 0; font-size: 15px; line-height: 20px; }
 a img { border: 0px; }
 
-a:link, a:visited { color: #f30; }
-a:hover { color: #f90; }
+a:link, a:visited, a:hover { color: #b55324;}
 
 /* site layout, header and footer styles */
 .site { min-width: 600px; max-width: 800px; margin: 0 auto; position: relative;}
@@ -15,14 +14,15 @@ a:hover { color: #f90; }
 #header h1 { text-transform: uppercase; font-size: 26px; padding: 5px; }
 #header ul { list-style: none; list-style-type: none; overflow: hidden; max-width: 550px; height: 40px; padding: 0px;}
 #header ul li { position:relative;float: left;width: auto;display:block;margin: 0;padding:0px 10px 0px 0px; list-style: none; background: none; }
+#header a:link, #header a:visited, #header a:hover { color: #f25100; }
 
 h2 { text-transform: uppercase; font-size: 20px; padding: 20px 5px 5px 0px; }
 
-#footer { background-color: black; color: white; margin-top: 20px; padding: 5px 0px;}
-#footer h2 { text-transform: uppercase; font-size: 14px; color: #f30; letter-spacing: 1px; line-height: 20px; padding: 5px 0px; }
-#footer a:link, a:visited { color: #f30; }
-#footer a:hover { color: #f90; }
+#footer { background-color: #251901; color: white; margin-top: 20px; padding: 5px 0px;}
+#footer h2 { text-transform: uppercase; font-size: 14px; color: #b55324; letter-spacing: 1px; line-height: 20px; padding: 5px 0px; }
 #footer .footbox { float: left; width: 200px; padding: 10px 20px;}
+#footer ul { list-style-type: none; padding: 0 }
+#footer ul li { margin: 10px 0; }
 
 /* the rest */
 ul#posts { list-style: none; list-style-type: none; padding: 0; }
