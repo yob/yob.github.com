@@ -55,11 +55,12 @@ of helper methods you can use, so have that open at the same time.
         input_name = generate_association_input_name(method)
         selected_value = @object.send(input_name)
         selected_value = selected_value.strftime("%Y-%m-%d") if selected_value.respond_to?(:strftime)
+        select_options = strip_formtastic_options(options).merge(:selected => selected_value)
 
         collection = mondays.map { |mon| [mon.strftime("Week %W, %Y"), mon.strftime("%Y-%m-%d")]}
 
         self.label(method, options_for_label(options)) <<
-          self.select(input_name, collection, strip_formtastic_options(options).merge(:selected => selected_value), html_options)
+          self.select(input_name, collection, select_options, html_options)
       end
 
       private
