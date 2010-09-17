@@ -154,9 +154,9 @@ This charset_table option is saying that:
 - etc.
 
 
-Anything not listed in the table (ie. punctuation, Hebrew characters, Japanese
+Anything not listed in the table (ie. ß, punctuation, Hebrew characters, Japanese
 characters) is considered white space and cannot be searched for. If
-punctuation is important to you, don't forget to add it in.
+these extra characters are important to you, don't forget to add them in.
 
 If your not using Thinking Sphinx, then the value can go directly into your
 Sphinx config file under the appropriate index. Without Thinking Sphinx, you
