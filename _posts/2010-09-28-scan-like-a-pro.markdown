@@ -17,7 +17,7 @@ For scanning, I use a document scanner at a clients office. I'm there a couple
 of days a week, so every now and again I take a pile of paper in and feed it
 through. They have a [Xerox DocuCentre-II
 C2200](http://www.support.xerox.com/SRVS/CGI-BIN/WEBCGI.EXE?New,Kb=x_WC7245_en,Company={683D76C8-B5C5-416E-9754-DD015FDB4F2E},ts=x_main_en,ques=ref%28Country%29:str%28AUS%29,ques=ref%28Prod_WC7228_WC7235_WC7245%29:str%28DC_C2200_C3300%29,question=ref%28ProdFamily%29:str%28Prod_WC7228_WC7235_WC7245%29,varset=Xcntry:AUS,varset=Xlang:en_AU,varset=prodID:DC_C2200_C3300,varset=prodName:DocuCentre-II%20C2200/C3300)
-- it can scan 50 double sided pages at a time and saves PDFs to a windows
+- it can scan 75 double sided pages at a time and saves PDFs to a windows
 share. Depending on the document, I scan in colour or greyscale at 600 dpi -
 the saved files are larger, but I deal with that later.
 
