@@ -76,4 +76,4 @@ expect a new bill to arrive. Recently I also had to look up receipts as part of
 an insurance claim.
 
 Now that I have a standard workflow setup, the whole process is relatively
-little work and the results are incredibly convenient.
+little work and the results are convenient.
