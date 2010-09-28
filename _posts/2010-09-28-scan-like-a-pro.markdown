@@ -56,12 +56,14 @@ I group the documents by type and year. Anything more complex is unnecessary as
 I usually find what I need by searching. Here's a sample of the directory
 structure:
 
+{% highlight text %}
     banking/2010/20100630 - statement.pdf
     banking/2010/20100720 - letter.pdf
     banking/2010/20100731 - statement.pdf
     insurance/2009/20090317 - contents renewal.pdf
     insurance/2010/20100315 - contents renewal.pdf
     receipts/2010/20100915 - laptop.pdf
+{% endhighlight %}
 
 ## Step Four: Profit
 
