@@ -1,0 +1,52 @@
+---
+layout: default
+---
+Several years ago [Xavier Shay](http://rhnh.net/) published his [db2s3](http://rubygems.org/gems/db2s3)
+gem for backing up the database from your rails project to Amazon S3.
+
+Xavier's original code depended on the
+[aws-s3](http://rubygems.org/gems/aws-s3) gem. aws-s3 works well enough,
+however it appears to be unmaintained and has a few rough edges. In particular,
+it doesn't cleanly handle S3 regions outside US-east. It also uses class
+variables for configuration, making it difficult to authenticate with alternate
+accounts at other points in my application.
+
+The solution to these issues was to switch the dependency from aws-s3 to
+[fog](http://rubygems.org/gems/fog), a newer gem that is actively maintained.
+As a bonus, it also brings us support for additional storage providers like
+[Rackspace cloudfiles](http://www.rackspace.com/cloud/cloud_hosting_products/files/) and
+[Ninefold](http://ninefold.com/).
+
+After [checking with Xavier](https://twitter.com/#!/jim_healy/status/93910235277836288)
+I've forked his code and released a new gem - [db2fog](http://rubygems.org/gems/db2fog).
+
+To use it, start by adding it to the Gemfile in your rails app:
+
+{% highlight bash%}
+    gem 'db2fog'
+{% endhighlight %}
+
+Then configure it by putting this in config/initializers/db2fog.rb:
+
+{% highlight ruby %}
+    DB2Fog.config = {
+      :aws_access_key_id     => 'yourkey',
+      :aws_secret_access_key => 'yoursecretkey',
+      :directory             => 'bucket-name',
+      :provider              => 'AWS'
+    }
+{% endhighlight %}
+
+Now use the rake tasks to perform backups and restores. Run them manually
+first, then add them to cron for automatic backups. I recommend running 
+a few backup every few hours and the clean task daily.
+
+{% highlight bash %}
+    rake db2fog:backup:full  RAILS_ENV=production
+    rake db2fog:backup:clean RAILS_ENV=production
+{% endhighlight %}
+
+That's it! A dead simple way to get offsite backups that will probably cost you
+only cents per month. For details and examples for configuring sotrage
+providers like Rackspace check the [project
+README](https://github.com/yob/db2fog) on github.
