@@ -53,7 +53,7 @@ If you need more control over the profile, you can build your own profile.
     puts preflight.check("somefile.pdf").inspect
 {% endhighlight %}
 
-For a list of available rules, check out all the classes in the Preflight::Rules
+For a list of available rules, check out the classes in the Preflight::Rules
 namespace - each class has documentation describing how to use it in a profile.
 
 If the provided rules don't cover everything you need, you can also write your
