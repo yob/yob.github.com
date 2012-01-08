@@ -1,5 +1,6 @@
 ---
 layout: default
+title: New Zealand as Australia's Data Centre?
 ---
 Like many rubyists I've often used [Slicehost](http://www.slicehost.com) to
 host my virtual servers.
