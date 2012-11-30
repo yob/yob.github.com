@@ -18,13 +18,30 @@ Everything starts with a storage instance
                                :provider           => 'Rackspace')
 {% endhighlight %}
 
-## Retrieve Object Metadata
+## Retrieve Metadata for a Single Object
 
 Use this to retrieve metadata about an object without downloading the content.
 
 {% highlight ruby %}
     directory = storage.directories.get('CONTAINER_NAME')
     directory.files.head("path/menu.txt")
+{% endhighlight %}
+
+## Retrieve Metadata for Multiple Objects
+
+Use this to retrieve metadata about multiple object without downloading the
+content.
+
+{% highlight ruby %}
+    directory = storage.directories.get('CONTAINER_NAME')
+    directory.files.all
+{% endhighlight %}
+
+Or if you only want objects that start with a certain prefix.
+
+{% highlight ruby %}
+    directory = storage.directories.get('CONTAINER_NAME')
+    directory.files.all(:prefix => "foo/bar/")
 {% endhighlight %}
 
 ## Basic File Upload
