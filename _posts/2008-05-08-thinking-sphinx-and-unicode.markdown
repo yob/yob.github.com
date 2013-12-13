@@ -143,7 +143,7 @@ breaks):
         U+1EF5->y, U+1EF6->y, U+1EF7->y, U+1EF8->y, U+1EF9->y"
 {% endhighlight %}
 
-This charset_table option is saying that: 
+This charset_table option is saying that:
 
 
 - The characters 0->9, a->z and _ should be considered their usual values
