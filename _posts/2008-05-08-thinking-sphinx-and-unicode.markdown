@@ -180,7 +180,7 @@ Update, 18th June 2009:
   added a the polish character ł
 
 Update, 8th March 2011:
-- Thanks to an email Clement Hallet, I've added ø and Ø as synonyms for o.
+- Thanks to an email from Clement Hallet, I've added ø and Ø as synonyms for o.
 
 Update, 14th December 2013:
 - Thanks to an email from Paweł Bator, I've added the polish character Ł.
