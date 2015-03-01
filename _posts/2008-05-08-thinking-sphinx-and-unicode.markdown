@@ -185,5 +185,5 @@ Update, 8th March 2011:
 Update, 14th December 2013:
 - Thanks to an email from Paweł Bator, I've added the polish character Ł.
 
-Update, 1st MArch 2014:
+Update, 1st March 2014:
 - Thanks to an email from Marko Ojleski, I've added Đ and đ as synonyms for d.
