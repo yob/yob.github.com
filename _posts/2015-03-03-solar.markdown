@@ -1,0 +1,58 @@
+---
+layout: default
+title: Monitoring Solar Panel Output
+---
+
+We recently installed 3kW of solar panels on our house, and being a data nerd I
+was keen to monitor their performance.
+
+Our system is a [Fronius Galvo 3.0-1](http://www.fronius.com/cps/rde/xchg/SID-94B2C3E7-6041D541/fronius_international/hs.xsl/83_28031_ENG_HTML.htm#.VPUjXnREHWU)
+inverter paired with 12x [260W REC panels](http://www.recgroup.com/products/recpeakenergyseries/).
+
+From a monitoring perspective, the Galvo 3.0-1 seems to have bee a good choice.
+It comes with wifi, and the installer connected it to our network on the
+installation day. From there, I was able to connect to a web interface and poke
+around.
+
+I clicked a button to upgrade the firmware to 3.3.5-22, which included a new
+"Push Service" feature. This pings a remote HTTP or FTP server at regular
+intervals with the latest output data.
+
+Following instructions from
+[pvoutput](http://pvoutput.org/help.html#push-froniuspost), I configured the
+inverter to update my [pvoutput.org
+profile](http://pvoutput.org/list.jsp?sid=34692) every 5 minutes, leading to
+charts like this:
+
+![chart](/images/pvoutput.png)
+
+pvoutput.org has a public API, so there's also a few android/iOS apps
+available. None are perfect, but my current favourite is [Oxley
+Solar](https://play.google.com/store/apps/details?id=au.com.oxleyws.solar&hl=en).
+Its intra-day charts look like this:
+
+![oxley](/images/oxley.png)
+
+There's also a [well documented](http://www.fronius.com/cps/rde/xbcr/SID-ACEDAD0F-36E36A58/fronius_international/42_0410_2012_318486_snapshot.pdf)
+HTTP JSON API available on the inverter. I'm not actively using it, but it's
+straight forward:
+
+    curl "http://10.1.1.2/solar_api/v1/GetInverterRealtimeData.cgi?Scope=Device&DeviceID=1&DataCollection=CommonInverterData"
+    {
+            "Head" : {
+                    "RequestArguments" : {
+                            "DataCollection" : "CommonInverterData",
+                            "DeviceClass" : "Inverter",
+                            "DeviceId" : "1",
+                            "Scope" : "Device"
+                    },
+                    "Status" : {
+                            "Code" : 0,
+                            "Reason" : "",
+                            "UserMessage" : ""
+                    },
+                    "Timestamp" : "2015-03-03T15:30:00+11:00"
+            },
+            "Body" : {...}
+    }
+
