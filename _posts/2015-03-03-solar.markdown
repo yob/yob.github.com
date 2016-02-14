@@ -9,8 +9,8 @@ was keen to monitor their performance.
 Our system is a [Fronius Galvo 3.0-1](http://www.fronius.com/cps/rde/xchg/SID-94B2C3E7-6041D541/fronius_international/hs.xsl/83_28031_ENG_HTML.htm#.VPUjXnREHWU)
 inverter paired with 12x [260W REC panels](http://www.recgroup.com/products/recpeakenergyseries/).
 
-From a monitoring perspective, the Galvo 3.0-1 seems to have bee a good choice.
-It comes with wifi, and the installer connected it to our network on the
+From a monitoring perspective, the Galvo 3.0-1 seems to have been a good choice.
+It comes with wifi, and the installer connected it to our network on
 installation day. From there, I was able to connect to a web interface and poke
 around.
 
