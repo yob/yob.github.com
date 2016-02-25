@@ -158,7 +158,7 @@ Anything not listed in the table (ie. ß, punctuation, Hebrew characters, Japane
 characters) is considered white space and cannot be searched for. If
 these extra characters are important to you, don't forget to add them in.
 
-If your not using Thinking Sphinx, then the value can go directly into your
+If you're not using Thinking Sphinx, then the value can go directly into your
 Sphinx config file under the appropriate index. Without Thinking Sphinx, you
 should also make sure that your index is set to utf-8 mode using the
 charset_type setting.
