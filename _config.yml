@@ -1,3 +1,4 @@
-pygments: true
-auto: true
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
