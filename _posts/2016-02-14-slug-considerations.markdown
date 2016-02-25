@@ -21,16 +21,18 @@ only slightly harder to implement, and is arguably slightly more readable by
 humans.
 
 The third option is tempting for maximum readability and hiding of
-implementation details, but proceed with caution! Slugs of this form are usually
-based on a natural attribute of the entity (user name, product name, etc) and then
-stored in the database for lookup. If the natural attribute changes (people can 
-change their name, companies rebrand) should the slug remain unchanged to keep
-URLs and google rankings unmodified, or should the slug change and a redirect
-be put in place? Neither option is ideal.
+implementation details, but I've found it difficult to work with over the long
+term. Slugs of this form are usually based on a natural attribute of the entity
+(user name, product name, etc) and then stored in the database for lookup. If
+the natural attribute changes (people can change their name, companies rebrand)
+should the slug remain unchanged to keep URLs and google rankings unmodified,
+or should the slug change and a redirect be put in place? Neither option is
+ideal.
 
 In my experience, option three is best kept for situations where the natural
 attribute is highly unlikely to change, possibly entities like tags, currencys
-and classifications.
+and classifications. Options one or two will keep your site flexible to changing
+requirements and messy real-world data.
 
 ## ASCII?
 
@@ -41,14 +43,11 @@ mangle multi-byte UTF-8 characters in URLs and lead to failing requests.
 
 My preferred approach is:
 
-* downcase the source text
-* strip accents and other embelishments from charaters that have similar looking counterparts in the
-ASCII range
+* strip accents and other embelishments from charaters that have similar looking counterparts in the ASCII range
+* downcase everything
+* replace '&' with 'and'
 * convert remaining non-ASCII characters to an ASCII hyphen (-)
 * convert any adjacent hyphens (---) into a single hyphen (-)
 
-The outcome is poor for non-latin scripts (like Japanese, Arabic, etc) but
-hopefully acceptable if supporting such scripts isn't required.
-
-** Example of default rails output? maybe
-** Example of code for my preferred option? maybe, but might be too long for a short+sweet post
+The outcome is poor for non-latin scripts (Japanese, Arabic, etc) but hopefully
+acceptable if supporting such scripts isn't required.
