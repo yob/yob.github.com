@@ -1,0 +1,83 @@
+---
+layout: default
+title: Gateway classes, a pattern for interacting with external services
+---
+
+<p>Rails encourages developers to use a database in integrated acceptance tests, and we’ve gone with the flow on that front.</p>
+
+<p>However, like many rails apps we also integrate with a number of external services that are more difficult to deal with in tests - <a href="https://stripe.com">stripe</a>, <a href="https://www.campaignmonitor.com/">campaign monitor</a>, <a href="https://akismet.com/">akismet</a> and <a href="https://slack.com/">slack</a> are good examples. In most cases these services are accessed over the internet and operated by external companies, so to keep our tests fast and reliable we’ve opted to stub them rather than change any remote state.</p>
+
+<p>To begin with, we were inconsistent with where and how we stubbed these services, exploring solutions like <a href="https://www.relishapp.com/rspec/rspec-mocks/docs">rspec mocks</a>, <a href="https://rubygems.org/gems/vcr">vcr</a> and plain <a href="https://rubygems.org/gems/webmock">webmock</a>.</p>
+
+<p>As our product grew and we integrated new services, we started to look for a pattern we could standardise on. Our goals for the new pattern were:</p>
+
+<ul>
+<li>Avoid all network activity to external services during tests</li>
+<li>Encourage happy path acceptance tests to avoid excessive build times</li>
+<li>Rely on unit tests to thoroughly test code that calls the external service, including error cases and intermittent network issues</li>
+<li>Avoid excessive setup for acceptance tests</li>
+<li>If we’re using an external gem, encapsulate it with code we own to simplify future refactoring </li>
+</ul>
+
+<h2>Gateway Objects</h2>
+
+<p>We settled on a pattern we called “Gateway Objects”, inspired by a Martin Fowler <a href="http://www.martinfowler.com/articles/refactoring-external-service.html">refactoring article</a>.</p>
+
+<p>We store them in <code>app/gateways/</code> and have added the following line to <code>config/application.rb</code> so rails can find them:</p>
+<pre class="highlight ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">autoload_paths</span> <span class="o"><<</span> <span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">"gateways"</span><span class="p">).</span><span class="nf">to_s</span>
+</code></pre>
+<p>In most cases we use a fraction of the external service’s functionality, so our gateway classes have public methods for just the bits we need. Each method has extensive unit specs, usually relying on webmock to avoid hitting a live HTTP API.</p>
+
+<p>Where possible, our gateways return objects that are either from ruby core (Integers, Strings, Hashes, Arrays, etc) or immutable <a href="http://martinfowler.com/bliki/ValueObject.html">value objects</a> that we control.</p>
+
+<p>Here’s a simplified example that adds subscribers to a Campaign Monitor list. It relies on the <a href="https://rubygems.org/gems/createsend">createsend</a> gem, and uses webmock for unit specs.</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'createsend'</span>
+
+<span class="k">class</span> <span class="nc">CampaignMonitorListGateway</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">list_id</span><span class="p">,</span> <span class="ss">api_key: </span><span class="kp">nil</span><span class="p">)</span>
+    <span class="vi">@list_id</span> <span class="o">=</span> <span class="n">list_id</span>
+    <span class="vi">@api_key</span> <span class="o">=</span> <span class="n">api_key</span> <span class="o">||</span> <span class="no">ENV</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="s2">"CAMPAIGN_MONITOR_KEY"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="c1"># add a new email address to this list</span>
+  <span class="c1">#</span>
+  <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+    <span class="no">CreateSend</span><span class="o">::</span><span class="no">Subscriber</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
+      <span class="p">{</span><span class="ss">api_key: </span><span class="vi">@api_key</span><span class="p">},</span>
+      <span class="vi">@list_id</span><span class="p">,</span>
+      <span class="n">email</span><span class="p">,</span>   <span class="c1"># email address</span>
+      <span class="n">email</span><span class="p">,</span>   <span class="c1"># name</span>
+      <span class="p">[],</span>      <span class="c1"># custom fields</span>
+      <span class="kp">false</span>    <span class="c1"># resubscribe</span>
+    <span class="p">)</span> <span class="o">==</span> <span class="n">email</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Exhaustive unit specs allow us to focus our integrated acceptance tests on a <a href="https://en.wikipedia.org/wiki/Happy_path">happy path</a>, so we usually stub the gateway to return a consistent result across all tests with the some configuration in <code>spec/rails_helper.rb</code>:</p>
+<pre class="highlight ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">before</span> <span class="ss">:each</span><span class="p">,</span> <span class="ss">type: :feature</span><span class="p">,</span> <span class="ss">stub_cm_list: </span><span class="kp">true</span> <span class="k">do</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">CampaignMonitorListGateway</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:new</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">instance_double</span><span class="p">(</span><span class="no">CampaignMonitorListGateway</span><span class="p">,</span> <span class="ss">subscribe: </span><span class="kp">true</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>With that, any acceptance test can use metadata to declare a need for stubbing.</p>
+<pre class="highlight ruby"><code><span class="n">feature</span> <span class="s1">'A reader subscribing to our daily newsletter'</span> <span class="k">do</span>
+  <span class="n">scenario</span> <span class="s2">"from a topbar link"</span><span class="p">,</span> <span class="ss">:js</span><span class="p">,</span> <span class="ss">:stub_cm_list</span> <span class="k">do</span>
+    <span class="c1"># some assertions</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Most method calls on a gateway class will result in network activity and lots can go wrong when networks are involved. We avoid silently swallowing exceptions, and either:</p>
+
+<ul>
+<li>catch the exception, notify our <a href="http://bugsnag.com">error tracker</a>, and return a <a href="https://sourcemaking.com/design_patterns/null_object">Null object</a>; or</li>
+<li>allow the exception to bubble out so the caller deals with it</li>
+</ul>
+
+<p>We’re pretty happy with the final result – our test setup is cleaner, the tests are acceptably fast and pass without internet access, and the shared vocabulary helps us maintain team code in a consistent style over time.</p>
+
+<img src="https://counter.theconversation.edu.au/content/65633/count.gif?distributor=republish-lightbox-basic" alt="The Conversation" width="1" height="1" />
+
+<p>This article was originally published on <a href="http://theconversation.com">The Conversation</a>. Read the <a href="https://theconversation.com/gateway-classes-a-pattern-for-interacting-with-external-services-65633">original article</a>.</p>
