@@ -1,0 +1,89 @@
+---
+layout: default
+title: Monitoring Build Times - Maintaining our Fast feedback Loop
+---
+
+<p>The Conversation launched over six years ago and our continuous integration infrastructure has evolved over that time.</p>
+
+<p>For the first few years we ran happily ran <a href="https://jenkins.io/">Jenkins</a> on a single physical server. Our feature set grew rapidly and by early 2013 the build time for our core CMS code base peaked at an unhelpful 28 minutes. We explored options for speeding up our feedback loop and eventually ended up with a 6 minute parallel build running on three physical build servers, coordinated by <a href="http://buildkite.com/">Buildkite</a>.</p>
+
+<p>It feels like no development team is ever happy with their build time, but we found 6 minutes a pragmatic average that avoided most long waits for a result.</p>
+
+<p>The challenge from there was avoiding the inevitable build time increase as new tests were added over time, and that required a way to monitor the long term trends.</p>
+
+<p>We use <a href="https://metrics.librato.com">librato</a> for monitoring and it felt like a good fit for this situation too. Buildkite provide <a href="https://buildkite.com/docs/webhooks">webhooks</a> and we have a <a href="https://www.lita.io/">lita</a>-powered slack bot that is well suited to hosting glue-code like this.</p>
+
+<p>The solution we settled on provides a librato dashboard displaying the four-week build time trend for each of our codebases. Each chart includes the  raw data that fluctuates a bit, plus a smoothed line based on the average of the last ten builds.</p>
+
+<figure class="align-center ">
+	<img alt="" src="https://cdn.theconversation.com/files/174333/width754/file-20170619-28752-lcvm63.png">
+	<figcaption>
+		<span class="caption">Our build time dashboard for May 2017.</span>
+		<span class="attribution"><a class="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND</a></span>
+	</figcaption>
+</figure>
+
+<p>There were three puzzle pieces:</p>
+
+<ol>
+<li>Adding <a href="https://github.com/conversation/lita-buildkite">lita-buildkite</a> to our lita bot and configuring buildkite to send it webhook events</li>
+<li>Adding <a href="https://github.com/conversation/lita-librato">lita-librato</a> to our lita bot to simplify submitting metrics</li>
+<li>Writing a custom lita handler to pipe the timing data from buildkite webhooks across to librato</li>
+</ol>
+
+<p>The glue code isn’t in a public repo, but it’s small enough to replicate here:</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s2">"lita"</span>
+<span class="nb">require</span> <span class="s2">"lita-buildkite"</span>
+
+<span class="k">module</span> <span class="nn">Lita</span>
+  <span class="k">module</span> <span class="nn">Handlers</span>
+    <span class="k">class</span> <span class="nc">BuildkiteJobStats</span> <span class="o">&lt;</span> <span class="no">Handler</span>
+      <span class="n">on</span> <span class="ss">:buildkite_build_finished</span><span class="p">,</span> <span class="ss">:build_finished</span>
+
+      <span class="k">def</span> <span class="nf">build_finished</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="ss">:event</span><span class="p">]</span>
+        <span class="n">record_build_stats</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">if</span> <span class="n">event</span><span class="p">.</span><span class="nf">build_branch</span> <span class="o">==</span> <span class="s2">"master"</span>
+      <span class="k">end</span>
+
+      <span class="kp">private</span>
+
+      <span class="k">def</span> <span class="nf">record_build_stats</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">runtime_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="nf">build_finished_at</span> <span class="o">-</span> <span class="n">event</span><span class="p">.</span><span class="nf">build_started_at</span><span class="p">).</span><span class="nf">to_i</span>
+        <span class="n">robot</span><span class="p">.</span><span class="nf">trigger</span><span class="p">(</span><span class="ss">:librato_submit</span><span class="p">,</span> <span class="ss">name: </span><span class="s2">"ci.build-runtime.</span><span class="si">#{</span><span class="n">event</span><span class="p">.</span><span class="nf">pipeline_slug</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">type: :gauge</span><span class="p">,</span> <span class="ss">source: </span><span class="s2">"buildkite"</span><span class="p">,</span> <span class="ss">value: </span><span class="n">runtime_seconds</span><span class="p">)</span>
+
+        <span class="n">total_seconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="nf">build_finished_at</span> <span class="o">-</span> <span class="n">event</span><span class="p">.</span><span class="nf">build_created_at</span><span class="p">).</span><span class="nf">to_i</span>
+        <span class="n">robot</span><span class="p">.</span><span class="nf">trigger</span><span class="p">(</span><span class="ss">:librato_submit</span><span class="p">,</span> <span class="ss">name: </span><span class="s2">"ci.build-totaltime.</span><span class="si">#{</span><span class="n">event</span><span class="p">.</span><span class="nf">pipeline_slug</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="ss">type: :gauge</span><span class="p">,</span> <span class="ss">source: </span><span class="s2">"buildkite"</span><span class="p">,</span> <span class="ss">value: </span><span class="n">total_seconds</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="no">Lita</span><span class="p">.</span><span class="nf">register_handler</span><span class="p">(</span><span class="no">BuildkiteJobStats</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>It’s only 27 lines, but it works.</p>
+
+<p>In May 2017 we upgraded our standard operating environment from Ubuntu 14.04 to Ubuntu 16.04. When the upgrade was applied to our build servers we inadvertently changed a postgresql setting that added over a minute to the build. Within a few days the increase became obvious on the trend line and we identified then resolved the issue.</p>
+
+<figure class="align-center ">
+	<img alt="" src="https://cdn.theconversation.com/files/172123/width754/file-20170604-20596-1nmdoem.png">
+	<figcaption>
+		<span class="caption">Total build time for our core CMS over a four week period. The period of slower builds was due to build server misconfiguration after an upgrade to the host operating system.</span>
+		<span class="attribution"><a class="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND</a></span>
+	</figcaption>
+</figure>
+
+<p>As an extra safety net we have librato configured to alert us via slack if the average build time passed a threshold.</p>
+
+<figure class="align-center ">
+	<img alt="" src="https://cdn.theconversation.com/files/174035/width754/file-20170615-20652-j9p2lx.png">
+	<figcaption>
+		<span class="caption">When the average build time for our project exceeds a threshold, we’re alerted via slack.</span>
+		<span class="attribution"><a class="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND</a></span>
+	</figcaption>
+</figure>
+
+<p>We’ve had this setup in place for about a year and we’ve had at least three occasions where configuration or spec changes have impacted build time significantly and been reversed once discovered.</p>
+
+<p><img src="https://counter.theconversation.edu.au/content/75548/count.gif?distributor=republish-lightbox-basic" alt="The Conversation" width="1" height="1" />With a bit of luck, the bad old days of 28 minute builds will remain a bad memory.</p>
+
+<p>This article was originally published on <a href="http://theconversation.com">The Conversation</a>. Read the <a href="https://theconversation.com/monitoring-build-times-maintaining-our-fast-feedback-loop-75548">original article</a>.</p>
