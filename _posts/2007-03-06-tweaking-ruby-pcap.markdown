@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 [Ruby/Pcap](http://www.goto.info.waseda.ac.jp/~fukusima/ruby/pcap-e.html) provides ruby bindings to the libpcap c library, making packet dumping and analysis relatively easy. There's a handful of tutorials around that provide some basic examples however I ran into a few problems when using the bindings at work.
 

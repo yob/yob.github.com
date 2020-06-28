@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 [Ruby 1.9](http://www.ruby-lang.org/en/news/2007/12/25/ruby-1-9-0-released/)
 was released last week, and I've been poking around with the changes to the

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Debian recently removed flash from their AMD64 to security issues and Adobe
 dropping official support.

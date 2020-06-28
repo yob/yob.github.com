@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 For all of my (admittedly short) professional life, my superannuation has been
 in [Australian Super's](http://australiansuper.com/) Sustainable Balanced fund.

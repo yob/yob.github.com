@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 For the vast majority of string attributes on my ActiveRecord models, I want a
 blank string submitted by the user to be saved to the database as NULL. I

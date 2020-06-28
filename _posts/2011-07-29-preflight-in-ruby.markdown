@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 The [PDF spec](http://www.adobe.com/devnet/pdf/pdf_reference.html) is a beast.
 Amongst a long list of features it allows transparencies, embedding of flash,

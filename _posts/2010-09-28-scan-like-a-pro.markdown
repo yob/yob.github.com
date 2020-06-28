@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Several years ago I read an
 [article](http://onlamp.com/pub/a/onlamp/2006/11/02/personal_document_management.html)

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Inflating zlib, gzip and deflate in Ruby"
 ---
 

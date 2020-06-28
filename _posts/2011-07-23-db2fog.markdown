@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Several years ago [Xavier Shay](http://rhnh.net/) published his [db2s3](http://rubygems.org/gems/db2s3)
 gem for backing up the database from your rails project to Amazon S3.

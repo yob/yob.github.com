@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Until recently, I was a happy occasional user of a coworkers Telstra NextG card
 on my Linux (Debian Unstable) laptop, thanks to this very [accurate

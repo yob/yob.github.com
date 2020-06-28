@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Now that I'm starting to use my GPG key around the place, I'm getting more nervous about the ramifications of losing it. I have some carefully placed digital backups, but I'm still not completely happy.
 

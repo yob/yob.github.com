@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 [Formtastic](http://github.com/justinfrench/formtastic) is a great little gem
 for cleaning up form code in your Rails view. It provides a neat DSL for

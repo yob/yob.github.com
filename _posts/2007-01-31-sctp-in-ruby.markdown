@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 [SCTP](http://www.sctp.org/) (Stream Control Transmission Protocol) is an alternative to TCP that has been in development for several years and is starting to draw some attention to itself.
 

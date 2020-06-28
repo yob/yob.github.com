@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 We found an interesting bug in the FreeBSD 6.2 TCP stack at work this week. Full details are available in [this thread](http://lists.freebsd.org/pipermail/freebsd-net/2007-July/014780.html) on the freebsd-net mailing list, but essentially it caused the initial congestion window on the majority of connections to start at 1 segment size instead of 3 as recommended by RFC 3390.
 
