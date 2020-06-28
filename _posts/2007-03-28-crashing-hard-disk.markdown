@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 For future reference when installing a 500Gb Seagate Barracuda (SATA 2!) onto a EPOX 8RDA6+Pro motherboard (SATA 1 only):
 

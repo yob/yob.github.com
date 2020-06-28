@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 After 3.5 years of trusty service, it was time to retire my Dell Latitude D620.
 It was out of warranty, wouldn't charge batteries and with a NVidia graphics

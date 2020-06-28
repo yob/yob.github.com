@@ -2,3 +2,6 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+title: James Healy
+url: https://yob.id.au
+baseurl: /

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 
 Some time ago I got angry with my faux-ethical superannuation and [did some

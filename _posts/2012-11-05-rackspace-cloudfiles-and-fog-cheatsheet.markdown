@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 
 [Fog](http://rubygems.org/gems/fog) is an excellent rubygem for interacting

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Why stop at two post on IDs, here's a third.
 

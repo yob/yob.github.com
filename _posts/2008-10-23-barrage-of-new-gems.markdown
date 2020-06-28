@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 Working for a company that sits in the middle of a supply chain, we deal with a
 significant volume of data.

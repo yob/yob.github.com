@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Trusting New SSL Certificates in Debian
 ---
 

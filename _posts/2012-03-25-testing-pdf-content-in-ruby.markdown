@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Testing PDF Content in Ruby
 ---
 Earlier this year I decided enough was enough and I was proud to announce

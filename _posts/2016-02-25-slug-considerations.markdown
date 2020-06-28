@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Slug Considerations with Ruby on Rails
 ---
 

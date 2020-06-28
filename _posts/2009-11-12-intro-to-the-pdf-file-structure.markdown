@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 For a couple of years I've been involved in various PDF related Ruby projects -
 most recently in [prawn](http://prawn.majesticseacreature.com/), a pure ruby

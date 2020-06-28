@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Review: Shelly H&T Temperature Sensor"
 ---
 

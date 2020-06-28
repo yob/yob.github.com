@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 The [International Standard Text
 Code](http://en.wikipedia.org/wiki/International_Standard_Text_Code) (ISTC)

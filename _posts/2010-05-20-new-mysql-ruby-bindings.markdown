@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 ---
 There's been some recent discussions about the way ruby 1.9 handles encodings
 and the exceptions people are running into, particularly when running rails.
