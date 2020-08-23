@@ -37,9 +37,9 @@ To answer that question, 12 months down the road I've collected 6.5 years of
 gas and electricity bills and graphed the 12 month rolling average cost.
 
 For the 3 years before the conversion, we spent a combined average of
-$150-175/month on gas and electricity. More in winter (cool climate, leaky
-house), less in summer (thanks solar). The range is roughly the same since the
-conversion.
+$150-175/month on gas and electricity. More in winter (cool climate, poor
+passive solar layout, leaky house), less in summer (thanks solar). The range is
+roughly the same since the conversion.
 
 A reduction would've been nice, but we're relieved they didn't go up.
 
