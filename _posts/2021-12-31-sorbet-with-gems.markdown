@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Sorbet With Gems"
+title: "Type Checking a Ruby Gem with Sorbet"
 ---
 
 I'm writing less ruby than I used too so I haven't had much chance to try out
