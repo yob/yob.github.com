@@ -1,0 +1,55 @@
+---
+layout: post
+title: "2022 in Running"
+---
+In [2020](https://yob.id.au/2021/01/01/2020-in-running.html) and
+[2021](https://yob.id.au/2022/01/01/2021-in-running.html) I found it useful to
+reflect on my running and set new goals, time for 2022.
+
+My 2022 goals:
+
+> get out 156 times - 3 times/week - and cover 1200Km (100Km/month). Both are
+> only incremental improvements on 2021 and that’s OK. Locking in the habit of
+> regular outings is the top goal (presumably around a busier calendar with
+> fewer lockdowns), distance and speed are secondary. Still, a sub 2 hour half
+> marathon would be a nice bonus if I can manage it, as would shaving some
+> seconds off my 5km and 10km PBs.
+
+I managed to hit my main goals - 183 runs in total (3.5/week), and 1596 Kms
+(133/month).
+
+I also ran my first marathon ([Melbourne,
+04:35:44](https://www.strava.com/activities/7897119249)), two half marathons
+([1](https://www.strava.com/activities/7030597469),
+[2](https://www.strava.com/activities/7442999652), both sub 2 hours), and a
+handful of solo long runs over 21Km. A solo highlight was [31Km from Stawell to
+Halls Gap](https://www.strava.com/activities/8304569126) right at the end of
+the year.
+
+With my top goal being regular outings and habit building, I like that my
+cumulative distance chart is relatively linear. Two spots of COVID and some
+minor overuse injuries are visible in the occasional plateau too.
+
+![veloviewer-2022](/images/running-2022.png)
+
+New PBs:
+* 5Km [~22:00](https://www.strava.com/activities/6987990305)
+* 10Km [48:57](https://www.strava.com/activities/7633761969)
+* Half Marathon [1:54:09](https://www.strava.com/activities/7442999652)
+* Marathon [4:35:44](https://www.strava.com/activities/7897119249)
+
+Parkrun continues to be a useful part of the routine. I walked or ran 25 over the
+year, volunteered a few times, and passed the 50 walk/runs milestone on
+Christmas Day 🎁. 
+
+No significant change in my gear this year, still using the [Garmin forerunner
+245 music](https://www.garmin.com/en-AU/p/646690), my phone for music and
+podcasts, a [flip belt](https://flipbeltaustralia.com/product/flipbelt/), and
+various Vivo Barefoot shoes. I did manage to drop a headphone down a drain, and
+I replaced them with a pair of [Jabra Elite 4
+Active's](https://www.jabra.com.au/bluetooth-headsets/jabra-elite-4-active).
+
+2023 goals: Cover 2023Km (168Km/month). This feels ambitious and I'm not sure
+I'll hit it. It's an increase of ~26% on 2022 and I'm confident I could do it
+physically, but it's about 38 Kms and 4 hours/week. Fitting that in around work
+and family logistics every week of the year might be a challenge. We'll see.
