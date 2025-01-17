@@ -1,0 +1,57 @@
+---
+layout: post
+title: "2024 in Running"
+---
+
+Unlike [earlier](https://yob.id.au/2022/01/01/2021-in-running.html)
+[years](https://yob.id.au/2023/01/04/2022-in-running.html), I had no
+considered running goals for 2024. I went in with a half baked plan to hit
+2024km for for the calendar year, maybe via 3+ outings/week averaging
+~40km/week. Like previous years, I valued consistency and habit building over
+distance or time PBs.
+
+Sadly, it played out very differently. My cumulative distance chart flattens out
+several times, all due to injury - each seemingly unrelated, but maybe they
+tell a story of overuse or lacking strength.
+
+![veloviewer-2024](/images/running-2024.png)
+
+The three main plateaus are a left calf (soleus) strain, a lower back injury
+(from poor form at the gym during strength work, no less), and a mystery left
+hip strain that's still under investigation. There were also some niggly right
+achilles issues early in the year that I ran through.
+
+The result was also my first drop in yearly aggregate distance in 8 years:
+
+![years-distance](/images/yearly-distance-2017-2024.png)
+
+Despite all that I hit a couple of new PBs in the injury free parts of the year
+
+* 1Km [~3:40](https://www.strava.com/activities/10765026655)
+* 10Km [48:16](https://www.strava.com/activities/11024297235)
+
+Parkrun's gamification continues to help get me out the door and stretching the legs. I walked or ran 37 over the
+year, volunteered a few times, and passed the 100 walk/runs milestone. [Merri
+Creek Running Club](https://merricreekrunning.club/) provided excellent
+motivation to get up early once a week, and the [Coburg
+Harriers](https://www.coburgharriers.org.au/) middle distance group added some
+friendly intervals to my training schedule. Shout out to the folks at [reload
+physio](https://reload.physio/) for supporting me through a injury prone year
+too.
+
+On the gear front, I upgraded to a [Garmin forerunner
+265](https://www.garmin.com/en-AU/p/886785). It's fine. It has a fancy colour
+screen that needs to turn itself off to save battery - if it existed I'd
+happily go with the features of the 265 but with an old fashioned always on MIP
+black and white screen. I still use my phone for music and podcasts, [Jabra
+Elite 4 Active's](https://www.jabra.com.au/bluetooth-headsets/jabra-elite-4-active), a
+[flip belt](https://flipbeltaustralia.com/product/flipbelt/), and various Vivo
+Barefoot shoes. I have started to dabble in alternative shoes to see what I
+think - a pair of [Altra Lone Peak
+7s](https://leave-the-road-and.run/altra-lone-peak-7-review-after-600km/). The
+jury is still out, but I don't hate 'em. 
+
+2025 goals: if I can get on top of these injuries, cover 2025Km (169km/month,
+38.9km/week). This feels ambitious and I'm not sure I'll hit it, particularly
+as the weeks tick over with this hip issue and nowhere near 40km. Let's See.
+I've optimistically signed up for Melbourne marathon in October as well 😬
