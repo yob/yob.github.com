@@ -10,8 +10,7 @@ end
 
 desc 'Clean temporary files and run the server'
 task :compile => [:clean] do
-  system "jekyll --no-auto"
-  system "rm _site/Rakefile"
+  system "jekyll build"
 end
 
 desc 'Deploy to production'
