@@ -10,23 +10,31 @@ custom reporting and analysis. [In 2023 AWS announced CUR v2.0](https://aws.amaz
 with new features and a new stable schema with up to 125 columns.
 
 For serious analysis and reporting the common setup is parquet files written
-to an S3 bucket, partitioned by date using [hive
+to an S3 bucket, partitioned by month using [hive
 partitioning](https://athena.guide/articles/hive-style-partitioning).
 Businesses that have a data platform are then likely to ship the data off
-to Snowflake/Redshift/BigQuery/Databricks, and expose it in visualization tool
+to Snowflake/Redshift/BigQuery/Databricks, and expose it in a visualization tool
 of choice.
 
 However, parquet files in a hive partitioned S3 bucket can also be queried using
-Athena. It's not pretty, but no extra tooling is required and for quick dives
-into the raw data it can be useful.
+Athena with the AWS console. It's not pretty, but no extra tooling is required
+and for quick dives into the raw data it can be useful.
 
 To make the data available to Athena as a table, [AWS docs for CUR 2.0](https://docs.aws.amazon.com/cur/latest/userguide/dataexports-processing.html)
 recommend either installing a Cloudformation stack or running a glue crawler
 over the S3 bucket. I don't like either of those - what if I just want to
 create a table manually or via a tool like terraform? I found remarkably little
 info on the Internet about this, so I ran the glue crawler on some test data and
-then worked back to a plain `CREATE TABLE` statement.
+then worked back to a plain `CREATE TABLE` statement that uses [partition projection](https://docs.aws.amazon.com/athena/latest/ug/partition-projection.html)
+to make new months available to query as data appears in the bucket.
 
+This assumes the CUR 2.0 data export was creatde with the following details:
+
+* Type: CUR 2.0
+* Include resource IDs (you want this - cost explorer only supports grouping by resource ID over the past 14 days, you can use this data to query resource costs over months and years)
+* Time granularity: hourly
+* Compression: parquet
+* File versioning: Overwrite existing data export file
 
 {% highlight sql %}
 CREATE EXTERNAL TABLE `cur_projected`(
