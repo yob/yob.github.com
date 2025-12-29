@@ -2,7 +2,6 @@
 layout: post
 title: Inline RBS Comments for a Rubygem Codebase
 ---
-
 Back in 2021 [I wrote about my experiments adding sorbet types to a rubygem codebase](/2021/12/31/sorbet-with-gems.html).
 I remain type-curious in 2025 (particularly now that I'm writing more Typescript than Ruby), enjoying the developer
 experience benefits of type checking and an IDE integrated Language Server.
