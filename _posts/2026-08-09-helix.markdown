@@ -1,0 +1,143 @@
+---
+layout: post
+title: "How I use Helix"
+---
+
+I'm the kind of computer person that finds a good thing and sticks with it, and this has definitely been true
+when it comes to code editors. Vim was my daily driver for ~20 years, and I watched from the sidelines as colleagues
+experimented with sublime text, vscode, Jetbrains variants, atom, zed, and cursor. Not much Emacs, interestingly.
+
+I wasn't a big vim-tweaker though. I had a handful of well trusted plugins and a vimrc that was pretty stable. Muscle
+memory was strong.
+
+In early 2025 I found myself between jobs and looking for a project. I'd never had a working [Language Server Protocol](https://en.wikipedia.org/wiki/Language_Server_Protocol)
+(LSP) setup in vim, and it was past time to try - I was moving from a Ruby to a Typescript shop, and I knew I'd
+benefit from a level up in editor capability.
+
+LSP support in vim was the obvious first stop, but in a sign I'm getting old it just felt too hard. I found myself comparing
+the multiple vim plugin systems, considering a full rewrite of my vimrc, and trawling through old forum sites like
+was installing Linux with the free time of a 21 year old.
+
+Maybe neovim then? I tried, but it was no better. I'd have to invest days and weeks learning the lua config system and then
+endlessly tweak it.
+
+I tried VSCode for a few hours, but my goodness it just felt weird coding outside the terminal. In frustration I tried
+a few searches for TUI editors with LSP support and found ... [helix](https://helix-editor.com/). 29th most popular editor
+in the [Stackoverflow 2024 developer survey](https://survey.stackoverflow.co/2024/technology). Modal, like vim. Similar
+but different key bindings.
+
+Esoteric isn't usually my thing, but it was available in the Debian archives so it was easy to try. 17 months later I'm
+still using it as my daily driver, and my muscle memory has adapted. Apparently I like it enough to write about it.
+
+---
+
+The most delightful aspect has been the sensible defaults and minimal config tweaking. It mostly … Just Works.
+
+Here's my `~/.config/helix/config.toml`:
+
+```toml
+theme = "autumn"
+
+[editor]
+
+# make helix ignore the mouse, occasoinally I want to select text and just treat the terminal
+# like a terminal
+mouse = false
+
+# force 24 bit colour mode, make matching brackets stand out
+true-color = true
+rainbow-brackets = true
+
+# I'm no monster
+trim-trailing-whitespace = true
+
+# A vertical bar as a visual hint at wide-enough
+rulers = [120]
+```
+
+Language specific configuration is in `~/.config/helix/languages.toml`.
+
+```toml
+[language-server.ruby-lsp]
+command = "ruby-lsp"
+config = { diagnostics = true, formatting = true, signatureHelp = true, completion = true, rangeFormatting = true, formatter = "standard" }
+
+[language-server.sorbet]
+command = "srb"
+args = ["tc", "--lsp", "--disable-watchman", "--enable-experimental-rbs-comments"]
+config = { diagnostics = true, signatureHelp = true, completion = true }
+
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
+[[language]]
+name = "ruby"
+language-servers = ["ruby-lsp", "sorbet"]
+
+[[language]]
+name = "git-commit"
+language-servers = ["harper-ls"]
+
+[[language]]
+name = "markdown"
+language-servers = ["harper-ls"]
+```
+
+That's it. 41 lines of configuration.
+
+The helix team seem to protect the sensible-defaults idea closely, and are conservative about adding new features and
+config knobs. There are multiple open Github issues asking for integrated LLM support for example. By holding back the
+team skipped the short-lived LLM-as-fancy-autocomplete trend and don't have the maintenance burden of a rarely
+used feature now that the zeitgeist has moved on to external LLM coding agents.
+
+Integrated spellchecking is another often requested feature, but my config above shows how LSPs can often be used to
+patch these gaps.
+
+When debugging LSP settings for a particular language, `hx --health` is helpful:
+
+```bash
+$ hx --health
+...
+<table ommitted for brevity>
+...
+
+$ hx --health ruby
+Configured language servers:
+  ✓ ruby-lsp: /home/jh/.rbenv/shims/ruby-lsp
+  ✓ sorbet: /home/jh/.rbenv/shims/srb
+Configured debug adapter: None
+Configured formatter: None
+Tree-sitter parser: ✓
+Highlight queries: ✓
+Textobject queries: ✓
+Indent queries: ✓
+Tags queries: ✓
+Rainbow queries: ✓
+````
+
+… and tailing the log file when opening a file in the language can help:
+
+```bash
+$ tail -f  ~/.cache/helix/helix.log
+```
+
+The out-of-the-box LSP defaults for Typescript work with no custom config once [typescript-language-server](https://www.npmjs.com/package/typescript-language-server)
+is on the path:
+
+```bash
+$ npm install -g typescript-language-server
+
+$ hx --health typescript
+Configured language servers:
+  ✓ typescript-language-server:
+/Users/jh/.nodenv/shims/typescript-language-server
+Configured debug adapter: None
+Configured formatter: None
+Tree-sitter parser: ✓
+Highlight queries: ✓
+Textobject queries: ✓
+Indent queries: ✓
+````
+
+Thanks to the helix team 💚
