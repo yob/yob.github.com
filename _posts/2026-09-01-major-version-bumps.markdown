@@ -79,6 +79,15 @@ If you're a specification fan, [semver.org](https://semver.org/) has you covered
 > incompatible changes means you’ll think through the impact of your changes, and evaluate
 > the cost/benefit ratio involved
 
+Mike Taylor [has a great post about this too](https://reprog.wordpress.com/2023/12/27/semantic-versioning-is-a-terrible-mistake/):
+
+> And don’t think just marking your breaking change with a new major version
+> number makes it OK. It does not. All it means is that people are unlikely to
+> accidentally upgrade to your incompatible version. It still leaves them with the
+> burden of reading all your release notes, figuring out what changes are relevant
+> to their code, thinking through what changes that requires them to make to their
+> own work, making those changes and verifying that nothing broke
+
 [^1]: `[ "7.1.7", "7.2.3", "8.0.1", "8.1.0", "10.5.0", "11.1.0", "13.0.0", "13.0.6" ]`
 [^2]: `[ "3.0.8", "3.1.5", "5.1.9", "7.4.9", "9.0.9", "10.1.1", "10.2.6" ]`
 [^3]: `[ "1.1.18", "2.1.4", "5.0.9" ]`
