@@ -9,7 +9,7 @@ glob has transitives, contributing to the repository also having seven distinct
 versions of [minimatch](https://www.npmjs.com/package/minimatch) [^2] and three
 distinct versions of [brace-expansion](https://www.npmjs.com/package/brace-expansion)[^3]. We only have
 a single version of [slonik](https://www.npmjs.com/package/slonik), but it's gone from v33 to
-v48 over two years and that upgrade path between them is not simple.
+v49 over three years and the upgrade path between them is not simple.
 
 Between them, these packages have had dozens of Github security alerts in
 our repository over the past 12 months. Mostly [ReDOS](https://en.wikipedia.org/wiki/ReDoS) and vulnerability classes
